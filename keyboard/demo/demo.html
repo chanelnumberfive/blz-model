@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+<title>恋爱消费保</title>
+<meta name="renderer" content="webkit">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="format-detection" content="telephone=no,email=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="恋爱消费保">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<script type="application/javascript" src="../../js/fastclick.js"></script> 
+<script type="application/javascript">
+	function setFontSize(){
+        document.documentElement.style.fontSize=window.innerWidth/16+'px';
+    }
+    setFontSize();
+    window.addEventListener('resize',function(){
+        setFontSize();
+    });
+    window.addEventListener('load', function () {
+		FastClick.attach(document.body);
+	}, false);
+</script>
+<link rel="stylesheet" href="../css/weui.min.px.css">
+<link rel="stylesheet" href="../css/jin-bang-ti-ming-3.css">
+</head>
+
+<body ontouchstart="" class="animation">
+<div class="ol-bd2">
+	<form class="model-form" id="ol-form" style="transition: transform .3s ease;-webkit-transition: -webkit-transform .3s ease;" novalidate>
+          <div class="weui_cells weui_cells_form first">
+           <div class="weui_cell">
+               <div class="weui_cell_hd">
+                   <label class="weui_label">收货人手机号码</label>
+               </div>
+               <div class="weui_cell_bd weui_cell_primary">
+                   <input class="weui_input" type="tel" placeholder="请输入收货人手机号码" data-blz-alert="手机号码格式错误" data-blz-type="phone">
+               </div>
+               <i class="weui_icon_warn"></i>
+           </div>
+           <div class="weui_cell" data-blz-keyboard="true" data-blz-input="true">
+               <div class="weui_cell_hd">
+                   <label class="weui_label">订单金额(元)</label>
+               </div>
+               <div class="weui_cell_bd weui_cell_primary">
+                   <input type="text" class="weui_input price" placeholder="请输入订单金额" readonly data-blz-tofixed="2" data-blz-type="price" data-blz-max="5000000">
+               </div>
+               <div class="blz-pointer glb-twinkle glb-hide" style="top:0;"></div>
+               <i class="weui_icon_warn"></i>
+           </div>
+		</div>
+		<div class="layout-tr model-btn-area">
+			<div class="layout-td">
+				<input type="submit" class="weui_btn weui_btn_primary" value="确  认">
+			</div>            
+		</div>
+	</form>
+	
+	<!--键盘-->
+	<table class="glb-keyboard glb-slide-below glb-submit-available" cellspacing="0" data-blz-keyboard="true">
+		<caption><span class="glb-for-screen">虚拟键盘</span></caption>
+		<tbody>
+			<tr>
+				<td role="button">1</td>
+				<td>2</td>
+				<td>3</td>
+				<td class="glb-keyb-delete"></td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>5</td>
+				<td>6</td>
+				<td rowspan="3" class="glb-keyb-confirm">确认</td>
+			</tr>
+			<tr>
+				<td>7</td>
+				<td>8</td>
+				<td>9</td>
+			</tr>
+			<tr>
+				<td class="glb-keyb-hide" data-blz-keyboard="false"></td>
+				<td>0</td>
+				<td>.</td>
+			</tr>
+		</tbody>
+	</table>
+</div>	
+</body>
+<script type="application/javascript" src="../../js/require.js"></script>
+<script type="application/javascript">
+    +function(){
+        'use strict';
+        
+		require.config({
+			baseUrl:'../../js',
+			paths:{
+				'jQuery':'jquery-3.1.0'
+			}	
+		});
+		
+		require(['blz-keyboard','blz-check'],function($1,$){
+			'use strict';
+			
+			//金额美化函数
+			function lookBetter(val){
+				if(val===''){return '';}
+				val=val.toString();
+				var betterVal='';
+				var a=[];
+				var index=val.indexOf('.');
+				var l=parseInt(val).toString().length;
+				for(var i=l;i>=3;i-=3){
+					a[a.length]=val.slice(i-3,i);
+				}
+				if(l%3!==0){
+					a[a.length]=val.slice(0,l%3);
+				}
+				for(i=a.length-1;i>0;i--){
+					betterVal+=a[i]+',';
+				}
+				betterVal+=a[0];
+				if(index!==-1){
+					betterVal+=val.slice(index,val.length);
+				}
+				return betterVal;
+			}
+
+
+			// 表单数据提交对数据进行处理
+			$('.model-form').check({
+				canSubmit:function(e){
+					var $elem=$(this).find('.price');
+					var val=$elem.data('blz-value');
+					$elem.val(val);
+				}
+			});
+
+			// 获取不可见的input元素；
+			var $Input=$('.weui_input.price');
+
+			// 当模拟input失去焦点时将所有同步于该input元素的值保留小数两位
+			$Input.on('blurSimulation',function(){
+				if($(this).data('blz-value')){
+					var val=($(this).data('blz-value')-0).toFixed(2);
+					$(this).val(lookBetter(val));
+				}
+			});
+		});
+    }();
+</script>
+</html>

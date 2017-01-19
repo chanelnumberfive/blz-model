@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+<title>表单验证</title>
+<meta name="renderer" content="webkit">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="format-detection" content="telephone=no,email=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="表单验证">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<script type="application/javascript" src="../../js/fastclick.js"></script> 
+<script type="application/javascript">
+	function setFontSize(){
+        document.documentElement.style.fontSize=window.innerWidth/16+'px';
+    }
+    setFontSize();
+    window.addEventListener('resize',function(){
+        setFontSize();
+    });
+    window.addEventListener('load', function () {
+		FastClick.attach(document.body);
+	}, false);
+</script>
+<link rel="stylesheet" href="../css/weui.min.px.css">
+<link rel="stylesheet" href="../css/jin-bang-ti-ming-3.css">
+<style>
+    .model-form .weui_label {
+        width:9em;
+        white-space:nowrap;
+    }
+</style>
+</head>
+
+<body ontouchstart="">
+<form class="model-form glb-para-big">
+    <section class="weui_cells weui_cells_form first model-form-body">
+           
+           <div class="weui_cell">
+               <div class="weui_cell_hd">
+                   <label class="weui_label">孩子姓名</label>
+                   <label class="weui_label glb-grey glb-para-sm">-被保人-</label>
+               </div>
+               <div class="weui_cell_bd weui_cell_primary">
+                   <input class="weui_input" type="text" data-blz-type="name" placeholder="请输入姓名" data-blz-alert="孩子姓名格式错误">
+               </div>
+               <i class="weui_icon_warn"></i>
+           </div> 
+           
+           <div class="weui_cell">
+               <div class="weui_cell_hd">
+                   <label class="weui_label">孩子身份证号码</label>	
+                   <label class="weui_label glb-grey glb-para-sm">-被保人-</label>
+               </div>
+               <div class="weui_cell_bd weui_cell_primary">
+                   <input class="weui_input" type="text" data-blz-type="childid" id="childid" placeholder="请输入身份证号"> 
+               </div>
+               <i class="weui_icon_warn"></i>
+           </div> 
+           <div class="model-form-tip"><span class="tip">2010年1月1日后出生的孩子可投保</span></div>
+           <div class="weui_cell">
+               <div class="weui_cell_hd">
+               	   <label class="weui_label">父/母亲姓名</label>	
+                   <label class="weui_label glb-grey glb-para-sm">-法定监护人-</label>
+               </div>
+               <div class="weui_cell_bd weui_cell_primary">
+                   <input class="weui_input" type="text" data-blz-type="name" placeholder="请输入姓名" data-blz-alert="父母亲姓名格式错误">
+               </div>
+               <i class="weui_icon_warn"></i>
+           </div> 
+           
+           <div class="weui_cell">
+               <div class="weui_cell_hd">
+               	   <label class="weui_label">父/母亲身份证号码</label>
+                   <label class="weui_label glb-grey glb-para-sm">-法定监护人-</label>
+               </div>
+               <div class="weui_cell_bd weui_cell_primary">
+                   <input class="weui_input" type="text" data-blz-type="id" placeholder="请输入身份证号" data-blz-alert="父母亲身份证号码格式错误"> 
+               </div>
+               <i class="weui_icon_warn"></i>
+           </div> 
+           
+           <div class="weui_cell">
+               <div class="weui_cell_hd">
+               		<label class="weui_label">父/母亲手机号码</label>	
+                   <label class="weui_label glb-grey glb-para-sm">-法定监护人-</label>
+               </div>
+               <div class="weui_cell_bd weui_cell_primary">
+                   <input class="weui_input" data-blz-type="phone" pattern="[0-9]*" id="tel1" placeholder="请输入手机号码" data-blz-alert="父母亲手机号码格式错误">
+               </div>
+               <i class="weui_icon_warn"></i>
+           </div>
+           
+           <div class="weui_cell send">
+                 <div class="weui_cell_hd">
+                      <label class="weui_label">验证码</label>
+                 </div>
+                 <div class="weui_cell_bd weui_cell_primary">
+                      <input class="weui_input" type="number" pattern="[0-9]*" data-blz-type="check" data-blz-pattern="设置验证码" placeholder="请输入验证码">
+                 </div>
+                 <div class="glb-form-send" id="glb-form-send"><input type="button" value="获取验证码" data-blz-target="#tel1"></div>
+            </div>
+           
+           <div class="weui_cell last">
+               <div class="weui_cell_hd">
+                   <label class="weui_label">父/母亲电子邮箱</label>	
+                   <label class="weui_label glb-grey glb-para-sm">-法定监护人-</label>
+               </div>
+               <div class="weui_cell_bd weui_cell_primary">
+                   <input class="weui_input" type="email" data-blz-type="email" placeholder="请输入电子邮箱" data-blz-alert="父母亲电子邮箱格式错误">
+               </div>
+               <i class="weui_icon_warn"></i>
+           </div>  
+    </section>   
+    <div class=" glb-note glb-text-center glb-grey"><span>-以上须填写孩子及本人真实有效的个人信息-</span></div>
+    <section class="weui_panel glb-green model-agreement">
+    
+        <a href="javascript:void(0);" class="weui_cell weui_cells_access" data-blz-pdf="../images/china-life-toubaoxvzhi.png ../images/china-life-fuwutiaokuan.png ../images/china-life-2+x.png">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p class="glb-para">《投保须知》</p>
+            </div>
+            <div class="weui_cell_ft"></div>
+        </a>
+        
+        <a href="javascript:void(0);" class="weui_cell weui_cells_access" data-blz-pdf="../images/china-life-fuwutiaokuan.png">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p class="glb-para">《中国人寿财产保险股份有限公司金榜题名保险条款(2016)》</p>
+            </div>
+            <div class="weui_cell_ft"></div>
+        </a>
+     
+        <a href="javascript:void(0);" class="weui_cell weui_cells_access" data-blz-pdf="../images/china-life-2+x.png">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p class="glb-para">《中国人寿财产保险股份有限公司金榜题名保2+X所名校名录(2016)》</p>
+            </div>
+            <div class="weui_cell_ft"></div>
+        </a>
+    </section>
+    <section class="layout-tr normal glb-agreement glb-para-sm glb-green"> 	
+        <p class="item glb-black"><label class="agreement glb-para-sm"><input type="checkbox" id="glb-form-agreement" class="glb-icon-squre" checked >我已阅读并同意上述条款</label></p>
+    </section>
+    
+    <div class="layout-tr">
+        <div class="layout-td">
+            <input type="submit" class="weui_btn weui_btn_primary" value="下一步">
+        </div>            
+    </div>
+</form>
+</body>
+<script type="application/javascript" src="../../js/require.js"></script>
+<script type="application/javascript">
+    +function(){
+        'use strict';
+        
+		require.config({
+			baseUrl:'../../js',
+			paths:{
+				'jQuery':'jquery-3.1.0'
+			}	
+		});
+		
+		require(['blz-check'],function($){
+			'use strict';
+			
+			$('form').check({
+				warnElemClass:'.weui_cell',
+				warnClass:'.weui_cell_warn',
+				agreementClass:'#glb-form-agreement',
+				verificationCodeClass:'#glb-form-send input',
+				getVerificationCode:function($elem1,$elem2){
+
+				},
+				canSubmit:function(e){
+
+				}
+			});
+		});
+    }();
+</script>
+</html>
