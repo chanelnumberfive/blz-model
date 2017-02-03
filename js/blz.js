@@ -20,6 +20,7 @@
 	$.blz={
 		
 		// 空函数
+		emptyFn:function(){},
 		
 		// 获取数据类型
 		getDataType:function(data){
@@ -27,6 +28,7 @@
 		},
 		
 		// 获取用户代理ios 或 android
+		isAndroid:/Android/gi.test(navigator.userAgent),
 		
 		// 检测动画属性transition的支持情况
 		checkTransition:function(){
