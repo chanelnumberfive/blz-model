@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+<title>表单验证</title>
+<meta name="renderer" content="webkit">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="format-detection" content="telephone=no,email=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="表单验证">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<script type="application/javascript" src="../../js/fastclick.js"></script> 
+<script type="application/javascript">
+	function setFontSize(){
+        document.documentElement.style.fontSize=window.innerWidth/16+'px';
+    }
+    setFontSize();
+    window.addEventListener('resize',function(){
+        setFontSize();
+    });
+    window.addEventListener('load', function () {
+		FastClick.attach(document.body);
+	}, false);
+</script>
+<link rel="stylesheet" href="../../css/blz-reset.css">
+<link rel="stylesheet" href="../../css/blz-cartoon.css">
+<style>
+	.mask{
+		background-color:rgba(0,0,0,0.6);
+	}
+</style>
+</head>
+
+<body ontouchstart="">
+<button class="btn">slide down</button>
+<button class="btn">fade in</button>
+<div id="slide-down">
+	<div class="child"></div>
+</div>
+<div id="fade-in">
+	<div class="child"></div>
+</div>
+</body>
+<script type="application/javascript" src="../../js/require.js"></script>
+<script type="application/javascript">
+    +function(){
+        'use strict';
+        
+		require.config({
+			baseUrl:'../../../js',
+			paths:{
+				'jQuery':'jquery-3.1.0'
+			}	
+		});
+		
+		require(['blz-cartoon'],function($){
+			'use strict';
+			
+			$(document).blzCartoon();
+		});
+    }();
+</script>
+</html>
