@@ -53,7 +53,22 @@
 			}else{
 				return window.requestAnimationFrame;
 			}
-  		}
+  		},
+		
+		/*
+		 * 动画相关
+		 */
+		
+		// webGl初始化
+		initWebGl:function(canvas){
+			var context3d=null;
+			try{
+				context3d=canvas.getContext('webgl')||canvas.getContext('experimental-webgl');
+			}catch(e){
+				throw new Error('你的浏览器不支持WebGl');
+			}
+			return context3d;
+		}
 	};
 	return $;
 }));
