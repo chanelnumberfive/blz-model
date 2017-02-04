@@ -195,7 +195,8 @@
 			var $this=$(this).checkOff(),
 			    
 				//获取要验证的表单元素
-				$elems=$this.find(obj.checkElemClass||'[data-blz-type]:not([disabled])');
+				$elems=$this.find(obj.checkElemClass||'[data-blz-type]:not([disabled])'),
+				$submit=$this.find('[type="submit"]');
 
 			$this.data('warnElemClass',obj.warnElemClass||'.weui_cell')
 			     .data('warnClass',obj.warnClass||'.weui_cell_warn')
@@ -221,9 +222,9 @@
 			// 协议
 			$this.find($this.data('agreementClass')).on('change.agreement',function(){
 				if(this.checked){
-					$this.find('input[type="submit"]').prop('disabled',false);
+					$submit.prop('disabled',false);
 				}else {
-					$this.find('input[type="submit"]').prop('disabled',true);
+					$submit.find('input[type="submit"]').prop('disabled',true);
 				}
 			});
 
@@ -235,14 +236,15 @@
 			$this.on('submit.check',function(event){
 				var i=0,
 					displacement=0;
-				
+				$submit.prop('disabled',true);
 				for(i=0;i<$elems.length;i++){
 					check.call($elems[i],event,$this.data('warnElemClass'),$this.data('warnClass'));
 					if($elems.eq(i).attr('data-blz-check')!=='pass'){
 						displacement=$elems[i].getBoundingClientRect().top-window.innerHeight/2;
 						setTimeout(function(){
-							$(document.body).scrollTo(displacement,Math.abs(displacement*1.5));
+							$(document.body).scrollTo(displacement,Math.abs(displacement*1.5),function(){});
 						},300);
+						$submit.prop('disabled',false);
 						event.preventDefault();
 						return;
 					}
