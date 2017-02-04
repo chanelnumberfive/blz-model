@@ -224,7 +224,7 @@
 				if(this.checked){
 					$submit.prop('disabled',false);
 				}else {
-					$submit.find('input[type="submit"]').prop('disabled',true);
+					$submit.prop('disabled',true);
 				}
 			});
 
