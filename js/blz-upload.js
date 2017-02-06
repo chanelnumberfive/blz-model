@@ -11,7 +11,7 @@
 	} else if (typeof module !== 'undefined' && module.exports) {
 	  module.exports = fn(window.jQuery);
 	}else{
-		fn(widnow.jQuery);
+		fn(window.jQuery);
 	}
 	/* jshint ignore:end */
 })(function($,canvasResize){

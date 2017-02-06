@@ -11,7 +11,7 @@
 	} else if (typeof module !== 'undefined' && module.exports) {
 	  module.exports = fn(window.jQuery);
 	}else{
-		fn(widnow.jQuery,window.jQuery.blz.checkBrowerKernel());
+		fn(window.jQuery,window.jQuery.blz.checkBrowerKernel());
 	}
 	/* jshint ignore:end */
 })(function($,hack){

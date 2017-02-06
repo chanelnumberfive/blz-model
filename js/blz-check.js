@@ -231,6 +231,8 @@
 			// 失去焦点时验证
 			$elems.on('blur.check blurSimulation',function(e){
 				check.call(e.target,event,$this.data('warnElemClass'),$this.data('warnClass'));
+			}).on('focus.check',function(){
+				this.select();
 			});
 
 			$this.on('submit.check',function(event){
@@ -271,7 +273,7 @@
 			var $this=$(this);
 			$this.find($this.data('verificationCodeClass')).off('click.verificationCode');
 			$this.find($this.data('agreementClass')).off('change.agreement');
-			$this.find($this.data('checkElemClass')).off('blur.check blurSimulation');
+			$this.find($this.data('checkElemClass')).off('blur.check blurSimulation focus.check');
 			$this.off('submit.check');
 		});
 	};
