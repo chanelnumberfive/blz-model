@@ -81,4 +81,4 @@
 		this.removeData('blz-move');
 		this.off('touchstart.blzmove touchend.blzmove');	
 	};
-})(window.Zepto||window.jQuery);
+});
