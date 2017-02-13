@@ -35,6 +35,7 @@
 <section>
 <h2>blz-move</h2>
 <p><blockquote>基于视口的平移，移动区域默认为视口，不支持自定义滑块移动区域，</blockquote></p>
+<section>
 <h3>移动</h3>
 <pre><strong><code>$(selector).blzMove(option)</code></strong></pre>
 <pre>
@@ -48,4 +49,9 @@
 <ul>
 <li>translateX,translateY分别为元素对应的css值不支持百分比；由于getBoundingClientRect()在低版本ios上（ios 7 8）不会考虑translate值带来的影响，因此不建议初始化样式时对要平移元素应用translate属性</li>
 </ul>
+</section>
+<section>
+<h3>关闭移动</h3>
+<pre><strong><code>$(selector).blzOffMove(option)</code></strong></pre>
+</section>
 </section>
