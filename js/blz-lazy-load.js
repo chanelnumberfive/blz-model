@@ -60,8 +60,7 @@
 		}
 		data.elems=remain.slice();
 		if(data.elems.length===0){
-			$this.off('scroll.blzLazyLoad');
-			$this.removeData('blz-lazy-load');
+			$this.blzOffLazyLoad();
 		}
 	}
 	
@@ -75,10 +74,14 @@
 			ergodicImg(data,$this,scale,scrollIntoView);
 			
 			$this.on('scroll.blzLazyLoad',function(){
-				console.log(1);
 				ergodicImg(data,$this,scale,scrollIntoView);
 			});
 		});
+	};
+	
+	$.fn.blzOffLazyLoad=function(){
+		this.removeData('blz-lazy-load');
+		this.off('scroll.blzLazyLoad');
 	};
 	return $;
 });
