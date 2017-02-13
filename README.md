@@ -1,7 +1,7 @@
 <h1>blz-model</h1>
-<p>组件针对移动端，为了配合后台保持引入的插件一致，基于jQuery实现</p>
+<p style="color:#999">组件针对移动端，为了配合后台保持引入的插件一致，基于jQuery实现</p>
 <h2>blz</h2>
-<p>blz组件主要为一些共用方法,封装于jQuery上，接口如下</p>
+<p style="color:#999">blz组件主要为一些共用方法,封装于jQuery上，接口如下</p>
 <ol>
 <li>$.blz.emptyFn   // 空函数，目前主要用于传参上的赋值。</li>
 <li>$.blz.isAndroid   // 判断当前移动设备是否为安卓，返回值为布尔值。</li>
