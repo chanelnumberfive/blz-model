@@ -13,7 +13,7 @@
 <h2>blz-lazy-load</h2>
 <p>图片懒加载，主要目的在于减少服务器压力，减少页面加载时间，方法封装于jQuery上</p>
 <h3>开启懒加载</h3>
-<p><strong><code>$(selector).blzLazyLoad(elems,scale,fn)</code></strong></p>
+<pre><strong><code>$(selector).blzLazyLoad(elems,scale,fn)</code></strong></pre>
 <ol>
 <li>elems   // 参数为selector滚动时要监测的是否出现在视口（目前视口只针对screen而言）的元素集合，如document.images,$(selector2)一些类数组的元素集合</li>
 <li>scale   // 一个比例参数，取值为整数，默认为1，例如scale=2;则在判断elems元素中某一元素进入视野时会将屏幕的高度放大两倍进行判断（进入视口的判断只支持纵向不支持横向）</li>
@@ -22,4 +22,4 @@
 <li>该函数会被传入一个参数elem,即此时elems参数中进入视口的元素；</li>
 </ol>
 <h4>关闭懒加载</h4>
-<p><strong><code>$(selector).blzOffLazyLoad();</code></strong></p>
+<pre><strong><code>$(selector).blzOffLazyLoad();</code></strong></pre>
