@@ -21,5 +21,5 @@
 <li>当元素进入视口时会把data-src值赋予该图片的src值，并当所有元素都赋值完毕时，则关闭懒加载；当fn被传参时，会取代当元素进入视野时的默认做法，</li>
 <li>该函数会被传入一个参数elem,即此时elems参数中进入视口的元素；</li>
 </ol>
-<p>关闭懒加载</p>
+<h4>关闭懒加载</h4>
 <p><strong><code>$(selector).blzOffLazyLoad();</code></strong></p>
