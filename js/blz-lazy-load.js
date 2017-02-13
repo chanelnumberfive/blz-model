@@ -20,8 +20,7 @@
 			top=position.top,
 			bottom=position.bottom,
 			h=window.innerHeight*scale;
-		
-		return top>0&&top<h||bottom>0&&bottom<h;
+		return top>top-bottom&&top<h;
 	}
 	
 	// 懒加载构造函数
@@ -39,9 +38,11 @@
 			l=elems.length,
 			remain=data.elemsRemain,
 			callback=data.callback,
-			count=0;
+			count=0,
+			canBreak=false;
 		for(;i<l;i++){
 			if(scrollIntoView(elems[i],scale)){
+				canBreak=true;
 				if(callback){
 					callback(elems[i]);
 					remain.splice(i-count,1);
@@ -50,6 +51,10 @@
 					elems[i].src=elems[i].dataset.src;
 					remain.splice(i-count,1);
 					count++;
+				}
+			}else{
+				if(canBreak){
+					return;
 				}
 			}
 		}
@@ -70,6 +75,7 @@
 			ergodicImg(data,$this,scale,scrollIntoView);
 			
 			$this.on('scroll.blzLazyLoad',function(){
+				console.log(1);
 				ergodicImg(data,$this,scale,scrollIntoView);
 			});
 		});
