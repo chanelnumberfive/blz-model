@@ -2,6 +2,7 @@
 <h1>blz-model</h1>
 <p><blockquote>组件针对移动端，为了配合后台保持引入的插件一致，基于jQuery实现</blockquote></p>
 </header>
+<hr>
 <section>
 <h2>blz</h2>
 <p>blz组件主要为一些共用方法,封装于jQuery上，接口如下</p>
@@ -13,6 +14,7 @@
 <li>$.blz.initWebGl   // 为获取3d绘图环境canvas.getContext('webgl')的兼容性写法。</li>
 </ol>
 </section>
+<hr>
 <section>
 <h2>blz-lazy-load</h2>
 <p><blockquote>图片懒加载，主要目的在于减少服务器压力，减少页面加载时间，方法封装于jQuery上</blockquote></p>
@@ -32,6 +34,7 @@
 <pre><strong><code>$(selector).blzOffLazyLoad();</code></strong></pre>
 </section>
 </section>
+<hr>
 <section>
 <h2>blz-move</h2>
 <p><blockquote>基于视口的平移，移动区域默认为视口，不支持自定义滑块移动区域，</blockquote></p>
@@ -55,3 +58,4 @@
 <pre><strong><code>$(selector).blzOffMove(option)</code></strong></pre>
 </section>
 </section>
+<hr>
