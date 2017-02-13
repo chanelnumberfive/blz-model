@@ -9,7 +9,6 @@
 <li>$.blz.requestAnimationFrame   // 对原生requestAnimationFrame方法的向后兼容处理，感觉移动端并无多大用处，如果必须考虑低版本系统的兼容，可考虑！</li>
 <li>$.blz.initWebGl   // 为获取3d绘图环境canvas.getContext('webgl')的兼容性写法。</li>
 </ol>
-<hr>
 <h2>blz-lazy-load</h2>
 <p>图片懒加载，主要目的在于减少服务器压力，减少页面加载时间，方法封装于jQuery上</p>
 <h3>开启懒加载</h3>
