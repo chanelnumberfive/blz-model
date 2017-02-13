@@ -24,4 +24,4 @@ $(selector).blzLazyLoad(elems,scale,fn);
 3. fn   // 代表一个函数参数，在不传入fn的情况下，会默认为传入的elems参数为一个img元素集合，并默认为都含有data-src属性，
 当元素进入视口时会把data-src值赋予该图片的src值，并当所有元素都赋值完毕时，则关闭懒加载；当fn被传参时，会取代当元素进入视野时的默认做法，
 该函数会被传入一个参数elem,即此时elems参数中进入视口的元素；
-4. $this.blzOffLazyLoad();   // 关闭懒加载
+4. $(selector).blzOffLazyLoad();   // 关闭懒加载
