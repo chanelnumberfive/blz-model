@@ -1,5 +1,8 @@
+<header>
 <h1>blz-model</h1>
 <p><blockquote>组件针对移动端，为了配合后台保持引入的插件一致，基于jQuery实现</blockquote></p>
+</header>
+<section>
 <h2>blz</h2>
 <p>blz组件主要为一些共用方法,封装于jQuery上，接口如下</p>
 <ol>
@@ -9,8 +12,11 @@
 <li>$.blz.requestAnimationFrame   // 对原生requestAnimationFrame方法的向后兼容处理，感觉移动端并无多大用处，如果必须考虑低版本系统的兼容，可考虑！</li>
 <li>$.blz.initWebGl   // 为获取3d绘图环境canvas.getContext('webgl')的兼容性写法。</li>
 </ol>
+</section>
+<section>
 <h2>blz-lazy-load</h2>
 <p><blockquote>图片懒加载，主要目的在于减少服务器压力，减少页面加载时间，方法封装于jQuery上</blockquote></p>
+<section>
 <h3>开启懒加载</h3>
 <pre><strong><code>$(selector).blzLazyLoad(elems,scale,fn)</code></strong></pre>
 <ol>
@@ -20,5 +26,9 @@
 <li>当元素进入视口时会把data-src值赋予该图片的src值，并当所有元素都赋值完毕时，则关闭懒加载；当fn被传参时，会取代当元素进入视野时的默认做法，</li>
 <li>该函数会被传入一个参数elem,即此时elems参数中进入视口的元素；</li>
 </ol>
-<h4>关闭懒加载</h4>
+</section>
+<section>
+<h3>关闭懒加载</h3>
 <pre><strong><code>$(selector).blzOffLazyLoad();</code></strong></pre>
+</section>
+</section>
