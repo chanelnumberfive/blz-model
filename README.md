@@ -1,5 +1,5 @@
 <h1>blz-model</h1>
-<p>组件针对移动端，为了配合后台保持引入的插件一致，基于jQuery实现</p>
+<p><blockquote>组件针对移动端，为了配合后台保持引入的插件一致，基于jQuery实现</blockquote></p>
 <h2>blz</h2>
 <p>blz组件主要为一些共用方法,封装于jQuery上，接口如下</p>
 <ol>
@@ -10,7 +10,7 @@
 <li>$.blz.initWebGl   // 为获取3d绘图环境canvas.getContext('webgl')的兼容性写法。</li>
 </ol>
 <h2>blz-lazy-load</h2>
-<p>图片懒加载，主要目的在于减少服务器压力，减少页面加载时间，方法封装于jQuery上</p>
+<p><blockquote>图片懒加载，主要目的在于减少服务器压力，减少页面加载时间，方法封装于jQuery上</blockquote></p>
 <h3>开启懒加载</h3>
 <pre><strong><code>$(selector).blzLazyLoad(elems,scale,fn)</code></strong></pre>
 <ol>
