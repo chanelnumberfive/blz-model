@@ -16,30 +16,34 @@
 
 	var hack=$.blz.checkTransition(),
 		h=window.innerHeight,
-		w=window.innerWidth;
+		w=window.innerWidth,
+		config={
+			translateX:0,
+			translateY:0
+		};
 	
 	// 移动构造函数
-	function Move(elem){
+	function Move(elem,option){
 		this.x=0;
 		this.y=0;
 		this.shiftX=0;
 		this.shiftY=0;
 		this.dx=0;
 		this.dy=0;
-		this.prevDx=0;
-		this.prevDy=0;
+		this.prevDx=option.translateX;
+		this.prevDy=option.translateY;
 		this.elem=elem;
 		this.clientRect=elem.getBoundingClientRect();
-		this.minShiftX=-this.clientRect.left;
-		this.maxShiftX=w-this.clientRect.right;
-		this.minShiftY=-this.clientRect.top;
-		this.maxShiftY=h-this.clientRect.bottom;
+		this.minShiftX=-this.clientRect.left+this.prevDx;
+		this.maxShiftX=w-this.clientRect.right+this.prevDx;
+		this.minShiftY=-this.clientRect.top+this.prevDy;
+		this.maxShiftY=h-this.clientRect.bottom+this.prevDy;
 	}
 	
 	// 移动开始
 	Move.prototype.touchStart=function(e){
 		var event=e.touches[0],
-			$this=$(data.elem),
+			$this=$(event.target),
 			data=$this.data('blz-move');
 		data.x=event.pageX;
 		data.y=event.pageY;
@@ -50,7 +54,7 @@
 	Move.prototype.touchMove=function(e){
 		e.preventDefault();
 		var event=e.touches[0],
-			$this=$(data.elem),
+			$this=$(event.target),
 			data=$this.data('blz-move');
 		data.dx=event.pageX-data.x;
 		data.dy=event.pageY-data.y;
@@ -60,8 +64,8 @@
 	};
 	
 	// 移动结束
-	Move.prototype.touchEnd=function(){
-		var $this=$(data.elem),
+	Move.prototype.touchEnd=function(e){
+		var $this=$(e.target),
 			data=$this.data('blz-move');
 		data.prevDx=data.shiftX;
 		data.prevDy=data.shiftY;
@@ -70,8 +74,9 @@
 	};
 	
 	// 开启移动
-	$.fn.blzMove=function(){
-		this.data('blz-move',new Move(this[0]));
+	$.fn.blzMove=function(option){
+		option=$.extend(config,option||{});
+		this.data('blz-move',new Move(this[0],option));
 		this.on('touchstart.blzmove',Move.prototype.touchStart);
 		this.on('touchend.blzmove',Move.prototype.touchEnd);
 	};
@@ -81,4 +86,5 @@
 		this.removeData('blz-move');
 		this.off('touchstart.blzmove touchend.blzmove');	
 	};
+	return $;
 });
