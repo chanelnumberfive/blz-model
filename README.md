@@ -70,3 +70,54 @@
 </section>
 </section>
 <hr>
+<section>
+<h2>blcartoon</h2>
+<p>css3动画的开关，并没有实现动画，动画还得用css3去实现！</p>
+<section>
+<h3>开启开关</h3>
+<pre>
+<code>
+$(selectArea).blzCartoon(option);
+option={
+  cartoonClass:'animation'
+}
+</code>
+</pre>
+<ul>
+<li><code>selectArea</code>为激活的开关区域，比如输入document,那么位于document元素下的所有带有data-xxxx(xxx为对应的API名称，详情见下文)的元素具有开关动画的功能</li>
+<li><code>cartoonClass</code>为激活目标动画时要添加的类名，默认值为animation</li>
+</ul>
+</section>
+<section>
+<h3>html代码结构</h3>
+<pre>
+<code>
+<div class="layout-tr model-btn-area">
+	<div class="layout-td">
+		<button class="model-btn success" type="button" data-cartoon="#cartoon-1">动画1</button>
+	</div>
+	<div class="layout-td">
+		<button class="model-btn success" type="button" data-cartoon="#cartoon-2">动画2</button>
+	</div>
+</div>
+<div class="layout-tr model-btn-area">
+	<div class="layout-td">
+		<button class="model-btn success" type="button" data-cartoon-dismiss="#cartoon-1">移除动画1</button>
+	</div>
+	<div class="layout-td">
+		<button class="model-btn success" type="button" data-cartoon-dismiss="#cartoon-2">移除动画2</button>
+	</div>
+</div>
+<div id="cartoon-1">
+	<div class="child slide-up"></div>
+</div>
+<div id="cartoon-2">
+	<div class="child slide-down"></div>
+</div>
+</code>
+</pre>
+<ul>
+<li>带有data-cartoon属性的button按钮</li>
+</ul>
+</section>
+</section>
