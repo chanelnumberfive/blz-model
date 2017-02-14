@@ -84,8 +84,8 @@ option={
 </code>
 </pre>
 <ul>
-<li><code>selectArea</code>为激活的开关区域，比如输入document,那么位于document元素下的所有带有data-xxxx(xxx为对应的API名称，详情见下文)的元素具有开关动画的功能</li>
-<li><code>cartoonClass</code>为激活目标动画时要添加的类名，默认值为animation</li>
+<li>selectArea为激活的开关区域，比如输入document,那么位于document元素下的所有带有data-xxxx(xxx为对应的API名称，详情见下文)的元素具有开关动画的功能</li>
+<li>cartoonClass为激活目标动画时要添加的类名，默认值为animation</li>
 </ul>
 </section>
 <section>
@@ -115,8 +115,8 @@ option={
 </div>
 </pre>
 <ul>
-<li>带有<code>data-cartoon="#cartoon-1"</code>属性的<code>button</code>按钮,被点击时，就会给<code>#cartoon-1</code>元素，添加<code>animation</code>类名（或者你自定义的类名）；此时位于其下的带有相应动画类名的元素就会执行对应的动画(这些css3动画，必须事先写好，blz-cartoon.js只是实现了一个开关，即为目标元素添加<code>animation</code>类名或移除<code>animation</code>类名);被添加<code>animation</code>类名的元素会发布<code>animation</code>事件，支持冒泡！</li>
-<li>同理带有<code>data-cartoon-dismiss="#cartoon-1"</code>属性的按钮，被点击时，就会移除<code>#cartoon-1</code>元素的<code>animation</code>类名，一些由添加<code>animation</code>类名产生的动画也会随之消失；此时<code>#cartoon-1</code>元素会发布<code>offAimation</code>事件，支持冒泡！</li>
+<li>带有data-cartoon="#cartoon-1"属性的button按钮,被点击时，就会给#cartoon-1元素，添加animation类名（或者你自定义的类名）；此时位于其下的带有相应动画类名的元素就会执行对应的动画(这些css3动画，必须事先写好，blz-cartoon.js只是实现了一个开关，即为目标元素添加animation类名或移除animation类名);被添加animation类名的元素会发布animation事件，支持冒泡！</li>
+<li>同理带有data-cartoon-dismiss="#cartoon-1"属性的按钮，被点击时，就会移除#cartoon-1元素的animation类名，一些由添加animation类名产生的动画也会随之消失；此时#cartoon-1元素会发布offAimation事件，支持冒泡！</li>
 <li>带有data-cartoon-toggle的元素被点击时，则会开启动画时则关闭动画，关闭动画时则开启动画</li>
 <li>点击任何带有data-cartoon区域以外的元素都会关闭已开启的动画，开启另一个动画，也会关闭另外一个已开启的动画</li>
 </ul>
