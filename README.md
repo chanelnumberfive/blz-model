@@ -57,7 +57,7 @@
 <section>
 <section>
 <h3>关闭移动</h3>
-<pre><strong><code>$(selector).blzOffMove(option)</code></strong></pre>
+<pre><strong><code>$(selector).blzOffMove()</code></strong></pre>
 </section>
 <section>
 <section>
