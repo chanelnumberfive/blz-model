@@ -125,5 +125,13 @@ option={
 <h3>demo</h3>
 <p><a href="https://chanelnumberfive.github.io/blz-model/model/cartoon/demo.html">https://chanelnumberfive.github.io/blz-model/model/cartoon/demo.html</a></p>
 </section>
+<section>
+<h3>关闭开关</h3>
+<pre>
+<code>
+$(selectArea).blzOffCartoon();
+</code>
+</pre>
+</section>
 </section>
 <hr>
