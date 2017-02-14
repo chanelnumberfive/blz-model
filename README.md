@@ -71,7 +71,7 @@
 </section>
 <hr>
 <section>
-<h2>blcartoon</h2>
+<h2>blz-cartoon</h2>
 <p>css3动画的开关，并没有实现动画，动画还得用css3去实现！</p>
 <section>
 <h3>开启开关</h3>
@@ -91,7 +91,6 @@ option={
 <section>
 <h3>html代码结构</h3>
 <pre>
-<code>
 <div class="layout-tr model-btn-area">
 	<div class="layout-td">
 		<button class="model-btn success" type="button" data-cartoon="#cartoon-1">动画1</button>
@@ -114,10 +113,17 @@ option={
 <div id="cartoon-2">
 	<div class="child slide-down"></div>
 </div>
-</code>
 </pre>
 <ul>
-<li>带有data-cartoon属性的button按钮</li>
+<li>带有<code>data-cartoon="#cartoon-1"</code>属性的<code>button</code>按钮,被点击时，就会给<code>#cartoon-1</code>元素，添加<code>animation</code>类名（或者你自定义的类名）；此时位于其下的带有相应动画类名的元素就会执行对应的动画(这些css3动画，必须事先写好，blz-cartoon.js只是实现了一个开关，即为目标元素添加<code>animation</code>类名或移除<code>animation</code>类名);被添加<code>animation</code>类名的元素会发布<code>animation</code>事件，支持冒泡！</li>
+<li>同理带有<code>data-cartoon-dismiss="#cartoon-1"</code>属性的按钮，被点击时，就会移除<code>#cartoon-1</code>元素的<code>animation</code>类名，一些由添加<code>animation</code>类名产生的动画也会随之消失；此时<code>#cartoon-1</code>元素会发布<code>offAimation</code>事件，支持冒泡！</li>
+<li>带有data-cartoon-toggle的元素被点击时，则会开启动画时则关闭动画，关闭动画时则开启动画</li>
+<li>点击任何带有data-cartoon区域以外的元素都会关闭已开启的动画，开启另一个动画，也会关闭另外一个已开启的动画</li>
 </ul>
 </section>
+<section>
+<h3>demo</h3>
+<p><a href="https://chanelnumberfive.github.io/blz-model/model/cartoon/demo.html">https://chanelnumberfive.github.io/blz-model/model/cartoon/demo.html</a></p>
 </section>
+</section>
+<hr>
