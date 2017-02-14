@@ -91,27 +91,20 @@ option={
 <section>
 <h3>html代码结构</h3>
 <pre>
-&lt;div class="layout-tr model-btn-area"&gt;
-	&lt;div class="layout-td"&gt;
-		&lt;button class="model-btn success" type="button" data-cartoon="#cartoon-1"&gt;动画1&lt;/button&gt;
-	&lt;/div&gt;
-	&lt;div class="layout-td"&gt;
-		&lt;button class="model-btn success" type="button" data-cartoon="#cartoon-2"&gt;动画2&lt;/button&gt;
-	&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="layout-tr model-btn-area"&gt;
-	&lt;div class="layout-td"&gt;
-		&lt;button class="model-btn success" type="button" data-cartoon-dismiss="#cartoon-1"&gt;移除动画1&lt;/button&gt;
-	&lt;/div&gt;
-	&lt;div class="layout-td"&gt;
-		&lt;button class="model-btn success" type="button" data-cartoon-dismiss="#cartoon-2"&gt;移除动画2&lt;/button&gt;
-	&lt;/div&gt;
-&lt;/div&gt;
+
+		&lt;button type="button" data-cartoon="#cartoon-1"&gt;动画1&lt;/button&gt;
+
+		&lt;button type="button" data-cartoon="#cartoon-2"&gt;动画2&lt;/button&gt;
+
+		&lt;button type="button" data-cartoon-dismiss="#cartoon-1"&gt;移除动画1&lt;/button&gt;
+
+		&lt;button type="button" data-cartoon-dismiss="#cartoon-2"&gt;移除动画2&lt;/button&gt;
+
 &lt;div id="cartoon-1"&gt;
-	&lt;div class="child slide-up"&gt;&lt;/div&gt;
+	&lt;div class="slide-up"&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div id="cartoon-2"&gt;
-	&lt;div class="child slide-down"&gt;&lt;/div&gt;
+	&lt;div class="slide-down"&gt;&lt;/div&gt;
 &lt;/div&gt;
 </pre>
 <ul>
