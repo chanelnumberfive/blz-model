@@ -91,28 +91,28 @@ option={
 <section>
 <h3>html代码结构</h3>
 <pre>
-<div class="layout-tr model-btn-area">
-	<div class="layout-td">
-		<button class="model-btn success" type="button" data-cartoon="#cartoon-1">动画1</button>
-	</div>
-	<div class="layout-td">
-		<button class="model-btn success" type="button" data-cartoon="#cartoon-2">动画2</button>
-	</div>
-</div>
-<div class="layout-tr model-btn-area">
-	<div class="layout-td">
-		<button class="model-btn success" type="button" data-cartoon-dismiss="#cartoon-1">移除动画1</button>
-	</div>
-	<div class="layout-td">
-		<button class="model-btn success" type="button" data-cartoon-dismiss="#cartoon-2">移除动画2</button>
-	</div>
-</div>
-<div id="cartoon-1">
-	<div class="child slide-up"></div>
-</div>
-<div id="cartoon-2">
-	<div class="child slide-down"></div>
-</div>
+&lt;div class="layout-tr model-btn-area"&gt;
+	&lt;div class="layout-td"&gt;
+		&lt;button class="model-btn success" type="button" data-cartoon="#cartoon-1"&gt;动画1&lt;/button&gt;
+	&lt;/div&gt;
+	&lt;div class="layout-td"&gt;
+		&lt;button class="model-btn success" type="button" data-cartoon="#cartoon-2"&gt;动画2&lt;/button&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="layout-tr model-btn-area"&gt;
+	&lt;div class="layout-td"&gt;
+		&lt;button class="model-btn success" type="button" data-cartoon-dismiss="#cartoon-1"&gt;移除动画1&lt;/button&gt;
+	&lt;/div&gt;
+	&lt;div class="layout-td"&gt;
+		&lt;button class="model-btn success" type="button" data-cartoon-dismiss="#cartoon-2"&gt;移除动画2&lt;/button&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="cartoon-1"&gt;
+	&lt;div class="child slide-up"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="cartoon-2"&gt;
+	&lt;div class="child slide-down"&gt;&lt;/div&gt;
+&lt;/div&gt;
 </pre>
 <ul>
 <li>带有data-cartoon="#cartoon-1"属性的button按钮,被点击时，就会给#cartoon-1元素，添加animation类名（或者你自定义的类名）；此时位于其下的带有相应动画类名的元素就会执行对应的动画(这些css3动画，必须事先写好，blz-cartoon.js只是实现了一个开关，即为目标元素添加animation类名或移除animation类名);被添加animation类名的元素会发布animation事件，支持冒泡！</li>
