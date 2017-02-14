@@ -255,7 +255,8 @@
 		},3000);
 
 		return model;
-	};   
+	}; 
+	
 	// dismiss交互
 	$(document).on('click.blz.dismiss','[data-blz-dismiss]',function(){
 		var target=$(this).attr('data-blz-dismiss');
@@ -279,4 +280,6 @@
 		if(modelTip.model!==''){modelTip.model.remove();}
 		$.weuiOff=null;
 	};
+	
+	return $;
 }));

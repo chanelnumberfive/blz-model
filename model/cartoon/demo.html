@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-<title>表单验证</title>
+<title>h5动画</title>
 <meta name="renderer" content="webkit">
 <meta name="screen-orientation" content="portrait">
 <meta name="x5-orientation" content="portrait">
 <meta name="format-detection" content="telephone=no,email=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="表单验证">
+<meta name="apple-mobile-web-app-title" content="h5动画">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Cache-Control" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -29,38 +29,63 @@
 <link rel="stylesheet" href="../../css/blz-reset.css">
 <link rel="stylesheet" href="../../css/blz-cartoon.css">
 <style>
-	.mask{
-		background-color:rgba(0,0,0,0.6);
+	#cartoon-1 .child,
+	#cartoon-2 .child{
+		height:100px;
+		width:100px;
+		margin:0 auto;
+		margin-top:10px;
+		background-color:red;
+	}
+	#cartoon-1{
+		margin-top:120px;
 	}
 </style>
 </head>
 
 <body ontouchstart="">
-<button class="btn">slide down</button>
-<button class="btn">fade in</button>
-<div id="slide-down">
-	<div class="child"></div>
+<div class="layout-tr model-btn-area">
+	<div class="layout-td">
+		<button class="model-btn success" type="button" data-cartoon="#cartoon-1">动画1</button>
+	</div>
+	<div class="layout-td">
+		<button class="model-btn success" type="button" data-cartoon="#cartoon-2">动画2</button>
+	</div>
 </div>
-<div id="fade-in">
-	<div class="child"></div>
+<div class="layout-tr model-btn-area">
+	<div class="layout-td">
+		<button class="model-btn success" type="button" data-cartoon-dismiss="#cartoon-1">移除动画1</button>
+	</div>
+	<div class="layout-td">
+		<button class="model-btn success" type="button" data-cartoon-dismiss="#cartoon-2">移除动画2</button>
+	</div>
+</div>
+<div id="cartoon-1">
+	<div class="child slide-up"></div>
+</div>
+<div id="cartoon-2">
+	<div class="child slide-down"></div>
 </div>
 </body>
 <script type="application/javascript" src="../../js/require.js"></script>
+<script type="application/javascript" src="../../js/blz-config.js"></script>
 <script type="application/javascript">
     +function(){
         'use strict';
-        
-		require.config({
-			baseUrl:'../../../js',
-			paths:{
-				'jQuery':'jquery-3.1.0'
-			}	
-		});
 		
-		require(['blz-cartoon'],function($){
+		require(['blz-dialog','blz-cartoon'],function($,$1){
 			'use strict';
 			
-			$(document).blzCartoon();
+			$(document).blzCartoon({
+				cartoonClass:'animation'
+			});
+			$('#cartoon-1,#cartoon-2').on('animation offAnimation',function(e){
+				if(e.type==='animation'){
+					$.weui.tip(e.target.id+'开启了动画');
+				}else if(e.type==='offAnimation'){
+					$.weui.tip(e.target.id+'关闭了动画');
+				}
+			});
 		});
     }();
 </script>
