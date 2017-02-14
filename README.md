@@ -28,9 +28,14 @@
 </ul>
 </section>
 <section>
+<section>
 <h3>关闭懒加载</h3>
 <pre><strong><code>$(selector).blzOffLazyLoad();</code></strong></pre>
+</section>
+<section>
+<h3>demo</h3>
 <p><a href="https://chanelnumberfive.github.io/blz-model/model/lazy-load/demo.html">https://chanelnumberfive.github.io/blz-model/model/lazy-load/demo.html</a></p>
+</section>
 </section>
 </section>
 <hr>
