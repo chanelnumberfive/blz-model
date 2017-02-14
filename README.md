@@ -108,7 +108,7 @@ option={
 <li>同理带有data-cartoon-dismiss="#cartoon-1"属性的按钮，被点击时，就会移除#cartoon-1元素的animation类名，一些由添加animation类名产生的动画也会随之消失；此时#cartoon-1元素会发布offAimation事件，支持冒泡！</li>
 <li>带有data-cartoon-toggle的元素被点击时，则会开启动画时则关闭动画，关闭动画时则开启动画</li>
 <li>点击任何带有data-cartoon区域以外的元素都会关闭已开启的动画，开启另一个动画，也会关闭另外一个已开启的动画</li>
-<li>也可采用css3动画自带的事件animationstart,animationend<a href="https://developer.mozilla.org/en-US/docs/Web/Events">参考地址</a></li>
+<li>对于开关动画时发布的自定义事件，也可采用css3动画自带的标准事件animationstart,animationend<a href="https://developer.mozilla.org/en-US/docs/Web/Events">详细地址</a></li>
 </ul>
 </section>
 <section>
