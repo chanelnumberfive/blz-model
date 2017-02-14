@@ -1,6 +1,6 @@
 <header>
 <h1>blz-model</h1>
-<p><blockquote>组件针对移动端，为了配合后台保持引入的插件一致，基于jQuery实现</blockquote></p>
+<p><blockquote>jQuery 插件</blockquote></p>
 </header>
 <hr>
 <section>
