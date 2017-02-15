@@ -146,6 +146,53 @@ $(selectArea).blzOffCartoon();
 <p><a href="https://chanelnumberfive.github.io/blz-model/model/agreement/demo.html">https://chanelnumberfive.github.io/blz-model/model/agreement/demo.html</a></p>
 </section>
 </section>
+<hr>
+<section>
+<h2>blz-dialog</h2>
+<p><blockquote>对话框,前期使用weui的样式库，看见其有一套不错的对话框样式，但就是死活没找到与之配套的js文件，.........自己写！</blockquote></p>
+<section>
+<h3>开启弹窗</h3>
+<pre><strong><code>
+$.weui.alert({
+	title:'你好',
+	article:'我是对话框alert',
+	sureCallback:function(){
+	// 点击确定按钮时的回调	
+	}
+});
+
+$.weui.confirm({
+	title:'你好',
+	article:'我是对话框confirm',
+	cancelText:'取消',
+	sureText:'确定',
+	sureHref:'javascript:void(0);',
+	cancelHref:'javascript:void(0);',
+	cancelCallback:function(){
+	// 点击取消按钮时的回调	
+	},
+	sureCallback:function(){
+	// 点击确定按钮时的回调	
+	}
+});
+
+$.weui.warn({
+	title:'你好',
+	article:'我是对话框warn'
+});
+
+$.weui.tip('你好我是对话框tip');
+
+$.weui.loading('你好，我是loading');
+
+$.weui.loading(selector,'你好，我是partLoading');
+</code></strong></pre>
+</section>
+<section>
+<h3>demo</h3>
+<p><a href="https://chanelnumberfive.github.io/blz-model/model/dialog/demo.html">https://chanelnumberfive.github.io/blz-model/model/dialog/demo.html</a></p>
+</section>
+</section>
 
 <section>
 <h2></h2>
