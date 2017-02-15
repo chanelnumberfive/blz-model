@@ -74,6 +74,11 @@
 		});	
 	};
 	
+	// 关闭h5动画
+	$.fn.blzOffCartoon=function(){
+		this.removeData('blz-cartoon');
+		this.off('click.cartoonShow click.cartoonDismiss click.cartoon');
+	};
 	
 	// 动画组件卸载
 	$.cartoonOff=function(){
