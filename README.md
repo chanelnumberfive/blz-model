@@ -132,11 +132,14 @@ $(selectArea).blzOffCartoon();
 <h3>开启协议（有点别扭。。。）</h3>
 <pre>&lt;div class="layout-box" data-blz-agreement="url-1 url-2 url-3"&gt;恋爱保险协议大学名录&lt;/div&gt;
 
-</pre>
-<pre><strong><code>$(selectorArea).blzGetAgreement();</code></strong></pre>
+<strong><code>$(selectorArea).blzGetAgreement();</code></strong></pre>
 <ul>
 <li>slelectArea 表示一个选择区域，开启协议后，点击位于selectorArea区域下的元素时，如果被点击的元素带有data-blz-agreement属性，则会向body元素append一个弹层，并读取data-blz-agreement中的url数据依次赋予javascript对象Image的实例，这些实例全部加载完毕后最终会添加到一个事先准备好的#blz-agreement-wrapper盒中</li>
 </ul>
+</section>
+<section>
+<h3>关闭协议</h3>
+<pre><strong><code>$(selectorArea).blzOffGetAgreement();</code></strong></pre>
 </section>
 <section>
 <h3>demo</h3>
