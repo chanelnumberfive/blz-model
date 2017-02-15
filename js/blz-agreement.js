@@ -5,8 +5,8 @@
 	'use strict';
 	/* jshint ignore:start */
 	if (typeof define === 'function' && define.amd) {
-	  define(['jQuery'],function () {
-		return fn(window.jQuery);
+	  define(['blz-dialog'],function ($) {
+		return fn($);
 	  });
 	} else if (typeof module !== 'undefined' && module.exports) {
 	  module.exports = fn(window.jQuery);
@@ -17,28 +17,28 @@
 }(function($){
 	'use strict';
     
-	var modelAgreement='<div class="weui_mask blz-mask" id="blz-mask" data-blz-dismiss="#blz-mask">'+
-							'<span class="close"></span>'+
-							'<div id="blz-wrapper">'+
-								'<ul>'+
-									'<li id="blz-img-box">'+
-									'</li>'+
-								'</ul>'+
+	var modelAgreement='<div class="blz-mask" id="blz-mask" data-blz-dismiss="#blz-mask">'+
+							'<span class="blz-close"></span>'+
+							'<div id="blz-agreement-wrapper">'+
+								
 							'</div>'+
 						'</div>';
 	
-	$(document).on('click.pdf','[data-blz-pdf]',function(event){
-		event.preventDefault();
+	// 弹层构造函数
+	function GetAgreement(){
 		
-        var loading=$.weui.loading(),
-		    datas=$(this).data('blz-pdf'),
-		    data=datas.split(' '),
-		    length=data.length,
+	}
+	
+	// 加载图片
+	GetAgreement.prototype.getImage=function(data){
+		var b=[],
+			i=0,
+			length=data.length,
 			l=length,
-			b=[],
-			frag=document.createDocumentFragment();
+			frag=document.createDocumentFragment(),
+			loading=$.weui.loading();
 		
-		for(var i=0;i<length;i++){
+		for(;i<length;i++){
 			b[i]=new Image();
 			b[i].onload=function(){
 				l--;
@@ -47,26 +47,45 @@
 						frag.appendChild(b[i]);
 					}
 					modelAgreement=$(modelAgreement).appendTo(document.body);
-					$('#blz-img-box').html('').append(frag);
-                    loading.hide();
+					$('#blz-agreement-wrapper').html('').append(frag);
 					$('#blz-mask').show();
+					loading.hide();
 				}
 			};
 			b[i].src=data[i];
 			
 		}
-	});
+	};
 	
-	$('#blz-img-box').on('scroll',function(e){
-		e.preventDefault();
-	});
+    // 获取参数
+	GetAgreement.prototype.getUrl=function(elem){
+		var datas=elem.dataset.blzAgreement,
+		    url=datas.split(' ');
+		return url;
+	};
+	
+	// 开启协议
+	$.fn.blzGetAgreement=function(){
+		return this.on('click.blzAgreement','[data-blz-agreement]',function(e){
+			
+			// 阻止html元素默认行为
+			e.preventDefault();
+			
+			var url=GetAgreement.prototype.getUrl(e.target);
+			GetAgreement.prototype.getImage(url);
+		});
+	};
+	
+	// 关闭协议
+	$.fn.blzOffAgreement=function(){
+		return this.off('click.blzAgreement');
+	};
 	
 	// 组件卸载
-	$.clauseOff=function(){
-		$('#blz-img-box').off('scroll');
-		$(document).off('click.pdf');
+	$.blzOffAgreement=function(selector){
+		$(selector).off('click.blzAgreement');
 		$(modelAgreement).remove();
-		$.clauseOff=null;
+		$.blzOffAgreement=null;
 	};
 	
 	return $;
