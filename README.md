@@ -130,7 +130,7 @@ $(selectArea).blzOffCartoon();
 <p><blockquote>工作中老是遇到一行蓝色的文字协议条款，点击时要求弹出浮层让用户关闭浮层时还停留在原页面，为了复用便把此功能封装成了jQuery插件</blockquote></p>
 <section>
 <h3>开启协议（有点别扭。。。）</h3>
-<pre>&lt;div class="layout-box" data-blz-agreement="url-1 url-2 url-3"&gt;恋爱保险协议大学名录&lt;/div&gt;
+<pre>&lt;div data-blz-agreement="url-1 url-2 url-3"&gt;恋爱保险协议大学名录&lt;/div&gt;
 
 <strong><code>$(selectorArea).blzGetAgreement();</code></strong></pre>
 <ul>
