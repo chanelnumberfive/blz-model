@@ -52,8 +52,7 @@
 					loading.hide();
 				}
 			};
-			b[i].src=data[i];
-			
+			b[i].src=data[i];	
 		}
 	};
 	
@@ -77,12 +76,12 @@
 	};
 	
 	// 关闭协议
-	$.fn.blzOffAgreement=function(){
+	$.fn.blzOffGetAgreement=function(){
 		return this.off('click.blzAgreement');
 	};
 	
 	// 组件卸载
-	$.blzOffAgreement=function(selector){
+	$.blzOffGetAgreement=function(selector){
 		$(selector).off('click.blzAgreement');
 		$(modelAgreement).remove();
 		$.blzOffAgreement=null;
