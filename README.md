@@ -210,7 +210,7 @@ $(scrollElem).blzScrollto(displacement,time,callback);
 </section>
 <section>
 <h3>demo</h3>
-<p><a href="https://chanelnumberfive.github.io/blz-model/model/scrollto/demo.html"></a></p>
+<p><a href="https://chanelnumberfive.github.io/blz-model/model/scrollto/demo.html">https://chanelnumberfive.github.io/blz-model/model/scrollto/demo.html</a></p>
 </section>
 </section>
 
