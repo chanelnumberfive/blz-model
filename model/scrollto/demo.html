@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+<title>demo</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="format-detection" content="telephone=no,email=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="demo">
+
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+<!-- no cache -->
+<meta http-equiv="cache-control" content="max-age=0"/>
+<meta http-equiv="cache-control" content="no-cache"/>
+<meta http-equiv="expires" content="0"/>
+<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT"/>
+<meta http-equiv="pragma" content="no-cache"/>
+<meta name="revised" content="storys,2017/02/13">
+<script type="application/javascript" src="../../js/fastclick.js"></script> 
+<script type="application/javascript">
+	function setFontSize(){
+        document.documentElement.style.fontSize=window.innerWidth*20/320+'px';
+    }
+    setFontSize();
+    window.addEventListener('resize',function(){
+        setFontSize();
+    });
+    window.addEventListener('load', function () {
+		FastClick.attach(document.body);
+	}, false);
+</script>
+<link rel="stylesheet" type="text/css" href="../../css/blz-reset.css">
+<style>
+	*{
+		margin:0;
+		padding:0;
+	}
+	.box{
+		height:10000px;
+	}
+	.layout-boxs{
+		position:fixed;
+		top:0;
+		left:0;
+		width:100%;
+	}
+</style>
+</head>
+
+<body ontouchstart="">
+<div class="box">
+	<div class="layout-boxs">
+		<div class="layout-box" data-scrollto="200" data-scrollto-time="300">300ms内滚动200px</div>
+		<div class="layout-box" data-scrollto="400" data-scrollto-time="400">400ms内滚动400px</div>
+		<div class="layout-box" data-scrollto="600" data-scrollto-time="600">600ms内滚动600px</div>
+		<div class="layout-box" id="dialog"></div>
+	</div>
+</div>
+<script type="application/javascript" src="../../js/require.js"></script>
+<script type="application/javascript" src="../../js/blz-config.js"></script>
+<script type="application/javascript">
+    +function(){
+        'use strict';
+       
+		require(['blz-scrollto'],function($){
+			'use strict';
+			
+			$(document).on('click','[data-scrollto]',function(){
+				var that=this;
+				$(document.body).blzScrollto(this.dataset.scrollto,this.dataset.scrolltoTime,function(){
+					$('#dialog').html('在'+that.dataset.scrolltoTime+'ms内body滚动了'+that.dataset.scrollto+'px');
+				});
+			});
+		});
+    }();
+</script>
+</body>
+</html>

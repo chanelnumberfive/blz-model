@@ -30,10 +30,10 @@
 			callback();
 		}
 	}
-	$.fn.scrollTo=function(displacement,time,callback){
+	$.fn.blzScrollto=function(displacement,time,callback){
 		displacement=displacement?displacement:0;
 		time=time?time:300;
-		callback=callback?callback:$.blz.emptyFunciton;
+		callback=callback?callback:$.blz.emptyFn;
 		return this.each(function(){
 			scrollTo(this,this.scrollTop,displacement,time,+new Date(),callback);
 		});
