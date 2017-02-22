@@ -193,6 +193,27 @@ $.weui.loading(selector,'你好，我是partLoading');
 <p><a href="https://chanelnumberfive.github.io/blz-model/model/dialog/demo.html">https://chanelnumberfive.github.io/blz-model/model/dialog/demo.html</a></p>
 </section>
 </section>
+<hr>
+<section>
+<h2>blz-scrollto</h2>
+<p><blockquote>在做项目时遇到一个滚动至顶部的按钮，直接调用document.body.scrollTop=0,这画面太美，有点不敢看！然后结合requestAniamtionFrame写出一个滚动较为缓慢的动画</blockquote></p>
+<section>
+<h3>开启滚动</h3>
+<pre><strong><code>
+$(scrollElem).blzScrollto(displacement,time,callback);
+</code></strong></pre>
+<ul>
+<li>displacement // 参数代表scrollElem要滚动的位移，既然是位移，那就是相对运动，你不能输入个0，指望着浏览器回滚到顶部，得输入要滚动的距离</li>
+<li>time // 参数time代表scrollElem滚动持续的时间，单位ms默认为300ms</li>
+<li>callback // 参数callback代表滚动结束时执行的回调函数</li>
+</ul>
+</section>
+<section>
+<h3>demo</h3>
+<p><a href="https://chanelnumberfive.github.io/blz-model/model/scrollto/demo.html"></a></p>
+</section>
+</section>
+
 
 <section>
 <h2></h2>
