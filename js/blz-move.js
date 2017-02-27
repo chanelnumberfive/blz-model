@@ -43,7 +43,7 @@
 	// 移动开始
 	Move.prototype.touchStart=function(e){
 		var event=e.touches[0],
-			$this=$(event.target),
+			$this=$(this),
 			data=$this.data('blz-move');
 		data.x=event.pageX;
 		data.y=event.pageY;
@@ -54,7 +54,7 @@
 	Move.prototype.touchMove=function(e){
 		e.preventDefault();
 		var event=e.touches[0],
-			$this=$(event.target),
+			$this=$(this),
 			data=$this.data('blz-move');
 		data.dx=event.pageX-data.x;
 		data.dy=event.pageY-data.y;
@@ -65,7 +65,7 @@
 	
 	// 移动结束
 	Move.prototype.touchEnd=function(e){
-		var $this=$(e.target),
+		var $this=$(this),
 			data=$this.data('blz-move');
 		data.prevDx=data.shiftX;
 		data.prevDy=data.shiftY;
