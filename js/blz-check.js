@@ -23,6 +23,7 @@
         name:'姓名格式错误',
         id:'身份证号码格式错误',
         phone:'手机号码格式错误',
+        phone:'手机号码格式错误',
         email:'邮箱格式错误',
         check:'验证码错误',
         agreement:'请同意协议',
@@ -74,7 +75,7 @@
 			return Validator.isValid(val)&&getAge(obj)>0&&obj.year>=2010;
 		}],
         address:[false,false,function(){
-            return this[0].selectedIndex!==0;
+            return this.selectedIndex!==0;
         }],
 		lengthcustom:[[6,6]],
 		bankcard:[false,false,function(val){
@@ -84,18 +85,29 @@
 			return val>0;
 		}]
 	};
+	var config={
+		warnElemClass:'.weui_cell',
+		warnClass:'.weui_cell_warn',
+		agreementClass:'#glb-form-agreement',
+		verificationCodeClass:'#glb-form-send input',
+		checkElemClass:'[data-blz-type]:not([disabled])',
+		getVerificationCode:$.blz.emptyFunciton,
+		canSubmit:$.blz.emptyFunciton
+	};
 	
 	// 获取年龄函数
 	function getAge(obj){
-        var age=0;
-        var now=new Date();
-        var year=now.getFullYear();
-        var month=now.getMonth()+1;
-        var date=now.getDate();
-        obj=obj||{};
-        obj.year=parseInt(obj.year)||year;
-        obj.month=parseInt(obj.month)||month;
-        obj.date=parseInt(obj.date)||date;
+        var age=0,
+            now=new Date(),
+            year=now.getFullYear(),
+            month=now.getMonth()+1,
+            date=now.getDate();
+		var config={
+			year:year,
+			month:month,
+			date:date
+		};
+        obj=$.extend(config,obj||{});
         age=year-obj.year;
         if(age<0){return age;}
         if(obj.month>month){
@@ -120,28 +132,32 @@
 		},800));
 	}
     
-    // 检查表单值是否合法函数
-    function check(event,warnElemClass,warnClass) {
-        var $this=$(this);
-        var val=$this.val();
-        var type=$this.attr('data-blz-type').toLowerCase();
-        var rule = false;
-        var $elem=$this.closest(warnElemClass);
-        var tipLength=false;
-        var customs=false;
-        if(checkRule[type][0]){
+	// 验证输入值的合法性
+	function isCorrect(rules,type,elem,event){
+		var tipLength=false,
+			regular=false,
+            customs=false,
+			val=elem.value;
+		if(rules[type][0]){
             tipLength = val.length < checkRule[type][0][0] || val.length > checkRule[type][0][1];
         }
-        if(checkRule[type][1]){
-            rule = new RegExp( checkRule[type][1], 'g');
-            rule=!rule.test($.trim(val));
+        if(rules[type][1]){
+            regular= new RegExp( rules[type][1], 'g');
+            regular=!regular.test($.trim(val));
         }
-        if(checkRule[type][2]&&(type!=='check'?true:event?true:false)){
-            customs=!checkRule[type][2].call($this,$.trim(val));
+        if(rules[type][2]&&(type!=='check'?true:event?true:false)){
+            customs=!rules[type][2].call(elem,$.trim(val));
         }
-        
-        // 输入非法验证
-        if (rule||tipLength||customs) { 
+		
+		return tipLength||regular||customs;
+	}
+	
+	// 对验证结果的处理
+	function handleResult(tip,$this,option,event){
+		var warnElemClass=option.warnElemClass,
+			$elem=$this.closest(warnElemClass);
+		
+		if (tip){ 
             $elem.addClass(warnClass.slice(1));
             
             // 对于非法输入开启自动验证
@@ -157,7 +173,7 @@
 				}
             }
 			
-            $this.attr('data-blz-check','inpass');
+            $this.attr('data-blz-check','inpass').trigger('blzCheckInpass');
         } else { 
             
             // 输入合法验证
@@ -166,45 +182,33 @@
 			$this.attr('data-blz-auto-check','no');
 			clearInterval($this.data('blzTimer'));
         }
-    }
+	}
 	
 	// 计数器函数
 	function count(n,$target){
 		if(n>=0){
-			$target.data('isCountStart',true);
-			$target.addClass('grey');
-			$target.html(n+' 秒<br>后重发');
+			$target.data('isCountStart',true).addClass('grey').html(n+' 秒<br>后重发');
 			setTimeout(function(){
 				count(--n,$target);
 			},1000);
 		}else {
-			$target.removeClass('grey');
-			$target.html('获取<br>验证码');
-			$target.data('isCountStart',false);
+			$target.removeClass('grey').html('获取<br>验证码').data('isCountStart',false);
 		}
 	}
     
     // 检验函数
-	$.fn.check=function(obj){
+	$.fn.blzCheck=function(obj){
 		
-		obj=obj||{};
-		obj.getVerificationCode=obj.getVerificationCode||$.blz.emptyFunciton;
-		obj.canSubmit=obj.canSubmit||$.blz.emptyFunciton;
+		obj=$.extend(config,obj||{});
+		this.data('blz-check',obj);
 		
 		return this.each(function(){
-			var $this=$(this).checkOff(),
-			    
-				//获取要验证的表单元素
-				$elems=$this.find(obj.checkElemClass||'[data-blz-type]:not([disabled])'),
+			var $this=$(this).blzCheckOff(),
+				$elems=$this.find(obj.checkElemClass),
 				$submit=$this.find('[type="submit"]');
-
-			$this.data('warnElemClass',obj.warnElemClass||'.weui_cell')
-			     .data('warnClass',obj.warnClass||'.weui_cell_warn')
-			     .data('agreementClass',obj.agreementClass||'.blz-agreement')
-			     .data('verificationCodeClass',obj.verificationCodeClass||'.blz-verification-code')
-			     .data('checkElemClass',obj.checkElemClass||'[data-blz-type]:not([disabled])');
 			
-			$this.find($this.data('verificationCodeClass')).on('click.verificationCode',function(){
+			// 发送验证码
+			$this.find(obj.verificationCodeClass).on('click.blzCheckVerificationCode',function(){
 				var $this=$(this),
 				    $target=$($this.attr('data-blz-target'));
 				if($this.data('isCountStart')){
@@ -219,7 +223,7 @@
 				}
 			});
 
-			// 协议
+			// 协议交互
 			$this.find($this.data('agreementClass')).on('change.agreement',function(){
 				if(this.checked){
 					$submit.prop('disabled',false);
@@ -268,7 +272,7 @@
     }
 
 	// 关闭表单验证
-	$.fn.checkOff=function(){
+	$.fn.blzCheckOff=function(){
 		return this.each(function(){
 			var $this=$(this);
 			$this.find($this.data('verificationCodeClass')).off('click.verificationCode');
@@ -279,7 +283,7 @@
 	};
 	
 	// 表单验证组件卸载
-	$.checkOff=function(selector){
+	$.blzCheckOff=function(selector){
 		$(selector?selector:'form').checkOff();
 		$.fn.checkOff=null;
 		$.fn.check=null;
