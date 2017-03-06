@@ -14,11 +14,11 @@
 		fn(window.jQuery,IDValidator);
 	}
 	/* jshint ignore:end */
-}(function($,IDValidator){
+})(function($,IDValidator){
 	'use strict';
     
     // 提示语
-    var checkTip={
+    var validateTip={
         any:'内容不能为空',
         name:'姓名格式错误',
         id:'身份证号码格式错误',
@@ -36,9 +36,8 @@
     };
     
     // 检验规则
-	var checkRule={
+	var validateRule={
 		any:[[1,100]],
-		anyname:[[1,30]],
 		name:[[2,15],'[\u4e00-\u9fa5]{1,}(·?)[\u4e00-\u9fa5]{1,}$'],
 		id:[[15,18],false,function(val){
 			var Validator = new IDValidator();
@@ -50,20 +49,14 @@
 		}],
 		phone:[[11,11],'^1'],
 		email:[[4,30],'^([a-zA-Z0-9]+[_|\\_|\\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\\_|\\.]?)*[a-zA-Z0-9]+\\.[a-zA-Z]{2,3}$'],
-		check:[[6,6],false,function(val){
-			return val===($(this).attr('data-blz-pattern')?$(this).attr('data-blz-pattern').toString():val);
+		verificationCode:[[4,6],false,function(val){
+			return val===($(this).data('blz-validate-pattern')?$(this).data('blz-validate-pattern').toString():val);
 		}],
 		agreement:[false,false,function(){
 			return $(this).prop('checked');
 		}],
-		custom:[false,false,function(val){
-			return val!==($(this).attr('data-blz-pattern')?$(this).attr('data-blz-pattern').toString():val+'1');
-		}],
-        price:[false,false,function(){
-            return $(this).data('blz-value')>0;
-        }],
         repeat:[false,false,function(val){
-            return val===$($(this).attr('data-blz-same')).val();
+            return val===$($(this).data('blz-same')).val();
         }],
         childid:[[18,18],false,function(val){
 			var Validator = new IDValidator();
@@ -77,23 +70,39 @@
         address:[false,false,function(){
             return this.selectedIndex!==0;
         }],
-		lengthcustom:[[6,6]],
 		bankcard:[false,false,function(val){
 			return val.replace(/ /g,'').length>=6&&val.replace(/ /g,'').length<=30;
-		}],
-		select:[false,false,function(val){
-			return val>0;
 		}]
 	};
-	var config={
-		warnElemClass:'.weui_cell',
-		warnClass:'.weui_cell_warn',
-		agreementClass:'#glb-form-agreement',
-		verificationCodeClass:'#glb-form-send input',
-		checkElemClass:'[data-blz-type]:not([disabled])',
-		getVerificationCode:$.blz.emptyFunciton,
-		canSubmit:$.blz.emptyFunciton
+	var validateConfig={
+		agreementSelector:'.mf-agreement',
+		verificationCodeSelector:'.mf-send',
+		checkElemSelector:'.mf-input:not([disabled])',
+		warnClass:'warn',
+		parentSelector:'.mf-item',
+		scrollSelector:document.body,
+		autoValidate:true,
+		getVerificationCode:$.blz.emptyFn,
+		canSubmit:$.blz.emptyFn,
+		onError:onError,
+		onRight:onRight,
+		onAutoError:onError,
+		onAutoRight:onRight,
+		validateRule:validateRule,
+		count:60,
+		submitSelector:'[type="submit"]',
+		getVerificationCodeTip:$.blz.emptyFn,
+		onNoAgreement:function(){
+			$.weui.tip('亲不同意协议<br>将无法提交表单哦！');
+		},
+		scrollCallback:$.blz.emptyFn,
+		onSubmitError:onSubmitError
 	};
+
+	// validate构造函数
+	function Validate(obj){
+		$.extend(true,this,validateConfig,obj||{});
+	}
 	
 	// 获取年龄函数
 	function getAge(obj){
@@ -124,145 +133,151 @@
         return age;
     }
     
- 	// 自动验证
-	function loop($elem,warnElemClass,warnClass,callback){
-		$elem.data('blzTimer',setTimeout(function(){
-			callback.call($elem,false,warnElemClass,warnClass);
-			loop($elem,warnElemClass,warnClass,callback);
-		},800));
-	}
-    
 	// 验证输入值的合法性
-	function isCorrect(rules,type,elem,event){
-		var tipLength=false,
-			regular=false,
-            customs=false,
-			val=elem.value;
+	function isCorrect(rules,elem){
+		var tipLength=true,
+			regular=true,
+            customs=true,
+			val=$.trim(elem.value),
+			type=elem.dataset.blzValidateType;
 		if(rules[type][0]){
-            tipLength = val.length < checkRule[type][0][0] || val.length > checkRule[type][0][1];
+            tipLength=val.length>=rules[type][0][0]&&val.length<=rules[type][0][1];
         }
         if(rules[type][1]){
             regular= new RegExp( rules[type][1], 'g');
-            regular=!regular.test($.trim(val));
+            regular=regular.test(val);
         }
-        if(rules[type][2]&&(type!=='check'?true:event?true:false)){
-            customs=!rules[type][2].call(elem,$.trim(val));
+        if(rules[type][2]){
+            customs=rules[type][2].call(elem,val);
         }
 		
-		return tipLength||regular||customs;
-	}
-	
-	// 对验证结果的处理
-	function handleResult(tip,$this,option,event){
-		var warnElemClass=option.warnElemClass,
-			$elem=$this.closest(warnElemClass);
-		
-		if (tip){ 
-            $elem.addClass(warnClass.slice(1));
-            
-            // 对于非法输入开启自动验证
-            if($this.attr('data-blz-auto-check')!=='yes'){
-                $this.attr('data-blz-auto-check','yes');
-				loop($this,warnElemClass,warnClass,check);
-            }
-            if(event&&event.type==='submit'){
-                if(val.length>0){
-					$.weui.tip($this.attr('data-blz-alert')||checkTip[type]);
-				}else {
-					$.weui.tip($this.attr('placeholder')||checkTip[type]);
-				}
-            }
-			
-            $this.attr('data-blz-check','inpass').trigger('blzCheckInpass');
-        } else { 
-            
-            // 输入合法验证
-            $elem.removeClass(warnClass.slice(1));
-            $this.attr('data-blz-check','pass');
-			$this.attr('data-blz-auto-check','no');
-			clearInterval($this.data('blzTimer'));
-        }
+		return tipLength&&regular&&customs;
 	}
 	
 	// 计数器函数
 	function count(n,$target){
 		if(n>=0){
-			$target.data('isCountStart',true).addClass('grey').html(n+' 秒<br>后重发');
+			$target.data('isCountStart',true).addClass('grey').html(n+' 秒后重发');
 			setTimeout(function(){
 				count(--n,$target);
 			},1000);
 		}else {
-			$target.removeClass('grey').html('获取<br>验证码').data('isCountStart',false);
+			$target.removeClass('grey').html('获取验证码').data('isCountStart',false);
+		}
+	}
+
+	// 验证错误提示
+	function onSubmitError(elem,data){
+		var val=elem.value;
+		if(val&&val.length>0){
+			$.weui.tip(elem.dataset.blzValidateTip||validateTip[elem.dataset.blzValidateType]);
+		}else{
+			$.weui.tip(elem.placeholder||validateTip[elem.dataset.blzValidateType]);
+		}
+		onBlur(elem,data);
+	}
+
+	function onError(elem,data){
+		$(elem).closest(data.parentSelector).addClass(data.warnClass);
+	}
+
+	function onRight(elem,data){
+		$(elem).closest(data.parentSelector).removeClass(data.warnClass);
+	}
+
+	function onBlur(elem,data){
+		if(isCorrect(data.validateRule,elem)){
+			// 验证通过
+			data.onRight(elem,data);
+			if(data.autoValidate){
+				clearTimeout($(elem).data('auto-validate-timer'));
+			}
+		}else{
+			// 验证不通过
+			data.onError(elem,data);
+			if(data.autoValidate){
+				$(elem).data('auto-validate-timer',setTimeout(function(){
+					onBlur(elem,data);
+				},800));
+			}
 		}
 	}
     
     // 检验函数
-	$.fn.blzCheck=function(obj){
-		
-		obj=$.extend(config,obj||{});
-		this.data('blz-check',obj);
-		
+	$.fn.blzValidate=function(obj){	
 		return this.each(function(){
-			var $this=$(this).blzCheckOff(),
-				$elems=$this.find(obj.checkElemClass),
-				$submit=$this.find('[type="submit"]');
-			
+			var data=new Validate(obj),
+				$this=$(this).blzValidateOver().data('blz-validate',data),
+				$elems=null;
+
+				$elems=data.ValidateElems=$this.find(data.checkElemSelector);
+				
 			// 发送验证码
-			$this.find(obj.verificationCodeClass).on('click.blzCheckVerificationCode',function(){
+			$this.find(data.verificationCodeSelector).on('click.blzValidate',function(){
 				var $this=$(this),
-				    $target=$($this.attr('data-blz-target'));
+				    $target=$(this.dataset.blzValidateTarget),
+				    val=$.trim($target.val());
 				if($this.data('isCountStart')){
 					
 				}else{
-					if($target.val().length===11&&$target.val()[0]==='1'){
-						obj.getVerificationCode($target,$this);
-						count(60,$this);
+					if(val.length===11&&val[0]==='1'){
+						data.getVerificationCode.call(this,$target[0]);
+						count(data.count,$this);
 					}else{
-							
+						data.getVerificationCodeTip();	
 					}
 				}
 			});
 
 			// 协议交互
-			$this.find($this.data('agreementClass')).on('change.agreement',function(){
+			$this.find(data.agreementSelector).on('change.blzValidate',function(){
 				if(this.checked){
-					$submit.prop('disabled',false);
+					
 				}else {
-					$submit.prop('disabled',true);
+					data.onNoAgreement(this);
 				}
 			});
 
 			// 失去焦点时验证
-			$elems.on('blur.check blurSimulation',function(e){
-				check.call(e.target,event,$this.data('warnElemClass'),$this.data('warnClass'));
-			}).on('focus.check',function(){
+			$elems.on('blur.blzValidate blurSimulation',function(e){
+				onBlur(this,data)
+			}).on('focus.blzValidate',function(){
 				this.select();
 			});
 
-			$this.on('submit.check',function(event){
-				var i=0,
-					displacement=0;
-				$submit.prop('disabled',true);
-				for(i=0;i<$elems.length;i++){
-					check.call($elems[i],event,$this.data('warnElemClass'),$this.data('warnClass'));
-					if($elems.eq(i).attr('data-blz-check')!=='pass'){
-						displacement=$elems[i].getBoundingClientRect().top-window.innerHeight/2;
-						setTimeout(function(){
-							$(document.body).scrollTo(displacement,Math.abs(displacement*1.5),function(){});
-						},300);
-						$submit.prop('disabled',false);
-						event.preventDefault();
-						return;
+			$this.on('submit.blzValidate',function(event){
+				if(data.submitState==='submiting'){
+					$.weui.loading('数据提交中');
+				}else{
+					data.submitState='submiting';
+
+					var i=0,
+					    displacement=0;
+
+					for(i=0;i<$elems.length;i++){
+						if(isCorrect(data.validateRule,$elems[i])){
+
+						}else{
+							
+							displacement=$elems[i].getBoundingClientRect().top-window.innerHeight/2;
+							setTimeout(function(){
+								$(data.scrollSelector).blzScrollto(displacement,Math.abs(displacement*1.5),data.scrollCallback($elems[i]));
+							},300);
+							data.onSubmitError($elems[i],data);
+							data.submitState='unpass';
+							event.preventDefault();
+							return;
+						}
 					}
+					obj.canSubmit.call(this,event);
 				}
-				obj.canSubmit.call(this,event);
 			});
 		});
 	};
     
 	//安卓bug修复
 	if (/Android/gi.test(navigator.userAgent)) {
-        $(window).on('resize.check', function () {
+        $(window).on('resize.blzValidate', function () {
             if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
                 window.setTimeout(function () {
                     document.activeElement.scrollIntoViewIfNeeded();
@@ -272,24 +287,29 @@
     }
 
 	// 关闭表单验证
-	$.fn.blzCheckOff=function(){
+	$.fn.blzValidateOver=function(){
 		return this.each(function(){
-			var $this=$(this);
-			$this.find($this.data('verificationCodeClass')).off('click.verificationCode');
-			$this.find($this.data('agreementClass')).off('change.agreement');
-			$this.find($this.data('checkElemClass')).off('blur.check blurSimulation focus.check');
-			$this.off('submit.check');
+			var $this=$(this),
+				data=$this.data('blz-validate');
+			$this.removeData('blz-validate');	
+			if(data){
+				$this.find(data.verificationCodeSelector).off('click.blzValidate');
+				$this.find(data.agreementSelector).off('change.blzValidate');
+				data.ValidateElems.off('blur.blzValidate blurSimulation focus.blzValidate');
+				$this.off('submit.blzValidate');
+			}	
+			
 		});
 	};
 	
 	// 表单验证组件卸载
-	$.blzCheckOff=function(selector){
-		$(selector?selector:'form').checkOff();
-		$.fn.checkOff=null;
-		$.fn.check=null;
-		$(window).off('resize.check');
-		$.checkOff=null;
+	$.blzValidateOver=function(selector){
+		$(selector?selector:'form').blzValidateOver();
+		$.fn.blzValidateOver=null;
+		$.fn.blzValidate=null;
+		$(window).off('resize.blzValidate');
+		$.blzValidateOver=null;
 	};
 	
 	return $;
-}));
+});
