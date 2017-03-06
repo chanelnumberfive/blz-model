@@ -214,6 +214,59 @@ $(scrollElem).blzScrollto(displacement,time,callback);
 </section>
 </section>
 
+<section>
+<h2>blz-validate</h2>
+<p><blockquote>写了老长时间的javascript头一次写表单插件，正则真头疼，火星语吗？
+</blockquote></p>
+<section>
+<h3>开启保单验证</h3>
+<pre><strong><code>
+$(document.forms[0]).blzValidate({
+	agreementSelector:'.mf-agreement',
+	verificationCodeSelector:'.mf-send',
+	checkElemSelector:'.mf-input:not([disabled])',
+	warnClass:'warn',
+	parentSelector:'.mf-item',
+	scrollSelector:document.body,
+	autoValidate:true,
+	getVerificationCode:$.blz.emptyFn,
+	canSubmit:$.blz.emptyFn,
+	onError:onError,
+	onRight:onRight,
+	onAutoError:onError,
+	onAutoRight:onRight,
+	validateRule:validateRule,
+	count:60,
+	submitSelector:'[type="submit"]',
+	getVerificationCodeTip:$.blz.emptyFn,
+	onNoAgreement:function(){
+		$.weui.tip('亲不同意协议<br>将无法提交表单哦！');
+	},
+	scrollCallback:$.blz.emptyFn,
+	onSubmitError:onSubmitError
+});
+</code></strong></pre>
+<ul>
+<li>agreementSelector  //这个参数表示对应的</li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+</ul>
+</section>
+<section>
+<section>
+<h3></h3>
+<pre><strong><code></code></strong></pre>
+</section>
+<section>
+<h3></h3>
+<p><a href="https://chanelnumberfive.github.io/blz-model/model/lazy-load/demo.html"></a></p>
+</section>
+</section>
+</section>
 
 <section>
 <h2></h2>
