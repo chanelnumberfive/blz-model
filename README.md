@@ -291,7 +291,7 @@ validateRule // 验证规则其结构如下
 </section>
 <section>
 <h3>demo</h3>
-<p><a href="https://chanelnumberfive.github.io/blz-model/model/validate/demo.html"></a></p>
+<p><a href="https://chanelnumberfive.github.io/blz-model/model/validate/demo.html">https://chanelnumberfive.github.io/blz-model/model/validate/demo.html</a></p>
 </section>
 </section>
 </section>
