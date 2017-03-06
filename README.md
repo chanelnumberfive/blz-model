@@ -233,8 +233,6 @@ $(document.forms[0]).blzValidate({
 	canSubmit:$.blz.emptyFn,
 	onError:onError,
 	onRight:onRight,
-	onAutoError:onError,
-	onAutoRight:onRight,
 	validateRule:validateRule,
 	count:60,
 	submitSelector:'[type="submit"]',
@@ -247,23 +245,53 @@ $(document.forms[0]).blzValidate({
 });
 </code></strong></pre>
 <ul>
-<li>agreementSelector  //这个参数表示对应的</li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
+<li>agreementSelector  //这个参数表示对应的一些协议的选择器（诸如：我同意此条款，我已阅读同意此条款）</li>
+<li>verificationCodeSelector // 获取验证码对应的按钮的选择器</li>
+<li>checkElemSelector // 要进行验证的元素的选择器</li>
+<li>warnClass // 代表验证非法时，对目标元素的父元素（含有parentSelector中存储的选择器）添加这个类名，当然这只是默认做法，可以自定义onError,onRight函数去处理验证非法时和和合法时，如何跟用户友好交互</li>
+<li>parentSelector // 验证不合法时，目标元素的父元素含有的选择器</li>
+<li>scrollSelector // 当不合法元素不在视野内时，调用该表单所在的父元素滚动至视野的选择器</li>
+<li>autoValidate // 当验证非法时，是否开启自动验证去验证用户的行为</li>
+<li>getVerificationCode // 点击获取验证码按钮时执行的事件处理程序</li>
+<li>canSubmit // 额外的验证条件，决定表单提交时是否可以提交表单</li>
+<li>onError,onRight // 验证合法和非法时执行的事件处理程序</li>
+<li>
+validateRule // 验证规则其结构如下
+<pre><code>
+	var validateRule={
+		any:[[1,100]],
+		name:[[2,15],'[\u4e00-\u9fa5]{1,}(·?)[\u4e00-\u9fa5]{1,}$'],
+		id:[[15,18],false,function(val){
+			var Validator = new IDValidator();
+			return Validator.isValid(val)&&getAge({
+                    year:val.slice(6,10),
+                    month:val.slice(10,12),
+                    date:val.slice(12,14)
+                })>0;
+		}]
+	};
+</code></pre>
+<ul>
+<li>id 表示其验证类型为id(即为身份证验证),其值为一个数组，第一个参数表示其length应大于15小于18，第二个参数为一个正则表达式验证其值是否符合此正则，第三个参数为一个自定义函数，返回值为一个布尔值，真则表示合法</li>
 </ul>
+</li>
+<li>count // 表示验证码发送后，应该等待多久才能再次点击获取验证码</li>
+<li>submitSelector // 提交表单提交按钮的选择器</li>
+<li>getVerificationCodeTip // 表示点击获取验证码按钮时，而此时手机号填写非法时执行的事件处理程序</li>
+<li>onNoAgreement // 表示用户不同意条款时执行的事件处理程序</li>
+<li>scrollCallback // 对应于scrollSelector滚动结束后执行的回调</li>
+<li>onSubmitError // 代表用户提交表单时，检测到非法输入执行的事件处理程序</li>
+</ul>
+<p>可以通过jQuery访问form（假如你用form元素开启了验证）元素上的data-blz-validate获取所有配置，以对配置进行更改</p>
 </section>
 <section>
 <section>
-<h3></h3>
-<pre><strong><code></code></strong></pre>
+<h3>关闭blz-validate</h3>
+<pre><strong><code>$(selector).blzValidateOver()</code></strong></pre>
 </section>
 <section>
-<h3></h3>
-<p><a href="https://chanelnumberfive.github.io/blz-model/model/lazy-load/demo.html"></a></p>
+<h3>demo</h3>
+<p><a href="https://chanelnumberfive.github.io/blz-model/model/validate/demo.html"></a></p>
 </section>
 </section>
 </section>
