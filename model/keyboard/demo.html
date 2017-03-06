@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+<title>键盘</title>
+<meta name="renderer" content="webkit">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="format-detection" content="telephone=no,email=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="键盘">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<script type="application/javascript" src="../../js/fastclick.js"></script> 
+<script type="application/javascript">
+	function setFontSize(){
+        document.documentElement.style.fontSize=window.innerWidth/16+'px';
+    }
+    setFontSize();
+    window.addEventListener('resize',function(){
+        setFontSize();
+    });
+    window.addEventListener('load', function () {
+		FastClick.attach(document.body);
+	}, false);
+</script>
+<link rel="stylesheet" href="../../css/blz-reset.css">
+<link rel="stylesheet" href="../../css/blz-cartoon.css">
+<link rel="stylesheet" href="../../css/blz-keyboard.css">
+<style type="text/css">
+	.mf-item{
+		background-color:#fff;
+	}
+	.mf-input{
+		text-align:right;
+	}
+</style>
+</head>
+
+<body ontouchstart="">
+<form>
+	<div class="layout-box mf-item" data-blz-cartoon="#model-keyboard open">
+		<div>
+			<label class="mf-label" for="">金额</label>	
+		</div>
+		<div class="layout-td">
+			<input class="mf-input" type="text" placeholder="请输入金额(调用模拟键盘)" readonly>
+		</div>
+	</div>
+	<div class="layout-box mf-item">
+		<div>
+			<label class="mf-label" for="">金额</label>	
+		</div>
+		<div class="layout-td">
+			<input class="mf-input" type="text" placeholder="请输入金额">
+		</div>
+	</div>
+	<div class="layout-box mf-item">
+		<div>
+			<label class="mf-label" for="">金额</label>	
+		</div>
+		<div class="layout-td">
+			<input class="mf-input" type="text" placeholder="请输入金额">
+		</div>
+	</div>
+	<div class="layout-box mf-item">
+		<div>
+			<label class="mf-label" for="">金额</label>	
+		</div>
+		<div class="layout-td">
+			<input class="mf-input" type="text" placeholder="请输入金额">
+		</div>
+	</div>
+</form>
+	<!--键盘-->
+<div id="model-keyboard" data-blz-cartoon="#model-keyboard open">
+	<table class="model-keyboard model-submit-available slide-in" cellspacing="0">
+		<caption><span class="glb-for-screen">虚拟键盘</span></caption>
+		<tbody>
+			<tr>
+				<td role="button">1</td>
+				<td>2</td>
+				<td>3</td>
+				<td class="model-keyb-delete"></td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>5</td>
+				<td>6</td>
+				<td rowspan="3" class="model-keyb-confirm">确认</td>
+			</tr>
+			<tr>
+				<td>7</td>
+				<td>8</td>
+				<td>9</td>
+			</tr>
+			<tr>
+				<td class="model-keyb-hide" data-blz-cartoon="#model-keyboard off"></td>
+				<td>0</td>
+				<td>.</td>
+			</tr>
+		</tbody>
+	</table>
+</div>	
+	
+</body>
+<script type="application/javascript" src="../../js/require.js"></script>
+<script type="application/javascript" src="../../js/blz-config.js"></script>
+<script type="application/javascript">
+    +function(){
+        'use strict';
+        
+		require.config({
+			baseUrl:'../../js',
+			paths:{
+				'jQuery':'jquery-3.1.0'
+			}	
+		});
+		
+		require(['blz-keyboard','blz-check'],function($1,$){
+			'use strict';
+			
+			$(document.forms[0]).blzCartoon();
+		});
+    }();
+</script>
+</html>

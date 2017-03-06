@@ -24,7 +24,7 @@
 	
 	// 卡通构造函数
 	function Cartoon(option){
-		this.config=$.extend(config,option||{});
+		return $.extend(true,this,config,option||{});
 	}
 	
 	function cartoonDismiss($target,className){
@@ -46,7 +46,9 @@
 		if(!$target.is('.'+className)){
 			$target.addClass(className).trigger('animation');
 			$(document).on('click.offAnimation',function(e){
-				if($(e.target).closest('[data-cartoon]').length===0&&$(e.target).closest('[data-cartoon-toggle]').length===0){
+				var $Control=$(e.target).closest('[data-blz-cartoon]'),
+					data=$Control[0]?$Control[0].dataset.blzCartoon.split(' '):[];
+				if(data[1]!=='open'){
 					cartoonDismiss(animationPrev?animationPrev:$(),className);
 				}
 			});
@@ -60,18 +62,23 @@
 		
 		this.data('blz-cartoon',new Cartoon(option));
 		
-		this.on('click.cartoonShow','[data-cartoon]',function(){
-			cartoonShow($(this.dataset.cartoon),className);
-		}).on('click.cartoonDismiss','[data-cartoon-dismiss]',function(){
-			cartoonDismiss($(this.dataset.cartoonDismiss),className);
-		}).on('click.cartoon','[data-cartoon-toggle]',function(){
-			var $target=$(this.dataset.cartoonToggle);
-			if($target.is('.animation')){
-				cartoonDismiss($target,className);
-			}else {
+		this.on('click.blzCartoon','[data-blz-cartoon]',function(){
+			var data=this.dataset.blzCartoon.split(' '),
+				$target=$(data[0]);
+
+			if(data[1]==='open'){
 				cartoonShow($target,className);
+			}else if(data[1]==='off'){
+				cartoonDismiss($target,className);
+			}else{ 
+				if($target.is('.'+className)){
+					cartoonDismiss($target,className);
+				}else {
+					cartoonShow($target,className);
+				}
 			}
-		});	
+			
+		});
 	};
 	
 	// 关闭h5动画

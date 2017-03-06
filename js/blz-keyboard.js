@@ -5,8 +5,8 @@
 	'use strict';
 	/* jshint ignore:start */
 	if (typeof define === 'function' && define.amd) {
-	  define(['jQuery','blz'],function (empty,$) {
-		return fn($,$.blz.checkBrowerKernel());
+	  define(['blz','blz-cartoon'],function ($,$1) {
+		return fn($,$.blz.checkTransition());
 	  });
 	} else if (typeof module !== 'undefined' && module.exports) {
 	  module.exports = fn(window.jQuery);
