@@ -91,10 +91,10 @@ option={
 <section>
 <h3>html代码结构</h3>
 <pre>
-&lt;button type="button" data-cartoon="#cartoon-1"&gt;动画1&lt;/button&gt;
-&lt;button type="button" data-cartoon="#cartoon-2"&gt;动画2&lt;/button&gt;
-&lt;button type="button" data-cartoon-dismiss="#cartoon-1"&gt;移除动画1&lt;/button&gt;
-&lt;button type="button" data-cartoon-dismiss="#cartoon-2"&gt;移除动画2&lt;/button&gt;
+&lt;button type="button" data-blz-cartoon="#cartoon-1 on"&gt;动画1&lt;/button&gt;
+&lt;button type="button" data-blz-cartoon="#cartoon-2 off"&gt;动画2&lt;/button&gt;
+&lt;button type="button" data-blz-cartoon="#cartoon-1"&gt;移除动画1&lt;/button&gt;
+&lt;button type="button" data-blz-cartoon="#cartoon-2"&gt;移除动画2&lt;/button&gt;
 
 &lt;div id="cartoon-1"&gt;
 	&lt;div class="slide-up"&gt;&lt;/div&gt;
@@ -104,10 +104,10 @@ option={
 &lt;/div&gt;
 </pre>
 <ul>
-<li>带有data-cartoon="#cartoon-1"属性的button按钮,被点击时，就会给#cartoon-1元素，添加animation类名（或者你自定义的类名）；此时位于其下的带有相应动画类名的元素就会执行对应的动画(这些css3动画，必须事先写好，blz-cartoon.js只是实现了一个开关，即为目标元素添加animation类名或移除animation类名);被添加animation类名的元素会发布animation事件，支持冒泡！</li>
-<li>同理带有data-cartoon-dismiss="#cartoon-1"属性的按钮，被点击时，就会移除#cartoon-1元素的animation类名，一些由添加animation类名产生的动画也会随之消失；此时#cartoon-1元素会发布offAimation事件，支持冒泡！</li>
-<li>带有data-cartoon-toggle的元素被点击时，则会开启动画时则关闭动画，关闭动画时则开启动画</li>
-<li>点击任何带有data-cartoon区域以外的元素都会关闭已开启的动画，开启另一个动画，也会关闭另外一个已开启的动画</li>
+<li>带有data-blz-cartoon="#cartoon-1 on"属性的button按钮,被点击时，就会给#cartoon-1元素，添加animation类名（或者你自定义的类名）；此时位于其下的带有相应动画类名的元素就会执行对应的动画(这些css3动画，必须事先写好，blz-cartoon.js只是实现了一个开关，即为目标元素添加animation类名或移除animation类名);被添加animation类名的元素会发布animation事件，支持冒泡！</li>
+<li>同理带有data-blz-cartoon="#cartoon-1 off"属性的按钮，被点击时，就会移除#cartoon-1元素的animation类名，一些由添加animation类名产生的动画也会随之消失；此时#cartoon-1元素会发布offAimation事件，支持冒泡！</li>
+<li>带有data-blz-cartoon="#cartoon-1"的元素被点击时，则会开启动画时则关闭动画，关闭动画时则开启动画</li>
+<li>点击任何带有data-blz-cartoon区域以外的元素都会关闭已开启的动画，开启另一个动画，也会关闭另外一个已开启的动画</li>
 <li>对于开关动画时发布的自定义事件，也可采用css3动画自带的标准事件animationstart,animationend<a href="https://developer.mozilla.org/en-US/docs/Web/Events">详细地址</a></li>
 </ul>
 </section>
