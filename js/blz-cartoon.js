@@ -17,39 +17,62 @@
 })(function($){
 	'use strict';
 	
+	var constant={
+		name:'blzCartoon',
+		version:'20170307-1.0',
+		eventNameOn:'animation',
+		eventNameOff:'offAnimation',
+		cartoonAPI:'[data-blz-cartoon]',
+		cartoonOn:'on',
+		cartoonOff:'off',
+		switcher:'blz-cartoon-switcher'
+	}
+
 	var animationPrev=null,
 		config={
-			cartoonClass:'animation'
-		};
+			cartoonClass:'animation',
+			constant:constant
+		};	
 	
 	// 卡通构造函数
 	function Cartoon(option){
 		return $.extend(true,this,config,option||{});
 	}
 	
-	function cartoonDismiss($target,className){
+	Cartoon.prototype.hide=function($target,data,switcher){
+		var constant=null,
+			eventName='',
+			className=data.cartoonClass;
+
 		if($target.is('.'+className)){
-			$target.removeClass(className).trigger('offAnimation');
-			$(document).off('click.offAnimation');
+			constant=data.constant;
+			eventName=constant.eventNameOff;
+			$target.removeClass(className).trigger(eventName).data(constant.switcher,switcher);
+			$(document).off('click.'+eventName);
 			animationPrev=null;	
 		}
-	}
+	};
 	
-	function cartoonShow($target,className){
+	Cartoon.prototype.show=function($target,data,switcher){
 		animationPrev=animationPrev?animationPrev:$();
-		
+
+		var constant=data.constant,
+			className=data.cartoonClass,
+			$Control=null,
+			apiData=null;
+
 		// 防止动画重复关闭
 		if($target[0]!==animationPrev[0]){
-			cartoonDismiss(animationPrev,className);
+			data.hide(animationPrev,data,[switcher[0],constant.cartoonOff]);
 		}
 		
 		if(!$target.is('.'+className)){
-			$target.addClass(className).trigger('animation');
-			$(document).on('click.offAnimation',function(e){
-				var $Control=$(e.target).closest('[data-blz-cartoon]'),
-					data=$Control[0]?$Control[0].dataset.blzCartoon.split(' '):[];
-				if(data[1]!=='open'){
-					cartoonDismiss(animationPrev?animationPrev:$(),className);
+			$target.addClass(className).trigger(constant.eventNameOn).data(constant.switcher,switcher);
+			$(document).on('click.'+constant.eventNameOff,function(e){
+				$Control=$(e.target).closest(constant.cartoonAPI),
+				apiData=$Control[0]?$Control[0].dataset[constant.name].split(' '):[];
+				if(apiData[1]!==constant.cartoonOn){
+					data.hide(animationPrev?animationPrev:$(),data,[e.target,constant.cartoonOff]);
 				}
 			});
 			animationPrev=$target;
@@ -58,23 +81,27 @@
 	
 	// 开启h5动画
 	$.fn.blzCartoon=function(option){
-		var className=(option||{}).cartoonClass||'animation';
+		var data=new Cartoon(option),
+			constant=data.constant,
+			apiData=null,
+			$target=null,
+			className=option.cartoonClass;
 		
-		this.data('blz-cartoon',new Cartoon(option));
+		this.data(constant.name,data);
 		
-		this.on('click.blzCartoon','[data-blz-cartoon]',function(){
-			var data=this.dataset.blzCartoon.split(' '),
-				$target=$(data[0]);
+		return this.on('click.'+constant.name,constant.cartoonAPI,function(){
+			apiData=this.dataset[constant.name].split(' '),
+			$target=$(apiData[0]);
 
-			if(data[1]==='open'){
-				cartoonShow($target,className);
-			}else if(data[1]==='off'){
-				cartoonDismiss($target,className);
+			if(apiData[1]===constant.cartoonOn){
+				data.show($target,data,[this,constant.cartoonOn]);
+			}else if(apiData[1]===constant.cartoonOff){
+				data.hide($target,data,[this,constant.cartoonOff]);
 			}else{ 
 				if($target.is('.'+className)){
-					cartoonDismiss($target,className);
+					data.hide($target,data,[this,constant.cartoonOff]);
 				}else {
-					cartoonShow($target,className);
+					data.show($target,data,[this,constant.cartoonOn]);
 				}
 			}
 			
@@ -82,16 +109,12 @@
 	};
 	
 	// 关闭h5动画
-	$.fn.blzOffCartoon=function(){
-		this.removeData('blz-cartoon');
-		this.off('click.cartoonShow click.cartoonDismiss click.cartoon');
-	};
-	
-	// 动画组件卸载
-	$.cartoonOff=function(){
-		cartoonDismiss(animationPrev?animationPrev:$());
-		$(document).off('click.cartoonShow click.cartoonDismiss click.cartoon');
-		$.cartoonOff=null;
+	$.fn.blzOffCartoon=function(data){
+		data=data||this.data('blz-cartoon');
+		var constant=data.constant;
+
+		this.removeData(constant.name);
+		this.off('click.'+constant.name);
 	};
 	
 	return $;
