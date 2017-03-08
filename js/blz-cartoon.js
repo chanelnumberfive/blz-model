@@ -47,7 +47,7 @@
 		if($target.is('.'+className)){
 			constant=data.constant;
 			eventName=constant.eventNameOff;
-			$target.removeClass(className).trigger(eventName).data(constant.switcher,switcher);
+			$target.removeClass(className).data(constant.switcher,switcher).trigger(eventName);
 			$(document).off('click.'+eventName);
 			animationPrev=null;	
 		}
@@ -59,15 +59,17 @@
 		var constant=data.constant,
 			className=data.cartoonClass,
 			$Control=null,
-			apiData=null;
+			apiData=null,
+			array=$target.data(constant.switcher)||[],
+			target=array[0];
 
 		// 防止动画重复关闭
-		if($target[0]!==animationPrev[0]){
+		if(target!==switcher[0]){
 			data.hide(animationPrev,data,[switcher[0],constant.cartoonOff]);
 		}
 		
 		if(!$target.is('.'+className)){
-			$target.addClass(className).trigger(constant.eventNameOn).data(constant.switcher,switcher);
+			$target.addClass(className).data(constant.switcher,switcher).trigger(constant.eventNameOn);
 			$(document).on('click.'+constant.eventNameOff,function(e){
 				$Control=$(e.target).closest(constant.cartoonAPI),
 				apiData=$Control[0]?$Control[0].dataset[constant.name].split(' '):[];
@@ -85,7 +87,7 @@
 			constant=data.constant,
 			apiData=null,
 			$target=null,
-			className=option.cartoonClass;
+			className=data.cartoonClass;
 		
 		this.data(constant.name,data);
 		
@@ -110,11 +112,10 @@
 	
 	// 关闭h5动画
 	$.fn.blzOffCartoon=function(data){
-		data=data||this.data('blz-cartoon');
+		data=data||this.data('blz-cartoon')||config;
 		var constant=data.constant;
 
-		this.removeData(constant.name);
-		this.off('click.'+constant.name);
+		return this.removeData(constant.name).off('click.'+constant.name);
 	};
 	
 	return $;

@@ -140,9 +140,10 @@
 	-webkit-animation:.3s ease both slideUp;
 	animation:.3s ease both slideUp; 
 }
+.animation.slide-in,
 .animation .slide-in {
-	-webkit-animation:.3s ease both slideIn;
-	animation:.3s ease both slideIn; 
+	-webkit-animation:.3s linear both slideIn;
+	animation:.3s linear both slideIn; 
 }
 .animation .slide-down {
 	-webkit-animation:.3s ease both slideDown;

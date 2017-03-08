@@ -40,13 +40,13 @@
 </head>
 
 <body ontouchstart="">
-<form>
-	<div class="layout-box mf-item" data-blz-cartoon="#model-keyboard open">
+<form id="model-keyboard-area">
+	<div class="layout-box mf-item" data-blz-cartoon="#model-keyboard on">
 		<div>
 			<label class="mf-label" for="">金额</label>	
 		</div>
 		<div class="layout-td">
-			<input class="mf-input" type="text" placeholder="请输入金额(调用模拟键盘)" readonly>
+			<input class="mf-input" type="text" placeholder="请输入金额(调用模拟键盘)" readonly data-blz-tofixed="2" data-blz-validate-type="price">
 		</div>
 	</div>
 	<div class="layout-box mf-item">
@@ -57,12 +57,28 @@
 			<input class="mf-input" type="text" placeholder="请输入金额">
 		</div>
 	</div>
+	<div class="layout-box mf-item" data-blz-cartoon="#model-keyboard on">
+		<div>
+			<label class="mf-label" for="">金额</label>	
+		</div>
+		<div class="layout-td">
+			<input class="mf-input" type="text" placeholder="请输入金额(调用模拟键盘)" readonly data-blz-tofixed="-1">
+		</div>
+	</div>	
 	<div class="layout-box mf-item">
 		<div>
 			<label class="mf-label" for="">金额</label>	
 		</div>
 		<div class="layout-td">
 			<input class="mf-input" type="text" placeholder="请输入金额">
+		</div>
+	</div>
+	<div class="layout-box mf-item" data-blz-cartoon="#model-keyboard on">
+		<div>
+			<label class="mf-label" for="">金额</label>	
+		</div>
+		<div class="layout-td">
+			<input class="mf-input" type="text" placeholder="请输入金额(调用模拟键盘)" readonly data-blz-tofixed="2" data-blz-validate-type="price">
 		</div>
 	</div>
 	<div class="layout-box mf-item">
@@ -73,38 +89,23 @@
 			<input class="mf-input" type="text" placeholder="请输入金额">
 		</div>
 	</div>
-</form>
-	<!--键盘-->
-<div id="model-keyboard" data-blz-cartoon="#model-keyboard open">
-	<table class="model-keyboard model-submit-available slide-in" cellspacing="0">
-		<caption><span class="glb-for-screen">虚拟键盘</span></caption>
-		<tbody>
-			<tr>
-				<td role="button">1</td>
-				<td>2</td>
-				<td>3</td>
-				<td class="model-keyb-delete"></td>
-			</tr>
-			<tr>
-				<td>4</td>
-				<td>5</td>
-				<td>6</td>
-				<td rowspan="3" class="model-keyb-confirm">确认</td>
-			</tr>
-			<tr>
-				<td>7</td>
-				<td>8</td>
-				<td>9</td>
-			</tr>
-			<tr>
-				<td class="model-keyb-hide" data-blz-cartoon="#model-keyboard off"></td>
-				<td>0</td>
-				<td>.</td>
-			</tr>
-		</tbody>
-	</table>
-</div>	
-	
+	<div class="layout-box mf-item" data-blz-cartoon="#model-keyboard on">
+		<div>
+			<label class="mf-label" for="">金额</label>	
+		</div>
+		<div class="layout-td">
+			<input class="mf-input" type="text" placeholder="请输入金额(调用模拟键盘)" readonly data-blz-tofixed="-1">
+		</div>
+	</div>	
+	<div class="layout-box mf-item">
+		<div>
+			<label class="mf-label" for="">金额</label>	
+		</div>
+		<div class="layout-td">
+			<input class="mf-input" type="text" placeholder="请输入金额">
+		</div>
+	</div>
+</form>	
 </body>
 <script type="application/javascript" src="../../js/require.js"></script>
 <script type="application/javascript" src="../../js/blz-config.js"></script>
@@ -119,10 +120,10 @@
 			}	
 		});
 		
-		require(['blz-keyboard','blz-check'],function($1,$){
+		require(['blz-keyboard'],function($){
 			'use strict';
 			
-			$(document.forms[0]).blzCartoon();
+			$(document.forms[0]).blzKeyboard();
 		});
     }();
 </script>
