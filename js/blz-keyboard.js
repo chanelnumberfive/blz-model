@@ -166,7 +166,7 @@
             $elem=null;
         if(bottom+h>h1){
             $elem=$(elemArea);
-            x=parseInt($elem.css('padding-bottom'))+(bottom>h1?h1:bottom)-(h1-h)+40;
+            x=(bottom>h1?h1:bottom)-(h1-h)+40;
             $elem.css({
                 height:$elem.height(),
                 'padding-bottom':x,
@@ -188,8 +188,7 @@
             constant=data.constant,
             $this=$(this).blzKeyboardOver(data).data(constant.name,data),
             $keyboard=$(html.replace('确认',data.sureText)).appendTo(document.body),
-            $keyboardArea=$(data.keyboardAreaSelector),
-            paddingB=$keyboardArea.css('padding-bottom');
+            $keyboardArea=$(data.keyboardAreaSelector);
         return this.each(function(){
             
             // 安卓处理
@@ -222,7 +221,7 @@
 
                 data.scrollIntoView($keyboardArea[0],$keyboard[0],target);
             }).on('offAnimation',function(){
-                $keyboardArea.css('padding-bottom',paddingB);
+                $keyboardArea.css('padding-bottom',0);
             });
         });      
     };
