@@ -171,10 +171,11 @@
                 height:$elem.height(),
                 'padding-bottom':x,
                 'overflow-y':'scroll',
-                '-webkit-overflow-scrolling':'touch'
+                '-webkit-overflow-scrolling':'touch',
+                'transition':'padding .3s linear'
             });
             bottom=elemTarget.getBoundingClientRect().bottom;
-            x=window.innerHeight-h-bottom
+            x=h1-h-bottom;
             if(x<0){
                 $(elemArea).blzScrollto(-x,300);
             }
