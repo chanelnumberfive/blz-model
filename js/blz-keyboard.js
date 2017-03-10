@@ -166,20 +166,16 @@
             $elem=null;
         if(bottom+h>h1){
             $elem=$(elemArea);
-            x=(bottom>h1?h1:bottom)-(h1-h)+40;
             $elem.css({
-                height:window.innerHeight,
-                'box-sizing':'content-box',
-                'padding-bottom':x,
+                height:h1-h,
                 'overflow-y':'scroll',
-                '-webkit-overflow-scrolling':'touch',
-                'transition':'padding .3s linear'
+                '-webkit-overflow-scrolling':'touch'
             });
             bottom=elemTarget.getBoundingClientRect().bottom;
             x=h1-h-bottom;
             if(x<0){
                 $(elemArea).blzScrollto({
-                    displacement:x,
+                    displacement:-x,
                     time:300
                 });
             }
@@ -225,7 +221,7 @@
 
                 data.scrollIntoView($keyboardArea[0],$keyboard[0],target);
             }).on('offAnimation',function(){
-                $keyboardArea.css('padding-bottom',0);
+                $keyboardArea.css('height','auto');
             });
         });      
     };
