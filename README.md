@@ -200,11 +200,17 @@ $.weui.loading(selector,'你好，我是partLoading');
 <section>
 <h3>开启滚动</h3>
 <pre><strong><code>
-$(scrollElem).blzScrollto(displacement,time,callback);
+$(scrollElem).blzScrollto({
+	displacement:0,
+	time:300,
+	scrollMethod:'scrollTop',
+	callback:function(){}
+});
 </code></strong></pre>
 <ul>
 <li>displacement // 参数代表scrollElem要滚动的位移，既然是位移，那就是相对运动，你不能输入个0，指望着浏览器回滚到顶部，得输入要滚动的距离</li>
 <li>time // 参数time代表scrollElem滚动持续的时间，单位ms默认为300ms</li>
+<li>scrollMethod // 参数表示滚动对象是垂直滚动还是水平滚动（scrollLeft）</li>
 <li>callback // 参数callback代表滚动结束时执行的回调函数</li>
 </ul>
 </section>
