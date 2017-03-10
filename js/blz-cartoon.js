@@ -25,6 +25,7 @@
 		cartoonAPI:'[data-blz-cartoon]',
 		cartoonOn:'on',
 		cartoonOff:'off',
+		cartoonToggle:'toggle',
 		switcher:'blz-cartoon-switcher'
 	}
 
@@ -73,7 +74,7 @@
 			$(document).on('click.'+constant.eventNameOff,function(e){
 				$Control=$(e.target).closest(constant.cartoonAPI),
 				apiData=$Control[0]?$Control[0].dataset[constant.name].split(' '):[];
-				if(apiData[1]!==constant.cartoonOn){
+				if(apiData[1]!==constant.cartoonOn&&apiData[1]!==constant.cartoonToggle){
 					data.hide(animationPrev?animationPrev:$(),data,[e.target,constant.cartoonOff]);
 				}
 			});

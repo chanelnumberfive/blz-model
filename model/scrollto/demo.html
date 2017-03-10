@@ -75,8 +75,12 @@
 			
 			$(document).on('click','[data-scrollto]',function(){
 				var that=this;
-				$(document.body).blzScrollto(this.dataset.scrollto,this.dataset.scrolltoTime,function(){
-					$('#dialog').html('在'+that.dataset.scrolltoTime+'ms内body滚动了'+that.dataset.scrollto+'px');
+				$(document.body).blzScrollto({
+					displacement:this.dataset.scrollto,
+					time:this.dataset.scrolltoTime,
+					callback:function(){
+						$('#dialog').html('在'+that.dataset.scrolltoTime+'ms内body滚动了'+that.dataset.scrollto+'px');
+					}
 				});
 			});
 		});

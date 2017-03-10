@@ -142,7 +142,7 @@
             if(val.indexOf('.')===-1&&val.length>0){
                 val=val+'.';
             }
-        }else if($(elem).is(data.deleteSelector)){
+        }else if($(elem).is(constant.deleteSelector)){
             val=val.slice(0,-1);
         }else {
             return;
@@ -168,7 +168,8 @@
             $elem=$(elemArea);
             x=(bottom>h1?h1:bottom)-(h1-h)+40;
             $elem.css({
-                height:$elem.height(),
+                height:window.innerHeight,
+                'box-sizing':'content-box',
                 'padding-bottom':x,
                 'overflow-y':'scroll',
                 '-webkit-overflow-scrolling':'touch',
@@ -177,7 +178,10 @@
             bottom=elemTarget.getBoundingClientRect().bottom;
             x=h1-h-bottom;
             if(x<0){
-                $(elemArea).blzScrollto(-x,300);
+                $(elemArea).blzScrollto({
+                    displacement:x,
+                    time:300
+                });
             }
         }    
     }

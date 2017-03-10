@@ -5,7 +5,7 @@
 	'use strict';
 	/* jshint ignore:start */
 	if (typeof define === 'function' && define.amd){
-	  define(['jQuery'],function (empty){
+	  define(['blz'],function (empty){
 		  return fn(window.jQuery);
 	  });
 	} else if (typeof module !== 'undefined' && module.exports) {
@@ -17,25 +17,30 @@
 }(function($){
 	'use strict';
 
-	function scrollTo(elem,s,top,time,oldTime,callback){
+	var config={
+		displacement:0,
+		time:300,
+		scrollMethod:'scrollTop',
+		callback:$.blz.emptyFn
+	}
+
+	function scrollTo(elem,s,top,time,oldTime,direction,callback){
 		var time1=+new Date()-oldTime,
 			time2=time1>time?time:time1,
 		    scrollValue=top*time2/time;
-		elem.scrollTop=s+scrollValue;
+		elem[direction]=s+scrollValue;
 		if(time1<=time&&Math.abs(scrollValue)<=Math.abs(top)){
 			window.requestAnimationFrame(function(){
-				scrollTo(elem,s,top,time,oldTime,callback);
+				scrollTo(elem,s,top,time,oldTime,direction,callback);
 			});
 		}else{
 			callback();
 		}
 	}
-	$.fn.blzScrollto=function(displacement,time,callback){
-		displacement=displacement?displacement:0;
-		time=time?time:300;
-		callback=callback?callback:$.blz.emptyFn;
+	$.fn.blzScrollto=function(obj){
+		var option=$.extend({},config,obj);
 		return this.each(function(){
-			scrollTo(this,this.scrollTop,displacement,time,+new Date(),callback);
+			scrollTo(this,this[option.scrollMethod],option.displacement,option.time,+new Date(),option.scrollMethod,option.callback);
 		});
 	};
 	return $;
