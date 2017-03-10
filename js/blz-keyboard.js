@@ -68,6 +68,8 @@
         inputSelector:'.mf-input',
         cartoon:true,
         sureText:'确认',
+        onFocus:$.blz.emptyFn,
+        onBlur:$.blz.emptyFn,
         constant:constant
     };
 
@@ -168,6 +170,7 @@
             $elem=$(elemArea);
             $elem.css({
                 height:h1-h,
+                'transition':'height .3s linear',
                 'overflow-y':'scroll',
                 '-webkit-overflow-scrolling':'touch'
             });
