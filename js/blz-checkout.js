@@ -13,6 +13,18 @@
 	/* jshint ignore:end */
 })(function($){
 	'use strict';
+
+	var config={
+		onTotalChange:$.blz.emptyFn,
+		onTheDifference:$.blz.emptyFn,
+		onOverTotalMax:$.blz.emptyFn,
+		areaSelector:'section',
+		buttonPlusSelector:'[data-blz-checkout-button="plus"]',
+		buttonManusSelector:'[data-blz-checkout-button="manus"]',
+		inputTextSelector:'.text',
+		areaLevel0Selector:'li',
+		totalMax:Infinity
+	}
 	
 	// 获取总额
 	function getTotal(tip,elem,total){
@@ -133,16 +145,7 @@
 	$.fn.checkout=function(obj){
 		
 		// 参数初始化
-		obj=obj||{};
-		obj.onTotalChange=obj.onTotalChange||$.blz.emptyFunciton;
-		obj.onTheDifference=obj.onTheDifference||$.blz.emptyFunciton;
-		obj.onOverTotalMax=obj.onOverTotalMax||$.blz.emptyFunciton;
-		obj.areaSelector=obj.areaSelector||'section';
-		obj.buttonPlusSelector=obj.buttonPlusSelector||'[data-blz-checkout-button="plus"]';
-		obj.buttonManusSelector=obj.buttonManusSelector||'[data-blz-checkout-button="manus"]';
-		obj.inputTextSelector=obj.inputTextSelector||'.text';
-		obj.areaLevel0Selector=obj.areaLevel0Selector||'li';
-		obj.totalMax=obj.totalMax||Infinity;
+		obj=$.extend({},config,obj||{});
 		
 		return this.each(function(){
 			var total=0.00,
