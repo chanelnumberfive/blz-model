@@ -919,12 +919,12 @@ a.layout-box:active {
 	background-color:#fff;
 	border-radius:50%;
 	margin-left: -15px;
-	background:url(../images/mf-input-radio.png) no-repeat center center;
+	background:url(../../images/mf-input-radio.png) no-repeat center center;
 	background-size:50% 50%;
 	border:0;
 }
 .mf-input-radio:checked {
-	background-image:url(../images/mf-input-radio-checked.png);
+	background-image:url(../../images/mf-input-radio-checked.png);
 }
 .mf-label {
 	margin-right:.5rem;
