@@ -21,12 +21,26 @@
 	var modelAlert={
 			model:'',
 			hidden:true,
-			cache:[]
+			cache:[],
+			config:{
+				title:'',
+				article:''
+			}
 		},
 		modelConfirm={
 			model:'',
 			hidden:true,
-			cache:[]
+			cache:[],
+			config:{
+				title:'',
+				article:'',
+				sureText:'确定',
+				cancelText:'取消',
+				sureHref:'javascript:void(0);',
+				cancelHref:'javascript:void(0);',
+				cancelCallback:null,
+				sureCallback:null
+			}
 		},
 		modelWarn={
 			model:'',
@@ -55,9 +69,7 @@
 
 	$.weui.alert=function(obj){
 		var model=modelAlert.model;
-		obj=obj||{};
-		obj.title=obj.title||'';
-		obj.article=obj.article||'';
+		obj=$.extend({},modelAlert.config,obj||{});
 		if(model!==''&&model.css('display')!=='none'){
 			var cache=modelAlert.cache;
 
@@ -97,13 +109,7 @@
 
 	$.weui.confirm=function(obj){
 		var model=modelConfirm.model;
-		obj=obj||{};
-		obj.title=obj.title||'温馨提示';
-		obj.article=obj.article||'';
-		obj.cancelText=obj.cancelText||'取消';
-		obj.sureText=obj.sureText||'确定';
-		obj.sureHref=obj.sureHref||'javascript:void(0);';
-		obj.cancelHref=obj.cancelHref||'javascript:void(0);';
+		obj=$.extend({},modelConfirm.config,obj||{});
 
 		if(model!==''&&model.css('display')!=='none'){
 			var cache=modelConfirm.cache;
@@ -152,8 +158,9 @@
 		}
 
 		// 确定取消按钮
-		$(document).on('click.sure.cancel',function(){
-			var data=$(this).data('blz-option');
+		$(document).on('click.sure.cancel',function(e){
+			var $target=$(e.target),
+			    data=$target.data('blz-option')?$target.data('blz-option'):$target.closest('.weui_btn_dialog').data('blz-option');
 			data=data?data:'cancel';
 			setTimeout(function(){
 				$(document).trigger('clickBlzOption'+data);
@@ -259,13 +266,13 @@
 	
 	// dismiss交互
 	$(document).on('click.blz.dismiss','[data-blz-dismiss]',function(){
-		var target=$(this).attr('data-blz-dismiss');
+		var target=$(this).data('blz-dismiss');
 		$(target).fadeOut(0);
 	});
 
 	// show交互
 	$(document).on('click.blz.show','[data-blz-show]',function(){
-		var target=$(this).attr('data-blz-show');
+		var target=$(this).data('blz-show');
 		$(target).fadeIn(300);
 	});
 
