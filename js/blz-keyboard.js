@@ -208,7 +208,7 @@
             }
 
             if(data.cartoon){
-                $(this).blzCartoon(data.cartoonConfig);
+                $(document).blzCartoon(data.cartoonConfig);
             }       
             $keyboard.on('click.'+constant.name,'td',function(){
                 var target=$keyboard.data('blz-cartoon-switcher')[0];
@@ -234,7 +234,7 @@
             name=data.constant.name;
         $keyboard.off('animation offAnimation click.'+name).remove();
         $(window).off('resize.'+name);
-        return this.blzCartoonOff().removeData(name);
+        return $(document).blzCartoonOff().removeData(name);
     };
    
 	return $;

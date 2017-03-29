@@ -36,10 +36,15 @@
 	}, false);
 </script>
 <link rel="stylesheet" href="../../css/blz-reset.css">
+<style>
+	div{
+		-webkit-user-select:none;
+	}
+</style>
 </head>
 
 <body ontouchstart="">
-<div id="pan" style="height:300px;width:100%;background-color:red;"></div>
+<div id="pan" style="height:300px;width:100%;background-color:red;color:#fff" class="layout-tr-center"></div>
 <script type="application/javascript" src="../../js/require.js"></script>
 <script type="application/javascript" src="../../js/blz-config.js"></script>
 <script type="application/javascript">
@@ -49,7 +54,11 @@
 		require(['blz-gesture'],function($){
 			'use strict';
 			
-			$('#pan').blzGesture();
+			var i=0;
+			$('#pan').blzGesture().on('tap',function(e){
+				i++;
+				this.textContent='oh no you taped me'+(i>1?i===2?' again':' '+i+' times!':'');
+			});
 		});
     }();
 </script>
