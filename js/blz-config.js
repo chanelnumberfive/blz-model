@@ -1,7 +1,10 @@
 require.config({
 	baseUrl:'../../js',
 	paths:{
-		'jQuery':'jquery-3.1.0.js?'+(0-new Date()),
+		'jQuery':'jquery-3.2.0',
+		'zepto':'zepto.min',
+		'hammer':'hammer',
+		'blz-gesture':'blz-gesture.js?'+(0-new Date()),
 		'blz':'blz.js?'+(0-new Date()),
 		'blz-lazy-load':'blz-lazy-load.js?'+(0-new Date()),
 		'blz-agreement':'blz-agreement.js?'+(0-new Date()),
@@ -12,6 +15,7 @@ require.config({
 		'blz-keyboard':'blz-keyboard.js?'+(0-new Date()),
 		'blz-move':'blz-move.js?'+(0-new Date()),
 		'blz-scrollto':'blz-scrollto.js?'+(0-new Date()),
-		'blz-upload':'blz-upload.js?'+(0-new Date())
+		'blz-upload':'blz-upload.js?'+(0-new Date()),
+		'blz-swiper':'blz-swiper.js?'+(0-new Date())
 	}	
 });

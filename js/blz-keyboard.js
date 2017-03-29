@@ -19,9 +19,7 @@
     
     // 获取window高度
     var h1=window.innerHeight,
-        h2=h1,
-        h3=0,
-        dy=0;
+        h2=h1;
 
     var html='<table id="model-keyboard" class="model-keyboard model-submit-available slide-in" cellspacing="0" data-blz-cartoon="#model-keyboard on">'+
                 '<caption><span class="glb-for-screen">虚拟键盘</span></caption>'+
@@ -61,7 +59,7 @@
         eventNameChange:'change',
         keyboardSelector:'#model-keyboard',
         deleteSelector:'.model-keyb-delete'
-    }
+    };
 
     var keyboardConfig={
         keyboardAreaSelector:'#model-keyboard-area',
@@ -158,7 +156,7 @@
         }
         $target.trigger(constant.eventNameChange);
         target.dataset[constant.datasetValue]=val;
-    }
+    };
     
     // 交互优化（让不在视野内的元素进入视野）
     Keyboard.prototype.scrollIntoView=function(elemArea,elemKeyboard,elemTarget){
@@ -183,7 +181,7 @@
                 });
             }
         }    
-    }
+    };
 
     // 开启键盘
     $.fn.blzKeyboard=function(obj){
@@ -236,7 +234,7 @@
             name=data.constant.name;
         $keyboard.off('animation offAnimation click.'+name).remove();
         $(window).off('resize.'+name);
-        return this.blzOffCartoon(this.data('blzCartoon')).removeData(name);
+        return this.blzCartoonOff().removeData(name);
     };
    
 	return $;
