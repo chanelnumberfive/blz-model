@@ -82,14 +82,15 @@
 				dx=finger1.pageX-finger2.pageX;
 				dy=finger1.pageY-finger2.pageY;
 				data.diameter=sqrt(dx*dx+dy*dy);
+				data.angle=atan(dy/dx)*57.3;
 				customEvent(e.target,constant.pinchStart);
 			}
-			if(data.rotate){
-				dx=finger1.pageX-finger2.pageX;
-				dy=finger1.pageY-finger2.pageY;
-				data.angle=atan(dy/dx)*57.3;
-				customEvent(e.target,constant.rotatestart);
-			}
+			//if(data.rotate){
+//				dx=finger1.pageX-finger2.pageX;
+//				dy=finger1.pageY-finger2.pageY;
+//				data.angle=atan(dy/dx)*57.3;
+//				customEvent(e.target,constant.rotatestart);
+//			}
 		}
 	};
 	
@@ -117,13 +118,13 @@
 				dx=finger1.pageX-finger2.pageX;
 				dy=finger1.pageY-finger2.pageY;
 				scale=sqrt(dx*dx+dy*dy)/data.diameter;
-				customEvent(e.target,constant.pinch,scale);
+				customEvent(e.target,constant.pinch,[scale,atan(dy/dx)*57.3-data.angle]);
 			}
-			if(data.rotate){
-				dx=finger1.pageX-finger2.pageX;
-				dy=finger1.pageY-finger2.pageY;
-				customEvent(e.target,constant.rotate,atan(dy/dx)*57.3-data.angle);
-			}
+			//if(data.rotate){
+//				dx=finger1.pageX-finger2.pageX;
+//				dy=finger1.pageY-finger2.pageY;
+//				customEvent(e.target,constant.rotate,atan(dy/dx)*57.3-data.angle);
+//			}
 		}
 	};
 	
@@ -174,9 +175,9 @@
 			if(data.pinch){
 				customEvent(e.target,constant.pinchEnd);	
 			}
-			if(data.rotate){
-				customEvent(e.target,constant.rotateEnd);	
-			}	
+			//if(data.rotate){
+//				customEvent(e.target,constant.rotateEnd);	
+//			}	
 		}
 		
 		// 初始化

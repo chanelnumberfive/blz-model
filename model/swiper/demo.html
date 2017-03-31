@@ -40,11 +40,30 @@
 	div{
 		-webkit-user-select:none;
 	}
+	.blz-slide-wrapper{
+		width:100%;
+		overflow: hidden;
+	}
+	.blz-slide{
+		height:300px;
+		background-color:#fff;
+		width:100%;
+		border-right:10px solid #dadada;
+	}
 </style>
 </head>
 
 <body ontouchstart="">
-<div id="pan" style="height:300px;width:100%;background-color:red;color:#fff" class="layout-tr-center"></div>
+<article class="blz-swiper">
+	<div class="blz-slide-wrapper layout-tr">
+		<section class="blz-slide layout-tr-center layout-td-auto">1</section>
+		<section class="blz-slide layout-tr-center layout-td-auto">2</section>
+		<section class="blz-slide layout-tr-center layout-td-auto">3</section>
+		<section class="blz-slide layout-tr-center layout-td-auto">4</section>
+		<section class="blz-slide layout-tr-center layout-td-auto">5</section>
+		<section class="blz-slide layout-tr-center layout-td-auto">6</section>
+	</div>
+</article>
 <script type="application/javascript" src="../../js/require.js"></script>
 <script type="application/javascript" src="../../js/blz-config.js"></script>
 <script type="application/javascript">

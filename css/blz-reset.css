@@ -174,7 +174,7 @@ strong,h1,h2,h3,h4 {
     -webkit-transform-origin: 0 0;
     transform-origin: 0 0;
     box-sizing: border-box;
-    border-radius: .5rem;
+    border-radius: 4px;
 }
 .layout-box::after,
 .layout-boxs::before,
@@ -213,25 +213,24 @@ strong,h1,h2,h3,h4 {
 	background-color:#c39f54;
 }
 .layout-boxs-title {
-	font-size:.6rem;
+	font-size:12px;
 	color:#999;
 	padding: 0 15px;
-	margin-top:.6rem;
-	margin-bottom: .3rem;
+	margin-top:12px;
+	margin-bottom: 6px;
 }
 
 .glb-pointer-right {
 	display: inline-block;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
-    height: .4rem;
-    width: .4rem;
+    height: 8px;
+    width: 8px;
 	margin-left:.4em;
-    border-width: .1rem .1rem 0 0;
+    border-width: 2px 2px 0 0;
     border-color: #c7c7cc;
     border-style: solid;
     position: relative;
-    top: .05rem;
 	vertical-align: middle;
 }
 .glb-text-of {
@@ -251,7 +250,7 @@ strong,h1,h2,h3,h4 {
 	background-color:#fff;
 }
 .layout-boxs+.layout-boxs {
-	margin-top:.5rem;
+	margin-top:10px;
 }
 .layout-boxs::before{
 	background-color:#d9d9d9;
@@ -289,6 +288,10 @@ strong,h1,h2,h3,h4 {
     -webkit-flex: 1;
     flex: 1;
 }
+.layout-td-auto{
+	-webkit-flex: 0 0 auto;
+    flex:0 0 auto;
+}
 
 /*
  * model-button (按钮)
@@ -319,7 +322,7 @@ strong,h1,h2,h3,h4 {
 .model-btn.success{
 	color:#fff;
 	background-color:#e71359;
-	box-shadow:0 -.25rem 0 0 #d20f4f inset;
+	box-shadow:0 5px 0 0 #d20f4f inset;
 }
 .model-btn.disabled,
 .model-btn[disabled] {
@@ -344,7 +347,7 @@ strong,h1,h2,h3,h4 {
  * model-form (表单)
  */
 .model-form {
-	font-size:.75rem;
+	font-size:15px;
 }
 .mf-label,
 .mf-textarea,
@@ -354,9 +357,9 @@ strong,h1,h2,h3,h4 {
 	width: 100%;
     border: 0;
     outline: 0;
-    height: 2rem;
-    line-height: 2rem;
-    font-size: .75rem;
+    height: 44px;
+    line-height: 44px;
+    font-size: 15px;
     -webkit-appearance: none;
     vertical-align: middle;
     text-align: left;
@@ -365,8 +368,8 @@ strong,h1,h2,h3,h4 {
 }
 .mf-agreement-checkbox {
 	display:inline-block;
-	width:.7rem;
-	height:.7rem;
+	width:14px;
+	height:14px;
 	margin-right:.6em;
 	border:1px solid #004ea1;
 	vertical-align: middle;

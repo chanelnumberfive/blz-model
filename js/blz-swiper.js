@@ -17,6 +17,6 @@
 })(function($,finger){
 	'use strict';
 	
-	console.log(finger)
+	
 	return $;
 });
