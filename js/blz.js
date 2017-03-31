@@ -6,16 +6,19 @@
 	/* jshint ignore:start */
 	if (typeof define === 'function' && define.amd) {
 	  define(['jQuery'],function () {
-		return fn(window.jQuery);
+		return fn(window.Zepto||window.jQuery);
 	  });
 	} else if (typeof module !== 'undefined' && module.exports) {
-	  module.exports = fn(window.jQuery);
+	  module.exports = fn(window.Zepto||window.jQuery);
 	}else{
-		fn(window.jQuery);
+		fn(window.Zepto||window.jQuery);
 	}
 	/* jshint ignore:end */
 }(function($){
 	'use strict';
+	
+	var w=window,
+		d=document;
 	
 	$.blz={
 		
@@ -32,7 +35,7 @@
 		
 		// 检测动画属性transition的支持情况
 		checkTransition:function(){
-			var o=document.createElement('div');
+			var o=d.createElement('div');
 			var a=[['','transition',''],['webkit','Transition','-'],['ms','Transition','-'],['Moz','Transition','-'],['O','Transition','-']];
 			for(var i=a.length-1;i>=0;i--){
 				if(a[i][0]+a[i][1] in o.style){
@@ -45,15 +48,22 @@
 		
 		// 动画帧函数的兼容处理
 		requestAnimationFrame:function(){
-			if (!window.requestAnimationFrame) {
-				window.requestAnimationFrame=window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame ||window.msRequestAnimationFrame||function(callback) {
-					window.setTimeout(callback, 1000/60);
+			if (!w.requestAnimationFrame) {
+				w.requestAnimationFrame=w.webkitRequestAnimationFrame||w.mozRequestAnimationFrame||w.oRequestAnimationFrame ||w.msRequestAnimationFrame||function(callback) {
+					w.setTimeout(callback, 1000/60);
 				};
-				return window.requestAnimationFrame;
+				return w.requestAnimationFrame;
 			}else{
-				return window.requestAnimationFrame;
+				return w.requestAnimationFrame;
 			}
   		},
+		
+		//
+		customEvent:function(elem,name,data){
+			var event = d.createEvent('CustomEvent');
+			event.initCustomEvent(name,true,false,data);
+			elem.dispatchEvent(event);
+		},
 		
 		/*
 		 * 动画相关

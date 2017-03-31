@@ -2,20 +2,21 @@
 	'use strict';
 	/* jshint ignore:start */
 	if (typeof define === 'function' && define.amd) {
-	  define(['blz'],function () {
-		return fn(window.jQuery);
+	  define(['blz-gesture'],function ($) {
+		return fn($);
 	  });
 	} else if (typeof module !== 'undefined' && module.exports) {
-	  module.exports = fn(window.jQuery);
+	  module.exports = fn(window.Zepto||window.jQuery);
 	}else{
-		fn(window.jQuery);
+		fn(window.Zepto||window.jQuery);
 	}
 	/* jshint ignore:end */
 })(function($){
 	'use strict';
 	
-	var constent={
+	var constant={
 		name:'blzMove',
+		off:'blzMoveOff',
 		petName:'blz-move',
 		version:'20170321'
 	};
@@ -49,21 +50,20 @@
 	}
 	
 	// 移动开始
-	Move.prototype.touchStart=function(e){
-		var event=e.touches[0],
+	Move.prototype.translationStart=function(e){
+		var event=e.detail,
 			$this=$(this),
-			data=$this.data(constent.petName);
+			data=$this.data(constant.petName);
 		data.x=event.pageX;
 		data.y=event.pageY;
-		$this.on('touchmove.'+constent.name,Move.prototype.touchMove);
+		$this.on('translation.'+constant.name,Move.prototype.translation);
 	};
 	
 	// 移动中
-	Move.prototype.touchMove=function(e){
-		e.preventDefault();
-		var event=e.touches[0],
+	Move.prototype.translation=function(e){
+		var event=e.detail,
 			$this=$(this),
-			data=$this.data(constent.petName);
+			data=$this.data(constant.petName);
 		data.dx=event.pageX-data.x;
 		data.dy=event.pageY-data.y;
 		data.shiftX=data.dx+data.prevDx<data.minShiftX?data.minShiftX:(data.dx+data.prevDx>data.maxShiftX?data.maxShiftX:data.dx+data.prevDx);
@@ -72,13 +72,13 @@
 	};
 	
 	// 移动结束
-	Move.prototype.touchEnd=function(e){
+	Move.prototype.translationEnd=function(){
 		var $this=$(this),
-			data=$this.data(constent.petName);
+			data=$this.data(constant.petName);
 		data.prevDx=data.shiftX;
 		data.prevDy=data.shiftY;
 		data.dx=data.dy=data.x=data.y=0;
-		$this.off('touchmove.'+constent.name);
+		$this.off('translation.'+constant.name);
 		if(data.toSide){
 			data.toSideFn($this,data);	
 		}
@@ -97,24 +97,25 @@
 			data.prevDx=data.shiftX=data.maxShiftX;
 			$elem.css(cssData);
 		}
-		$elem.on('transitionend.'+constent.name,function(){
+		$elem.on('transitionend.'+constant.name,function(){
 			$elem.css(hack+'transition','transform 0.0ms linear');
-			$elem.off('transitionend.'+constent.name);
+			$elem.off('transitionend.'+constant.name);
 			console.log('transition');
 		});
 	};
 	
 	// 开启移动
-	$.fn.blzMove=function(option){
-		this.data(constent.petName,new Move(this[0],option));
-		this.on('touchstart.'+constent.name,Move.prototype.touchStart);
-		this.on('touchend.'+constent.name,Move.prototype.touchEnd);
+	$.fn[constant.name]=function(option){
+		return this.each(function(){
+			$(this).blzGesture({translation:true}).data(constant.petName,new Move(this,option))
+			.on('translationstart.'+constant.name,Move.prototype.translationStart)
+			.on('translationend.'+constant.name,Move.prototype.translationEnd);
+		});
 	};
 	
 	// 关闭移动
-	$.fn.blzOffMove=function(){
-		this.removeData(constent.petName);
-		this.off('touchstart.blzmove touchend.blzmove');	
+	$.fn[constant.off]=function(){
+		return this.removeData(constant.petName).off('translationstart.'+constant.name+' translationend.'+constant.name);	
 	};
 	return $;
 });

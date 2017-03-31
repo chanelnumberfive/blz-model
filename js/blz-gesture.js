@@ -5,16 +5,16 @@
 	'use strict';
 	/* jshint ignore:start */
 	if (typeof define === 'function' && define.amd) {
-	  define(['zepto'],function () {
-		return fn(window.Zepto);
+	  define(['blz'],function () {
+		return fn(window.Zepto||window.jQuery,$.blz.customEvent);
 	  });
 	} else if (typeof module !== 'undefined' && module.exports) {
-	  module.exports = fn(window.Zepto);
+	  module.exports = fn(window.Zepto||window.jQuery);
 	}else{
-		fn(window.Zepto);
+		fn(window.Zepto||window.jQuery);
 	}
 	/* jshint ignore:end */
-}(function($){
+}(function($,customEvent){
 	'use strict';
 	
 	var constant={
@@ -23,11 +23,17 @@
 		off:'blzGestureOff',
 		version:'20170328',
 		tap:'tap',
-		longTap:'longTap',
-		doubleTap:'doubleTap',
+		longTap:'longtap',
+		doubleTap:'doubletap',
 		translation:'translation',
+		translationStart:'translationstart',
+		translationEnd:'translationend',
 		pinch:'pinch',
-		rotate:'rotate'
+		pinchStart:'pinchStart',
+		pinchEnd:'pinchEnd',
+		rotate:'rotate',
+		rotatestart:'rotatestart',
+		rotateEnd:'rotateend'
 	};
 	
 	var config={
@@ -44,18 +50,9 @@
 		dbTapTimeSpace:300
 	};
 	
-	var d=document,
-		t=Date,
-		abs=Math.abs,
+	var t=Date,
 		sqrt=Math.sqrt,
 		atan=Math.atan;
-	
-	// 自定义事件
-	function customEvent(elem,name,data){
-		var event = d.createEvent('CustomEvent');
-		event.initCustomEvent(name,true,false,data);
-		elem.dispatchEvent(event);
-	}
 	
 	// 手势构造函数
 	function Gesture(option){
@@ -64,44 +61,45 @@
 	
 	// 触摸开始
 	Gesture.prototype.touchStart=function(e){
-		var touches=e.touches,
-			targetTouches=e.targetTouches,
-			l=touches.length,
+		var targetTouches=e.targetTouches,
 			l1=targetTouches.length,
 			data=$(this).data(constant.petName),
-			finger1=touches[0],
-			finger2=touches[1],
+			finger1=targetTouches[0],
+			finger2=targetTouches[1],
 			dx=0,
 			dy=0;
 		
 		data.tap=false;
 		// 单手指触控
-		if(l===1&&l1===1){
+		if(l1===1){
 			data.tap=true;
 			data.timeStamp=data.timeStampPrev=+new t();
-		}else if(l===2&&l1===2){
+			if(data.translation){
+				customEvent(e.target,constant.translationStart,finger1);
+			}
+		}else if(l1===2){
 			if(data.pinch){
 				dx=finger1.pageX-finger2.pageX;
 				dy=finger1.pageY-finger2.pageY;
 				data.diameter=sqrt(dx*dx+dy*dy);
+				customEvent(e.target,constant.pinchStart);
 			}
 			if(data.rotate){
 				dx=finger1.pageX-finger2.pageX;
 				dy=finger1.pageY-finger2.pageY;
 				data.angle=atan(dy/dx)*57.3;
+				customEvent(e.target,constant.rotatestart);
 			}
 		}
 	};
 	
 	// 触摸中
 	Gesture.prototype.touchMove=function(e){
-		var touches=e.touches,
-			targetTouches=e.targetTouches,
-			l=touches.length,
+		var targetTouches=e.targetTouches,
 			l1=targetTouches.length,
 			data=$(this).data(constant.petName),
-			finger1=touches[0],
-			finger2=touches[1],
+			finger1=targetTouches[0],
+			finger2=targetTouches[1],
 			dx=0,
 			dy=0,
 			scale=1;
@@ -109,10 +107,10 @@
 		data.tap=false;
 		
 		// 单手指触控
-		if(l===1&&l1===1&&data.translation){
+		if(l1===1&&data.translation){
 			e.preventDefault();
 			customEvent(e.target,constant.translation,finger1);	
-		}else if(l===2&&l1===2){
+		}else if(l1===2){
 			e.preventDefault();
 			// 双手指触控
 			if(data.pinch){
@@ -134,7 +132,8 @@
 		var data=$(this).data(constant.petName),
 			time=+new t(),
 			target=e.target,
-			dt=time-data.timeStamp;
+			dt=time-data.timeStamp,
+			l1=e.targetTouches.length;
 		
 		if(data.tap){
 			if(dt<data.tapTime){
@@ -165,6 +164,21 @@
 			}
 		}
 		
+		// translationEnd
+		if(l1===0&&data.translation){
+			customEvent(e.target,constant.translationEnd);
+		}
+		
+		// rotateEnd pinchEnd
+		if(l1===1){
+			if(data.pinch){
+				customEvent(e.target,constant.pinchEnd);	
+			}
+			if(data.rotate){
+				customEvent(e.target,constant.rotateEnd);	
+			}	
+		}
+		
 		// 初始化
 		data.tap=false;
 	};
@@ -172,16 +186,16 @@
 	// 开启手势
 	$.fn[constant.name]=function(option){
 		return this.data(constant.petName,new Gesture(option))
-			.off('touchstart.'+constant.name+' touchend.'+constant.name)
+			[constant.off]()
 			.on('touchstart.'+constant.name,Gesture.prototype.touchStart)
 			.on('touchend.'+constant.name,Gesture.prototype.touchEnd)
-			.on('touchmove.'+constant.name,Gesture.prototype.touchMove)
-			.on('touchcancel.'+constant.name,Gesture.prototype.touchCancel);
+			.on('touchmove.'+constant.name,Gesture.prototype.touchMove);
+		//.on('touchcancel.'+constant.name,Gesture.prototype.touchCancel)
 	};
 	
 	// 关闭手势
 	$.fn[constant.off]=function(){
-		return this.off('touchstart.'+constant.name+' touchend.'+constant.name+' touchmove.'+constant.name+' touchcancel.'+constant.name);	
+		return this.off('touchstart.'+constant.name+' touchend.'+constant.name+' touchmove.'+constant.name);	
 	};
 	
 	return $;
