@@ -54,11 +54,9 @@
 		require(['blz-gesture'],function($){
 			'use strict';
 			
-			var i=0;
-			$('#pan').blzGesture().on('tap',function(e){
-				i++;
-				this.textContent='oh no you taped me'+(i>1?i===2?' again':' '+i+' times!':'');
-			});
+			$(document).on('doubleTap',function(e){
+				pan.textContent=e.type;
+			}).blzGesture();
 		});
     }();
 </script>
