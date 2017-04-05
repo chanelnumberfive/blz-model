@@ -167,13 +167,13 @@
 		
 		// translationEnd
 		if(l1===0&&data.translation){
-			customEvent(e.target,constant.translationEnd);
+			customEvent(e.target,constant.translationEnd,e.changedTouches[0]);
 		}
 		
 		// rotateEnd pinchEnd
 		if(l1===1){
 			if(data.pinch){
-				customEvent(e.target,constant.pinchEnd);	
+				customEvent(e.target,constant.pinchEnd,e.changedTouches[0]);	
 			}
 			//if(data.rotate){
 //				customEvent(e.target,constant.rotateEnd);	

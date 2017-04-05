@@ -40,9 +40,11 @@
 	div{
 		-webkit-user-select:none;
 	}
+	.blz-swiper{
+		overflow: hidden;
+	}
 	.blz-slide-wrapper{
 		width:100%;
-		overflow: hidden;
 	}
 	.blz-slide{
 		height:300px;
@@ -70,12 +72,10 @@
     +function(){
         'use strict';
        
-		require(['blz-gesture'],function($){
+		require(['blz-swiper'],function($){
 			'use strict';
 			
-			$(document).on('doubleTap',function(e){
-				pan.textContent=e.type;
-			}).blzGesture();
+			$('.blz-swiper').blzSwiper();
 		});
     }();
 </script>
