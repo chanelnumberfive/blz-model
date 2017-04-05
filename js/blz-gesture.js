@@ -26,6 +26,8 @@
 		longTap:'longtap',
 		doubleTap:'doubletap',
 		translation:'translation',
+		translationX:'translationX',
+		translationY:'translationY',
 		translationStart:'translationstart',
 		translationEnd:'translationend',
 		pinch:'pinch',
@@ -42,16 +44,21 @@
 		tap:false,
 		tapCount:0,
 		translation:false,
+		translationX:false,
+		translationY:false,
 		pinch:false,
 		rotate:false,
 		tapTime:300,
 		longTapTime:750,
 		dbTapTime:[],
-		dbTapTimeSpace:300
+		dbTapTimeSpace:300,
+		translationStartX:0,
+		translationStartY:0
 	};
 	
 	var t=Date,
 		sqrt=Math.sqrt,
+		abs=Math.abs,
 		atan=Math.atan;
 	
 	// 手势构造函数
@@ -74,7 +81,9 @@
 		if(l1===1){
 			data.tap=true;
 			data.timeStamp=data.timeStampPrev=+new t();
-			if(data.translation){
+			if(data.translation||data.translationX||data.translationY){
+				data.translationStartX=finger1.pageX;
+				data.translationStartY=finger1.pageY;
 				customEvent(e.target,constant.translationStart,finger1);
 			}
 		}else if(l1===2){
@@ -108,9 +117,26 @@
 		data.tap=false;
 		
 		// 单手指触控
-		if(l1===1&&data.translation){
-			e.preventDefault();
-			customEvent(e.target,constant.translation,finger1);	
+		if(l1===1){
+			if(data.translation){
+				e.preventDefault();
+				customEvent(e.target,constant.translation,finger1);
+			}else if(data.translationX){
+				dx=finger1.pageX-data.translationStartX;
+				dy=finger1.pageY-data.translationStartY;
+				if(abs(dx/dy)>1.2){
+					e.preventDefault();
+					customEvent(e.target,constant.translationX,finger1);
+				}
+			}else if(data.translationY){
+				dx=finger1.pageX-data.translationStartX;
+				dy=finger1.pageY-data.translationStartY;
+				if(abs(dx/dy)<0.8){
+					e.preventDefault();
+					customEvent(e.target,constant.translationY,finger1);
+				}
+			}
+				
 		}else if(l1===2){
 			e.preventDefault();
 			// 双手指触控
@@ -166,7 +192,7 @@
 		}
 		
 		// translationEnd
-		if(l1===0&&data.translation){
+		if(l1===0&&(data.translation||data.translationX||data.translationY)){
 			customEvent(e.target,constant.translationEnd,e.changedTouches[0]);
 		}
 		

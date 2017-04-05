@@ -78,10 +78,12 @@
 	};
 	
 	Swiper.prototype.translationStart=function(e){
-		var $this=$(this).off('translation.'+constant.name).on('translation.'+constant.name,function(e){
-			Swiper.prototype.translation(e,data);
-		}),
+		var $this=$(this),
 			data=$this.data(constant.petName);
+		
+			$this.off('translation'+data.XY+'.'+constant.name).on('translation'+data.XY+'.'+constant.name,function(e){
+				Swiper.prototype.translation(e,data);
+			});
 				
 		data['page'+data.XY]=e.detail['page'+data.XY];
 		data.slidedDistance=0;
@@ -106,7 +108,7 @@
 		var data=$(this).data(constant.petName),
 			XY=data.XY;
 			data.dxy=e.detail['page'+XY]-data['page'+XY];
-		$(this).off('translation.'+constant.name);
+		$(this).off('translation'+XY+'.'+constant.name);
 		
 		// 如果符合换页条件则进行换页
 		if(abs(data.dxy)>data.slideDistance){
@@ -121,12 +123,12 @@
 		option=option||{};
 		return this.each(function(){
 			var $this=$(this),
-				$swiperWrapper=$this.find(option.slideWrapperSelector||config.slideWrapperSelector);
+				$swiperWrapper=$this.find(option.slideWrapperSelector||config.slideWrapperSelector),
+				gesture={};
+			gesture['translation'+(option.vertical?'Y':'X')]=true;
 			
 			$this[constant.off]().data(constant.petName,new Swiper($swiperWrapper[0],option))
-				   .blzGesture({
-						translation:true	
-					})
+				   .blzGesture(gesture)
 					.on('translationstart.'+constant.name,Swiper.prototype.translationStart)
 					.on('translationend.'+constant.name,Swiper.prototype.translationEnd)
 					.on('slidechangestart.'+constant.name,Swiper.prototype.slideChange)
