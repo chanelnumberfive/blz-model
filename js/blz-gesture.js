@@ -61,6 +61,10 @@
 		abs=Math.abs,
 		atan=Math.atan;
 	
+	// tap函数
+	function tapStart(){
+	}
+	
 	// 手势构造函数
 	function Gesture(option){
 		$.extend(this,config,option||{});
@@ -86,7 +90,8 @@
 				data.translationStartY=finger1.pageY;
 				customEvent(e.target,constant.translationStart,finger1);
 			}
-		}else if(l1===2){
+		}
+		if(l1===2){
 			if(data.pinch){
 				dx=finger1.pageX-finger2.pageX;
 				dy=finger1.pageY-finger2.pageY;
@@ -137,7 +142,8 @@
 				}
 			}
 				
-		}else if(l1===2){
+		}
+		if(l1===2){
 			e.preventDefault();
 			// 双手指触控
 			if(data.pinch){

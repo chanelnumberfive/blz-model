@@ -21,7 +21,8 @@
 		name:'blzSwiper',
 		petName:'blz-swiper',
 		off:'blzSwiperOff',
-		version:'20170331'
+		version:'20170331',
+		slideChangeStart:'slideChangeStart'
 	};
 	
 	var config={
@@ -34,6 +35,8 @@
 		slideChangeMethod:'linear',
 		slideSelector:'.blz-slide',
 		slideWrapperSelector:'.blz-slide-wrapper',
+		slideLeftSelector:'.blz-left',
+		slideRightSelector:'.blz-right',
 		slideWidth:0,
 		slideLength:0,
 		slideActiveIndex:0,
@@ -112,7 +115,7 @@
 		
 		// 如果符合换页条件则进行换页
 		if(abs(data.dxy)>data.slideDistance){
-			customEvent(e.target,'slidechangestart',data);
+			customEvent(e.target,constant.slideChangeStart,data);
 		}else{
 			data.elem.style[hackTransform]='translate'+data.XY+'('+data.slideWrapperS+'px)';
 			data.elem.style[hackTransition]=hackTransform+' '+data.slideChangeTime+'ms '+data.slideChangeMethod;
@@ -124,20 +127,40 @@
 		return this.each(function(){
 			var $this=$(this),
 				$swiperWrapper=$this.find(option.slideWrapperSelector||config.slideWrapperSelector),
-				gesture={};
-			gesture['translation'+(option.vertical?'Y':'X')]=true;
+				gesture={},
+				data=new Swiper($swiperWrapper[0],option);
 			
-			$this[constant.off]().data(constant.petName,new Swiper($swiperWrapper[0],option))
+			gesture['translation'+(data.vertical?'Y':'X')]=true;
+			
+			$this[constant.off]().data(constant.petName,data)
 				   .blzGesture(gesture)
 					.on('translationstart.'+constant.name,Swiper.prototype.translationStart)
 					.on('translationend.'+constant.name,Swiper.prototype.translationEnd)
-					.on('slidechangestart.'+constant.name,Swiper.prototype.slideChange)
+					.on(constant.slideChangeStart,Swiper.prototype.slideChange)
 					.on('transitionend.'+constant.name,Swiper.prototype.transitionEnd);
+			
+			// 左右button
+			$this.find(data.slideLeftSelector).on('click.'+constant.name,function(){
+				data.dxy=-1;
+				customEvent($swiperWrapper[0],constant.slideChangeStart,data);
+			});
+			$this.find(data.slideRightSelector).on('click.'+constant.name,function(){
+				data.dxy=1;
+				customEvent($swiperWrapper[0],constant.slideChangeStart,data);
+			});
 		});
 	};
 	
 	$.fn[constant.off]=function(){
-		return this.blzGestureOff().off('pinch.'+constant.name);
+		var data=this.data(constant.petName)||config;
+		
+		this.find(data.slideLeftSelector).off('click.'+constant.name);
+		this.find(data.slideRightSelector).off('click.'+constant.name);
+		return this.blzGestureOff().off('translationstart.'+constant.name+
+										' translationend.'+constant.name+
+										' transitionend.'+constant.name+
+										' '+constant.slideChangeStart)
+								   .removeData(constant.petName);
 	};
 	
 	return $;

@@ -65,6 +65,11 @@
 			elem.dispatchEvent(event);
 		},
 		
+		// 转换成字面量
+		toString:function(val){
+		  return val == null? '': typeof val === 'object'? JSON.stringify(val, null, 2): String(val);
+		},
+		
 		/*
 		 * 动画相关
 		 */
