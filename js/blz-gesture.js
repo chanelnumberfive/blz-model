@@ -63,6 +63,7 @@
 	
 	// tap函数
 	function tapStart(){
+		
 	}
 	
 	// 手势构造函数

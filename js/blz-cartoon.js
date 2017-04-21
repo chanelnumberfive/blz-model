@@ -87,7 +87,7 @@
 				data.show($target,data,[element,constant.cartoonOn]);
 			}else if(apiData[1]===constant.cartoonToggle){ 
 				if($target.is('.'+className)){
-					data.hide($target,data,[element,constant.cartoonOff]);
+					data.hide(data,[element,constant.cartoonOff]);
 				}else {
 					data.show($target,data,[element,constant.cartoonOn]);
 				}
