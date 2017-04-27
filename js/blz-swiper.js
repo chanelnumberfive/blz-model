@@ -45,6 +45,7 @@
 	var hack=$.blz.checkTransition().replace(/-/g,''),
 		hackTransform=hack===''?'transform':hack+'Transform',
 		hackTransition=hack===''?'transition':hack+'Transition',
+		hackTransformValue=hack===''?'transform':'-'+hack+'-transform ',
 		customEvent=$.blz.customEvent,
 		abs=Math.abs;
 	
@@ -72,7 +73,7 @@
 		data.slideActiveIndex=data.slideActiveIndex<0?0:data.slideActiveIndex>data.slideLength-1?data.slideLength-1:data.slideActiveIndex;
 		data.slideWrapperS=-data.slideActiveIndex*data.slideWidth;
 		data.elem.style[hackTransform]='translate'+data.XY+'('+data.slideWrapperS+'px)';
-		data.elem.style[hackTransition]=hackTransform+' '+data.slideChangeTime+'ms '+data.slideChangeMethod;
+		data.elem.style[hackTransition]=hackTransformValue+data.slideChangeTime+'ms '+data.slideChangeMethod;
 	};
 	
 	// 动画过渡结束时
@@ -118,7 +119,7 @@
 			customEvent(e.target,constant.slideChangeStart,data);
 		}else{
 			data.elem.style[hackTransform]='translate'+data.XY+'('+data.slideWrapperS+'px)';
-			data.elem.style[hackTransition]=hackTransform+' '+data.slideChangeTime+'ms '+data.slideChangeMethod;
+			data.elem.style[hackTransition]=hackTransformValue+data.slideChangeTime+'ms '+data.slideChangeMethod;
 		}
 	};
 	

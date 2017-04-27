@@ -36,7 +36,7 @@
 		// 检测动画属性transition的支持情况
 		checkTransition:function(){
 			var o=d.createElement('div');
-			var a=[['','transition',''],['webkit','Transition','-'],['ms','Transition','-'],['Moz','Transition','-'],['O','Transition','-']];
+			var a=[['webkit','Transition','-'],['ms','Transition','-'],['Moz','Transition','-'],['O','Transition','-'],['','transition','']];
 			for(var i=0;i<a.length;i++){
 				if(a[i][0]+a[i][1] in o.style){
 					return a[i][2]+a[i][0].toLowerCase()+a[i][2];
