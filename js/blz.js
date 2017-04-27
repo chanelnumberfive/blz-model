@@ -41,6 +41,7 @@
 				if(a[i][0]+a[i][1] in o.style){
 					return a[i][2]+a[i][0].toLowerCase()+a[i][2];
 				}else if(i===4){
+					alert('您的浏览器版本过低请升级浏览器');
 				}
 			}
 		},
