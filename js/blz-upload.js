@@ -16,7 +16,11 @@
 	/* jshint ignore:end */
 })(function($,canvasResize){
     'use strict';
-    
+    var constant={
+		name:'blzUpload',
+		petName:'blz-upload',
+		version:'20170518'
+	};
     var config={
 		allowTypes:['image/jpg', 'image/jpeg', 'image/png', 'image/gif'],
 		maxSize:10 * 1024 * 1024,
@@ -27,8 +31,13 @@
 		quality:100
 	};
 	
-	$.fn.blzUpload=function(obj){
-		obj=$.extend(config,obj);
+	function Upload(option){
+		$.extend(this,config,option||{});
+	}
+	
+	$.fn.blzUpload=function(option){
+		var op=new Upload(option);
+		this.data(constant.name,op);
 		
 		return this.on('change.blzUpload','input[type="file"]',function () {
 			$.weui.loading('数据处理中');
@@ -44,30 +53,30 @@
 				var file = files[i];
 
 				// 如果类型不在允许的类型范围内
-				if (obj.allowTypes.indexOf(file.type) === -1) {
+				if (op.allowTypes.indexOf(file.type) === -1) {
 					$.weui.alert({article:'该类型不允许上传'});
 					continue;
 				}
 
-				if (file.size > obj.maxSize) {
+				if (file.size > op.maxSize) {
 					$.weui.alert({article:'图片太大，不允许上传'});
 					continue;
 				}
 
-				if (i>obj.maxCount) {
-					$.weui.alert({article:'最多只能上传' + obj.maxCount + '张图片'});
+				if (i>op.maxCount) {
+					$.weui.alert({article:'最多只能上传' + op.maxCount + '张图片'});
 					i=len;
 					$.weui.loading().hide();
 				}else{
 					canvasResize(file, {
 						crop: false,
 						quality: 100,
-						width:obj.width,
+						width:op.width,
 						//rotate: 0,
 						callback: function(data,w,h) {
 							
 							// 生成图片后
-							config.onImageLoad(data,w,h);
+							op.onImageLoad(data,w,h);
 							
 							if(i>=len-1){
 								$.weui.loading().hide();

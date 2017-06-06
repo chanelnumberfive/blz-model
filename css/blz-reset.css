@@ -32,6 +32,7 @@ body::before{
 ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,hgroup,p,blockquote,figure,form,fieldset,input,legend,pre,abbr,button {
 	margin: 0;
 	padding: 0;
+	border:0;
 }
 label,
 a,
@@ -267,7 +268,6 @@ strong,h1,h2,h3,h4 {
  */
 .layout-boxs {
 	background-color:#fff;
-	margin:0 15px;
 }
 .layout-boxs+.layout-boxs {
 	margin-top:10px;
@@ -292,6 +292,7 @@ strong,h1,h2,h3,h4 {
 }
 .layout-box {
 	min-height:44px;
+	padding:.6em 15px;
 }
 .layout-tr-center {
 	-webkit-box-pack: center;
