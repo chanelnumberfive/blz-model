@@ -23,7 +23,6 @@
         name:'姓名格式错误',
         id:'身份证号码格式错误',
         phone:'手机号码格式错误',
-        phone:'手机号码格式错误',
         email:'邮箱格式错误',
         check:'验证码错误',
         agreement:'请同意协议',
@@ -37,6 +36,7 @@
     
     // 检验规则
 	var validateRule={
+		option:[[0,100]],
 		any:[[1,100]],
 		name:[[2,15],'[\u4e00-\u9fa5]{1,}(·?)[\u4e00-\u9fa5]{1,}$'],
 		id:[[15,18],false,function(val){
@@ -91,7 +91,9 @@
 		validateRule:validateRule,
 		count:60,
 		submitSelector:'[type="submit"]',
-		getVerificationCodeTip:$.blz.emptyFn,
+		getVerificationCodeTip:function(elem,data){
+			data.onSubmitError(elem,data);
+		},
 		onNoAgreement:function(){
 			$.weui.tip('亲不同意协议<br>将无法提交表单哦！');
 		},
@@ -140,6 +142,9 @@
             customs=true,
 			val=$.trim(elem.value),
 			type=elem.dataset.blzValidateType;
+		if(!type){
+			return true;
+		}
 		if(rules[type][0]){
             tipLength=val.length>=rules[type][0][0]&&val.length<=rules[type][0][1];
         }
@@ -224,7 +229,7 @@
 						data.getVerificationCode.call(this,$target[0]);
 						count(data.count,$this);
 					}else{
-						data.getVerificationCodeTip();	
+						data.getVerificationCodeTip($target[0],data);	
 					}
 				}
 			});
@@ -239,15 +244,16 @@
 			});
 
 			// 失去焦点时验证
-			$elems.on('blur.blzValidate blurSimulation',function(e){
-				onBlur(this,data)
+			$elems.on('blur.blzValidate blurSimulation',function(){
+				onBlur(this,data);
 			}).on('focus.blzValidate',function(){
 				this.select();
 			});
 
 			$this.on('submit.blzValidate',function(event){
 				if(data.submitState==='submiting'){
-					$.weui.loading('数据提交中');
+					event.preventDefault();
+					$.weui.tip('数据提交中');
 				}else{
 					data.submitState='submiting';
 
@@ -261,7 +267,11 @@
 							
 							displacement=$elems[i].getBoundingClientRect().top-window.innerHeight/2;
 							setTimeout(function(){
-								$(data.scrollSelector).blzScrollto(displacement,Math.abs(displacement*1.5),data.scrollCallback($elems[i]));
+								$(data.scrollSelector).blzScrollto({
+									displacement:displacement,
+									time:Math.abs(displacement*1.5),
+									callback:data.scrollCallback($elems[i])
+								});
 							},300);
 							data.onSubmitError($elems[i],data);
 							data.submitState='unpass';
@@ -269,7 +279,7 @@
 							return;
 						}
 					}
-					obj.canSubmit.call(this,event);
+					obj.canSubmit.call(this,event,data);
 				}
 			});
 		});
