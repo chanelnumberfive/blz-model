@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+<title>down-up-ajax</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="format-detection" content="telephone=no,email=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="down-up-ajax">
+
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+<!-- no cache -->
+<meta http-equiv="cache-control" content="max-age=0"/>
+<meta http-equiv="cache-control" content="no-cache"/>
+<meta http-equiv="expires" content="0"/>
+<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT"/>
+<meta http-equiv="pragma" content="no-cache"/>
+<meta name="revised" content="storys,2017/02/13">
+<script type="application/javascript" src="../../js/fastclick.js"></script> 
+<script type="application/javascript">
+	function setFontSize(){
+        document.documentElement.style.fontSize=window.innerWidth*20/320+'px';
+    }
+    setFontSize();
+    window.addEventListener('resize',function(){
+        setFontSize();
+    });
+    window.addEventListener('load', function () {
+		FastClick.attach(document.body);
+	}, false);
+</script>
+<link rel="stylesheet" href="../../css/blz-reset.css">
+<style>
+	/*
+	 * model tab
+	 */
+	html,body{
+		height:100%;
+	}
+	.model-tab {
+		position:relative;
+		height:100%;
+		font-size: 14px;
+		color: #919191;
+	}
+	.mtab-nav {
+		position:relative;
+		z-index:20;
+		padding: 0 15px;
+		text-align: center;
+		line-height: 44px;
+		background-color: #fff;
+		margin-bottom: 10px;
+	}
+	.mtab-nav-item {
+		border-bottom: 2px solid rgba(0,0,0,0);
+	}
+	.mtab-nav-item.active {
+		color: #f395a8;
+		border-bottom: 2px solid #f395a8;
+	}
+	.mnav-content{
+		position:absolute;
+		z-index:10;
+		top:50px;
+		left:0;
+		right:0;
+		bottom:0;
+		overflow: hidden;
+		background-color:#fff;
+	}
+	.mnav-content .layout-boxs{
+		position:relative;
+		z-index:30;
+	}
+	.down-ajax{
+		position:absolute;
+		top:0;
+		left:0;
+		z-index:10;
+		width:100%;
+		padding:15px;
+		-webkit-transform-origin:center top;
+		transform-origin: center top;
+		-webkit-transform: scale(0);
+		transform: scale(0);
+	}
+	.dajax-circle{
+		display:block;
+		margin:0 auto;
+		width:30px;
+		height:30px;
+		border-radius:15px;
+		background-color:antiquewhite;
+	}
+	
+	/*
+	 * 动画
+	 */
+	@keyframes roll{
+		0%{
+			transform:rotateY(0deg);
+		}
+		100%{
+			transform:rotateY(360deg);
+		}
+	}
+	.roll{
+		-webkit-animation:.6s linear infinite roll;
+		animation:.6s linear infinite roll; 
+	}
+</style>
+</head>
+
+<body ontouchstart="" style="background-color: #f2f2f2;">
+<div class="model-tab">
+	<nav class="mtab-nav glb-border-bottom">
+		<ul class="mtab-nav-wrapper layout-tr">
+			<li class="mtab-nav-item active layout-td" data-url="../data/data.json">保障中</li>
+			<li class="mtab-nav-item layout-td" data-url="../data/data.json" data-index="2">待支付</li>
+			<li class="mtab-nav-item layout-td" data-url="../data/data.json">待生效</li>
+			<li class="mtab-nav-item layout-td" data-url="../data/data.json">已失效</li>
+		</ul>
+	</nav>
+	
+	<!--待生效-->
+	<section id="mnav-content" class="mnav-content">
+		<ul id="scroller" class="layout-boxs">
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+			<li class="layout-box">1</li>
+		</ul>
+		<div class="down-ajax">
+			<span class="dajax-circle"></span>
+		</div>
+	</section>
+</div>
+<script type="application/javascript" src="../../js/require.js"></script>
+<script type="application/javascript" src="../../js/blz-config.js"></script>
+<script type="application/javascript">
+    +function(){
+        'use strict';
+       
+		require(['blz-down-up-ajax'],function($){
+			'use strict';
+			
+			var elemDajax=document.querySelector('.down-ajax'),
+				ajax=false;
+			
+			$('#mnav-content').blzDownUpAjax({
+				scroll:function(){
+					if(this.y>0){
+						var ratio=this.y/60;
+						ratio=ratio>1?1:ratio;
+						elemDajax.style.transform='scale('+ratio+')';
+						if(ratio===1&&!ajax){
+							$('#mnav-content').blzDownUpAjaxOff();
+							ajax=true;
+							$(elemDajax).addClass('roll');
+							setTimeout(function(){
+								ajax=false;
+								$(elemDajax).removeClass('roll');	
+							},3000);
+						}
+					}
+				}
+			});
+		});
+    }();
+</script>
+</body>
+</html>
