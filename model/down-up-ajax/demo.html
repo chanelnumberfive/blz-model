@@ -79,7 +79,7 @@
 		position:relative;
 		z-index:30;
 	}
-	.down-ajax{
+	.model-down-ajax{
 		position:absolute;
 		top:0;
 		left:0;
@@ -162,7 +162,7 @@
 			<li class="layout-box">1</li>
 			<li class="layout-box">1</li>
 		</ul>
-		<div class="down-ajax">
+		<div class="model-down-ajax">
 			<span class="dajax-circle"></span>
 		</div>
 	</section>
@@ -176,25 +176,26 @@
 		require(['blz-down-up-ajax'],function($){
 			'use strict';
 			
-			var elemDajax=document.querySelector('.down-ajax'),
-				ajax=false;
+			var $elemDajax=$('.model-down-ajax');
 			
 			$('#mnav-content').blzDownUpAjax({
-				scroll:function(){
-					if(this.y>0){
-						var ratio=this.y/60;
-						ratio=ratio>1?1:ratio;
-						elemDajax.style.transform='scale('+ratio+')';
-						if(ratio===1&&!ajax){
-							$('#mnav-content').blzDownUpAjaxOff();
-							ajax=true;
-							$(elemDajax).addClass('roll');
-							setTimeout(function(){
-								ajax=false;
-								$(elemDajax).removeClass('roll');	
-							},3000);
-						}
+				downAjaxFn:function(iscroll,data,$elem){
+					var y=iscroll.y;
+					if(y>0){
+						$elemDajax.css({
+							'-webkit-transform':'scale('+y/60+')',
+							'transform':'scale('+y/60+')'
+						});
 					}
+					if(y>=60){
+						$elem.blzDownUpAjaxOff();
+						$elemDajax.addClass('roll');
+						setTimeout(function(){
+							$elemDajax.removeClass('roll');
+							$elem.blzDownUpAjax(data);
+						},3000);
+					}
+					
 				}
 			});
 		});

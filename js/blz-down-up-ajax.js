@@ -22,13 +22,14 @@
 			petName:'blz-down-up-ajax',
 			version:'20170607'
 		},
+		hackTransition=$.blz.checkTransition(),
+		hackTransform=hackTransition.replace('Transition','Transform').replace('transition','transform'),
 		config={
-			downAjax:true,
-			upAjax:true,
+			downAjaxFn:$.blz.emptyFn,
+			upAjaxFn:$.blz.emptyFn,
 			click:true,
 			//disableMouse: true,
     		//disablePointer: true,
-			scroll:false,
 			probeType:2
 		};
 	
@@ -36,6 +37,8 @@
 	function DUajax(option){
 		return $.extend({},config,option||{});
 	}
+	
+	// 上拉加载
 	
 	// 开启上拉刷新下拉加载
 	$.fn[constant.name]=function(option){
@@ -49,12 +52,23 @@
 		return this.each(function(){
 			var data=new DUajax(option),
 				$this=$(this),
-				iscrollInstance=null;
+				dFn=data.downAjaxFn,
+				uFn=data.upAjaxFn;
 			
-			iscrollInstance=data.iscrollInstance=new IScroll(this,data);
-			
-			if(data.scroll){
-				iscrollInstance.on('scroll',data.scroll);
+			data.iscrollInstance=new IScroll(this,data);
+			if(data.downAjaxFn&&data.upAjaxFn){
+				data.iscrollInstance.on('scroll',function(){
+					dFn(this,data,$this);
+					uFn(this,data);
+				});
+			}else if(data.downAjaxFn){
+				data.iscrollInstance.on('scroll',function(){
+					dFn(this.y,data,$this);
+				});	
+			}else if(data.upAjaxFn){
+				data.iscrollInstance.on('scroll',function(){
+					uFn(this,data);
+				});
 			}
 			
 			$this.data(constant.petName,data);
