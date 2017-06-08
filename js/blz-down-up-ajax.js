@@ -28,7 +28,7 @@
 			click:true,
 			//disableMouse: true,
     		//disablePointer: true,
-			probeType:2
+			probeType:3
 		};
 	
 	// 构造函数

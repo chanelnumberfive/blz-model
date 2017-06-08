@@ -245,7 +245,7 @@
 							'transform':'scale('+y/60+')'
 						});
 					}
-					if(y>=60){
+					if(y>=60&&iscroll.absStartY===0){
 						$elem.blzDownUpAjaxOff();
 						$elemDajax.addClass('roll');
 						setTimeout(function(){
