@@ -22,8 +22,6 @@
 			petName:'blz-down-up-ajax',
 			version:'20170607'
 		},
-		hackTransition=$.blz.checkTransition(),
-		hackTransform=hackTransition.replace('Transition','Transform').replace('transition','transform'),
 		config={
 			downAjaxFn:$.blz.emptyFn,
 			upAjaxFn:$.blz.emptyFn,
@@ -52,24 +50,13 @@
 		return this.each(function(){
 			var data=new DUajax(option),
 				$this=$(this),
-				dFn=data.downAjaxFn,
-				uFn=data.upAjaxFn;
+				ajaxFn=data.ajaxFn;
 			
 			data.iscrollInstance=new IScroll(this,data);
-			if(data.downAjaxFn&&data.upAjaxFn){
-				data.iscrollInstance.on('scroll',function(){
-					dFn(this,data,$this);
-					uFn(this,data);
-				});
-			}else if(data.downAjaxFn){
-				data.iscrollInstance.on('scroll',function(){
-					dFn(this.y,data,$this);
-				});	
-			}else if(data.upAjaxFn){
-				data.iscrollInstance.on('scroll',function(){
-					uFn(this,data);
-				});
-			}
+			
+			data.iscrollInstance.on('scroll',function(){
+				ajaxFn(this,data,$this);
+			});
 			
 			$this.data(constant.petName,data);
 			
