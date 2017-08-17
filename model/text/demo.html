@@ -45,32 +45,12 @@
 </head>
 
 <body ontouchstart="">
-<script type="application/javascript" src="../../js/require.js"></script>
-<script type="application/javascript" src="../../js/blz-config.js"></script>
+<script type="application/javascript" src="../../js/blz-webgl.js"></script>
 <script type="application/javascript">
     +function(){
         'use strict';
        
-		require(['blz'],function($){
-			'use strict';
-			
-			function cached (fn) {
-			  var cache = Object.create(null);
-			  return (function cachedFn (str) {
-				var hit = cache[str];
-				return hit || (cache[str] = fn(str))
-			  })
-			}
-			
-			var hyphenateRE = /([^-])([A-Z])/g;
-			var hyphenate = cached(function (str) {
-			  return str
-				.replace(hyphenateRE, '$1-$2')
-				.replace(hyphenateRE, '$1-$2')
-				.toLowerCase()
-			});
-			hyphenate('ZXH');
-		});
+		
     }();
 </script>
 </body>
