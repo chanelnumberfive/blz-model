@@ -232,6 +232,9 @@
 	
 	// form serialize
 	function serialize(form) {
+		if(window.FormData){
+			return new FormData(form);
+		}
 		var parts = [],
 			field = null,
 			i,
