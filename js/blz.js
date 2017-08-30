@@ -20,6 +20,15 @@
 	var w=window,
 		d=document;
 	
+	// 初始化requestAnimationFrame
+	(function(){
+		if (!w.requestAnimationFrame) {
+			w.requestAnimationFrame=w.webkitRequestAnimationFrame||w.mozRequestAnimationFrame||w.oRequestAnimationFrame ||w.msRequestAnimationFrame||function(callback) {
+				return w.setTimeout(callback, 1000/60);
+			};
+		}
+	})();
+	
 	$.blz={
 		
 		// 空函数
@@ -45,18 +54,6 @@
 				}
 			}
 		},
-		
-		// 动画帧函数的兼容处理
-		requestAnimationFrame:function(){
-			if (!w.requestAnimationFrame) {
-				w.requestAnimationFrame=w.webkitRequestAnimationFrame||w.mozRequestAnimationFrame||w.oRequestAnimationFrame ||w.msRequestAnimationFrame||function(callback) {
-					w.setTimeout(callback, 1000/60);
-				};
-				return w.requestAnimationFrame;
-			}else{
-				return w.requestAnimationFrame;
-			}
-  		},
 		
 		// 自定义事件
 		customEvent:function(elem,name,data){

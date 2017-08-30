@@ -22,7 +22,7 @@
 		time:300,
 		scrollMethod:'scrollTop',
 		callback:$.blz.emptyFn
-	}
+	};
 
 	function scrollTo(elem,s,top,time,oldTime,direction,callback){
 		var time1=+new Date()-oldTime,

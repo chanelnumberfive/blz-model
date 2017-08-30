@@ -16,6 +16,7 @@ require.config({
 		'blz-keyboard':'blz-keyboard.js?'+(0-new Date()),
 		'blz-move':'blz-move.js?'+(0-new Date()),
 		'blz-scrollto':'blz-scrollto.js?'+(0-new Date()),
+		'blz-scroll-watch':'blz-scroll-watch.js?'+(0-new Date()),
 		'blz-upload':'blz-upload.js?'+(0-new Date()),
 		'blz-swiper':'blz-swiper.js?'+(0-new Date()),
 		'blz-down-up-ajax':'blz-down-up-ajax.js?'+(0-new Date())
