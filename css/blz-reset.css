@@ -15,8 +15,10 @@ html {
 }
 
 body {
+	position:relative;
 	height:100%;
-	margin: 0;
+	max-width: 750px;
+	margin: 0 auto;
 	padding: 0;
     font-family:"PingFang SC","Tahoma","Helvetica Neue","Hiragino Sans GB","Segoe UI","Microsoft YaHei","微软雅黑",sans-serif;
     line-height:1.618;
@@ -86,6 +88,7 @@ td {
 img {
 	display:block;
     max-width:100%;
+	-webkit-touch-callout: none;
 }
 small {
 	font-size:100%;
@@ -127,6 +130,7 @@ strong,h1,h2,h3,h4 {
     border: 0;
     z-index:-1;
 }
+.shape-phone6-container,
 .shape-phone6,
 .glb-full-box,
 .glb-mask,
@@ -144,9 +148,15 @@ strong,h1,h2,h3,h4 {
 }
 .shape-phone6{
 	padding-bottom:160%;
-	height:auto;
-	min-height: 100%;
+	min-height:100%;
 	z-index:1;
+}
+.shape-phone6-container{
+	position:absolute;
+	height:100%;
+	overflow: auto;
+	-webkit-overflow-scrolling:touch;
+	z-index:2;
 }
 .glb-mask {
 	background-color:rgba(0,0,0,0.6);
@@ -227,6 +237,7 @@ strong,h1,h2,h3,h4 {
 	bottom:0;
 	width:1px;
 	background-color:#d9d9d9;
+
 	-webkit-transform:scaleX(0.5);
 	transform:scaleX(0.5);
 }
