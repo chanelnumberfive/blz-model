@@ -46,18 +46,27 @@
 
 <body ontouchstart="">
 <div class="glb-full-screen layout-tr-center" id="position">
-	
+	<img src="" alt="" id="map" style="height: 100%;width:100%;">
 </div>
 <script type="application/javascript">
     +function(){
         'use strict';
-        
-		navigator.geolocation.getCurrentPosition(function(p){
-			position.textContent='latitude:'+p.coords.latitude;
-		});
-		navigator.geolocation.watchPosition(function(p){
-			position.textContent='latitude:'+p.coords.latitude;
-		});
+		var img=document.getElementById('map');
+		
+		navigator.geolocation.getCurrentPosition(setMapURL);
+		navigator.geolocation.watchPosition(setMapURL);
+		function setMapURL(pos){
+			var latitude=pos.coords.latitude;
+			var longitude=pos.coords.longitude;
+			var accuracy=pos.coords.accuracy;
+			var url="http://maps.google.com/maps/api/staticmap"+"?center="+latitude+","+longitude+"&size="+window.innerWidth+"x"+window.innerHeight+"&sensor=true";
+			var zoomlevel=20;
+			if(accuracy>80){
+				zoomlevel-=Math.round(Math.log(accuracy/50)/Math.LN2);
+			};
+			URL+="&zoom="+zoomlevel;
+			img.src=url;
+		}
     }();
 </script>
 </body>
