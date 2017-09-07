@@ -18,7 +18,8 @@
 	'use strict';
 	
 	var w=window,
-		d=document;
+		d=document,
+		agent= navigator.userAgent;
 	
 	// 初始化requestAnimationFrame
 	(function(){
@@ -28,7 +29,7 @@
 			};
 		}
 	})();
-	
+
 	$.blz={
 		
 		// 空函数
@@ -41,6 +42,21 @@
 		
 		// 获取用户代理ios 或 android
 		isAndroid:/Android/gi.test(navigator.userAgent),
+		
+		rule:{
+			trident: agent.indexOf('Trident') > -1, //IE内核
+			presto: agent.indexOf('Presto') > -1, //opera内核
+			webKit: agent.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+			gecko: agent.indexOf('Gecko') > -1 && agent.indexOf('KHTML') === -1,//火狐内核
+			mobile: !!agent.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+			ios: !!agent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+			android: agent.indexOf('Android') > -1 || agent.indexOf('Adr') > -1, //android终端
+			iPhone: agent.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器
+			iPad: agent.indexOf('iPad') > -1, //是否iPad
+			webApp: agent.indexOf('Safari') === -1, //是否web应该程序，没有头部与底部
+			weixin: agent.indexOf('MicroMessenger') > -1, //是否微信 （2015-01-22新增）
+			qq: agent.match(/\sQQ/i) === " qq" //是否QQ
+		},
 		
 		// 检测动画属性transition的支持情况
 		checkTransition:function(){
@@ -64,7 +80,7 @@
 		
 		// 转换成字面量
 		toString:function(val){
-		  return val == null? '': typeof val === 'object'? JSON.stringify(val, null, 2): String(val);
+		  return (val === null||val===undefined)? '': typeof val === 'object'? JSON.stringify(val, null, 2): String(val);
 		}
 	};
 	return $;
