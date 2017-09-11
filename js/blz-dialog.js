@@ -128,14 +128,14 @@
 			model.fadeIn(300);
 		}else{
 			model='<div id="weui_dialog_confirm" class="weui_dialog_confirm" style="position:fixed;top:0;bottom:0;left:0;right:0;z-index:9999">'+
-							'<div class="weui_mask"></div>'+
+							'<div class="weui_mask" data-blz-dismiss="#weui_dialog_confirm"></div>'+
 							'<div class="weui_dialog">'+
 								'<div class="weui_dialog_hd">'+
 									'<strong class="weui_dialog_title">'+obj.title+'</strong>'+
 								'</div>'+
 								'<div class="weui_dialog_bd">'+obj.article+'</div>'+
 								'<div class="weui_dialog_ft">'+
-									'<a href="'+obj.cancelHref+'" class="weui_btn_dialog default" data-blz-dismiss="#weui_dialog_confirm" data-blz-option="cancell">'+obj.cancelText+'</a>'+
+									'<a href="'+obj.cancelHref+'" class="weui_btn_dialog default" data-blz-dismiss="#weui_dialog_confirm" data-blz-option="cancel">'+obj.cancelText+'</a>'+
 									'<a href="'+obj.sureHref+'" class="weui_btn_dialog primary" data-blz-dismiss="#weui_dialog_confirm" data-blz-option="sure">'+obj.sureText+'</a>'+
 								'</div>'+
 							'</div>'+
