@@ -26,8 +26,16 @@ body {
     color:#333;
     background-color:#fff;
 	word-break:break-all;
-	overflow: auto;
-	-webkit-overflow-scrolling:touch;
+}
+body::after{
+	content:'';
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	z-index:-1;
+	pointer-events: none;
 }
 body::before{
 	content:'';
@@ -129,6 +137,11 @@ strong,h1,h2,h3,h4 {
     padding: 0;
     border: 0;
     z-index:-1;
+}
+.glb-for-screener {
+	text-indent: 9999px;
+	overflow: hidden;
+	white-space: nowrap;
 }
 .shape-phone6-container,
 .shape-phone6,
@@ -284,6 +297,13 @@ strong,h1,h2,h3,h4 {
 /*
  * layout（布局）
  */
+.layout-container{
+	position:relative;
+	height:100%;
+	overflow: auto;
+	-webkit-overflow-scrolling:touch;
+	z-index:1;
+}
 .layout-boxs {
 	background-color:#fff;
 }
