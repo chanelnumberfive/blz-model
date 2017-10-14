@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+<title>music</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="format-detection" content="telephone=no,email=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="music">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+<!-- no cache -->
+<meta http-equiv="cache-control" content="max-age=0"/>
+<meta http-equiv="cache-control" content="no-cache"/>
+<meta http-equiv="expires" content="0"/>
+<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT"/>
+<meta http-equiv="pragma" content="no-cache"/>
+<meta name="revised" content="storys,2017/02/13">
+<script type="application/javascript" src="../../js/fastclick.js"></script>
+<script type="application/javascript">
+	function setFontSize(){
+        document.documentElement.style.fontSize=window.innerWidth*20/320+'px';
+    }
+    setFontSize();
+    window.addEventListener('resize',function(){
+        setFontSize();
+    });
+    window.addEventListener('load', function () {
+		FastClick.attach(document.body);
+	}, false);
+</script>
+<link rel="stylesheet" href="../../css/blz-reset.css">
+<style>
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	button{
+		padding:.6em;
+		min-width: 6em;
+		border-radius:4px;
+		color:#fff;
+	}
+	.mf-input{
+		border:1px solid #dadada;
+	}
+</style>
+</head>
+
+<body>
+	<div class="model-btn-area layout-tr">
+		<input type="button" id="start" class="model-btn success layout-td" value="start" disabled>
+		<input type="button" id="stop" class="model-btn success layout-td" value="stop" disabled>
+		<input type="button" id="replay" class="model-btn success layout-td" value="replay" disabled>
+	</div>
+	<div class="model-btn-area layout-tr">
+		<input type="button" class="layout-td model-btn success" id="loop" value="loop" disabled>
+		<input type="button" class="model-btn success layout-td increase-volume" value="volume++" disabled>
+		<input type="button" class="model-btn success layout-td reduce-volume" value="volume--" disabled>
+	</div>
+	<div class="model-btn-area layout-tr">
+		<input type="button" id="increase-rate" class="model-btn success layout-td" value="rate++" disabled>
+		<input type="button" id="reduce-rate" class="model-btn success layout-td" value="rate--" disabled>
+	</div>
+	<div class="layout-tr model-btn-area">
+		<input type="number" class="start-at mf-input layout-td" disabled>
+		<input type="button" id="start-at" class="model-btn success" value="start at" placeholder="place enter a number within 0-214" style="width:4em;" disabled>
+	</div>
+</body>
+<script type="application/javascript" src="../../js/require.js"></script>
+<script type="application/javascript" src="../../js/blz-config.js"></script>
+<script type="application/javascript">
+;(function(){
+	'use strict';
+	
+	require(['blz-music'],function(){
+		var music=new Music();
+		music.onload=function(){
+			music.start();
+			music.rate=1.2;
+			init();
+		};
+		music.src='manbu.mp3';
+		
+		function init(){
+			[].forEach.call(document.querySelectorAll('input'),function(elem,index){
+				elem.disabled=false;
+			});
+
+			document.querySelector('#start').addEventListener('click',function(){
+				music.start();
+			},true);
+			document.querySelector('#stop').addEventListener('click',function(){
+				music.stop();
+			},true);
+			document.querySelector('#replay').addEventListener('click',function(){
+				music.replay();
+			},true);
+			document.querySelector('#loop').addEventListener('click',function(){
+				if(this.value==='loop'){
+					music.loop=true;
+					this.value='noloop';
+				}else{
+					music.loop=false;
+					this.value='loop';
+				}
+			},true);
+			document.querySelector('#start-at').addEventListener('click',function(){
+				music.startAt(document.querySelector('.start-at').value||0);
+			},true);
+			document.querySelector('.increase-volume').addEventListener('click',function(){
+				music.volume=music.volume+0.1;
+			},true);
+			document.querySelector('.reduce-volume').addEventListener('click',function(){
+				var volume=music.volume-0.1;
+				music.volume=volume>0?volume:0;
+			},true);
+			document.querySelector('#increase-rate').addEventListener('click',function(){
+				music.rate=music.rate+0.2;
+			},true);
+			document.querySelector('#reduce-rate').addEventListener('click',function(){
+				var rate=music.rate-0.2;
+				music.rate=rate>0?rate:0;
+			},true);
+		}
+	});
+})();
+</script>
+</html>
