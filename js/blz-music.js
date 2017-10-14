@@ -17,7 +17,13 @@
 }(function(){
 	'use strict';
 	
-	var audioCtx=new window.AudioContext()||new window.webkitAudioContext();
+	var audioCtx=(function(){
+		if(window.AudioContext){
+			return new window.AudioContext();
+		}else{
+			return new window.webkitAudioContext();
+		}
+	})();
 	
 	// 状态监听
 	audioCtx.onstatechange=function(){
