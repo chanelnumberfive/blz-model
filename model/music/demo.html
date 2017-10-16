@@ -81,9 +81,9 @@
 	require(['blz-music'],function(){
 		var music=new Music();
 		music.onload=function(){
-			music.start();
-			music.rate=1.2;
 			init();
+            music.start();
+			music.rate=1.2;  
 		};
 		music.src='manbu.mp3';
 		

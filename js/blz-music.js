@@ -25,13 +25,6 @@
 		}
 	})();
 	
-	// 状态监听
-	audioCtx.onstatechange=function(){
-		for(var i=0;i<arguments.length;i++){
-			console.log(arguments[i]);
-		}
-	};
-	
 	// music constructure
 	function Music(){
 		definePropertySrc(this);
@@ -77,7 +70,7 @@
 			},
 			set:function(volume){
 				this._volume=volume;
-				this.gainNode.gain.value=volume;	
+				this.gainNode.gain.value=volume;
 			}
 		});
 	}
@@ -89,7 +82,7 @@
 			},
 			set:function(boolean){
 				this._loop=boolean;
-				this.source.loop=true;	
+				this.source.loop=boolean;	
 			}
 		});
 	}
@@ -135,6 +128,7 @@
 		if(this.blzStart){
 			this.stop();
 		}
+		
 		this.source=audioCtx.createBufferSource();
 		
 		// loop
@@ -145,13 +139,23 @@
 		this.source.connect(this.gainNode);
 		this.gainNode.connect(audioCtx.destination);
 		
+		// Fade it in.
+		this.gainNode.gain.linearRampToValueAtTime(0, time);
+		this.gainNode.gain.linearRampToValueAtTime(this.volume, time+1);
+		
+		var duration=this.source.buffer.duration;
+		
+		// Then fade it out.
+		//this.gainNode.gain.linearRampToValueAtTime(this.volume, time+duration-3);
+		//this.gainNode.gain.linearRampToValueAtTime(0, time+duration);
+		
 		// voice
 		this.gainNode.gain.value=this.volume||1;
 		
 		// speed
 		this.source.playbackRate.value=this.rate||1;
 		
-		this.source.start(0,time%this.source.buffer.duration);
+		this.source.start(0,time%duration);
 		this.blzStart=true;
 		console.log(this.source);
 		return this;
