@@ -1,0 +1,23 @@
+{
+  "name": "blz-modules",
+  "version": "1.0.1",
+  "description": "jquery plugins all for mobile",
+  "main": "./js/blz.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chanelnumberfive/blz-model.git"
+  },
+  "keywords": [
+    "jquery",
+    "plugins"
+  ],
+  "author": "blucezhang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chanelnumberfive/blz-model/issues"
+  },
+  "homepage": "https://github.com/chanelnumberfive/blz-model#readme"
+}
