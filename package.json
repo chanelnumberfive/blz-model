@@ -2,7 +2,7 @@
   "name": "blz-modules",
   "version": "1.0.1",
   "description": "jquery plugins all for mobile",
-  "main": "./js/blz.js",
+  "main": "blz.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
