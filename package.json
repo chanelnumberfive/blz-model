@@ -1,6 +1,6 @@
 {
   "name": "blz-modules",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "jquery plugins all for mobile",
   "main": "blz.js",
   "scripts": {
