@@ -1,8 +1,8 @@
 {
-  "name": "blz-modules",
-  "version": "1.0.1",
+  "name": "chanelnumberfive",
+  "version": "1.0.0",
   "description": "jquery plugins all for mobile",
-  "main": "blz.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
