@@ -6,9 +6,9 @@
 		return fn($);
 	  });
 	} else if (typeof module !== 'undefined' && module.exports) {
-	  module.exports = fn(window.Zepto||window.jQuery);
+	  module.exports = fn(require('./blz-gesture.js'));
 	}else{
-		fn(window.Zepto||window.jQuery);
+		fn(window.jQuery);
 	}
 	/* jshint ignore:end */
 })(function($){

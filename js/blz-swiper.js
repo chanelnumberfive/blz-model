@@ -6,12 +6,12 @@
 	/* jshint ignore:start */
 	if (typeof define === 'function' && define.amd) {
 	  define(['blz-gesture'],function ($) {
-		return fn(window.Zepto||window.jQuery);
+		return fn($);
 	  });
 	} else if (typeof module !== 'undefined' && module.exports) {
-	  module.exports = fn(window.Zepto||window.jQuery);
+	  module.exports = fn(require('./jquery.js'));
 	}else{
-		fn(window.Zepto||window.jQuery);
+		fn(window.jQuery);
 	}
 	/* jshint ignore:end */
 })(function($){

@@ -2,22 +2,23 @@
 	'use strict';
 	/* jshint ignore:start */
 	if (typeof define === 'function' && define.amd) {
-	  define(['jQuery','blz'],function () {
-		return fn(window.jQuery);
+	  define(['jquery'],function ($) {
+		return fn($);
 	  });
 	} else if (typeof module !== 'undefined' && module.exports) {
-	  module.exports = fn(window.jQuery);
+	  module.exports = fn(require('./jquery.js'));
 	}else{
 		fn(window.jQuery);
 	}
 	/* jshint ignore:end */
 })(function($){
 	'use strict';
-
+	
+	var emptyFn=function(){},
 	var config={
-		onTotalChange:$.blz.emptyFn,
-		onTheDifference:$.blz.emptyFn,
-		onOverTotalMax:$.blz.emptyFn,
+		onTotalChange:emptyFn,
+		onTheDifference:emptyFn,
+		onOverTotalMax:emptyFn,
 		areaSelector:'section',
 		buttonPlusSelector:'[data-blz-checkout-button="plus"]',
 		buttonManusSelector:'[data-blz-checkout-button="manus"]',
@@ -213,7 +214,7 @@
 	// 卸载组件
 	$.offCheckout=function(selector){
 		$(selector?selector:'form').offCheckout();
-		$.blz.offCheckout=$.fn.checkout=$.fn.offCheckout=null;
+		$.fn.checkout=$.fn.offCheckout=null;
 	};
 	
 	return $;

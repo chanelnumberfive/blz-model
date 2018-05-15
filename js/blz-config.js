@@ -1,7 +1,7 @@
 require.config({
 	baseUrl:'../../js',
 	paths:{
-		'jQuery':'jquery-3.2.1.min',
+		'jquery':'jquery-3.2.1.min',
 		'zepto':'zepto.min',
 		'hammer':'hammer',
 		'iscroll':'iscroll-probe',

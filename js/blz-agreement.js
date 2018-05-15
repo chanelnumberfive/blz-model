@@ -9,7 +9,7 @@
 		return fn($);
 	  });
 	} else if (typeof module !== 'undefined' && module.exports) {
-	  module.exports = fn(window.jQuery);
+	  module.exports = fn(require('./blz-dialog.js'));
 	}else{
 		fn(window.jQuery);
 	}

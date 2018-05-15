@@ -5,18 +5,22 @@
 	'use strict';
 	/* jshint ignore:start */
 	if (typeof define === 'function' && define.amd) {
-	  define(['blz'],function () {
-		return fn(window.Zepto||window.jQuery,$.blz.customEvent);
+	  define(['jquery'],function ($) {
+		return fn($);
 	  });
 	} else if (typeof module !== 'undefined' && module.exports) {
-	  module.exports = fn(window.Zepto||window.jQuery);
+	  module.exports = fn(require('./jquery.js'));
 	}else{
-		fn(window.Zepto||window.jQuery);
+		fn(window.jQuery);
 	}
 	/* jshint ignore:end */
-}(function($,customEvent){
+}(function($){
 	'use strict';
-	
+	var customEvent=function(elem,name,data){
+		var event = document.createEvent('CustomEvent');
+		event.initCustomEvent(name,true,false,data);
+		elem.dispatchEvent(event);
+	};
 	var constant={
 		name:'blzGesture',
 		petName:'blz-gesture',

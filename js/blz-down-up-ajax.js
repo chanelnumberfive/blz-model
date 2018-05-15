@@ -5,11 +5,11 @@
 	'use strict';
 	/* jshint ignore:start */
 	if (typeof define === 'function' && define.amd) {
-	  define(['jQuery','iscroll','blz'],function ($,IScroll) {
-		return fn(window.jQuery,IScroll);
+	  define(['jquery','iscroll'],function ($,IScroll) {
+		return fn($,IScroll);
 	  });
 	} else if (typeof module !== 'undefined' && module.exports) {
-	  module.exports = fn(window.jQuery);
+	  module.exports = fn(require('./jquery.js'),require('./iscroll.js'));
 	}else{
 		fn(window.jQuery,window.IScroll);
 	}
@@ -17,14 +17,15 @@
 })(function($,IScroll){
 	'use strict';
 	
-	var constant={
+	var emptyFn=function(){},
+		constant={
 			name:'blzDownUpAjax',
 			petName:'blz-down-up-ajax',
 			version:'20170607'
 		},
 		config={
-			downAjaxFn:$.blz.emptyFn,
-			upAjaxFn:$.blz.emptyFn,
+			downAjaxFn:emptyFn,
+			upAjaxFn:emptyFn,
 			click:true,
 			//disableMouse: true,
     		//disablePointer: true,

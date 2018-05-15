@@ -5,11 +5,12 @@
 	'use strict';
 	/* jshint ignore:start */
 	if (typeof define === 'function' && define.amd) {
-	  define(['jQuery','blz','blz-dialog','canvas-resize'],function () {
-		return fn(window.jQuery,window.canvasResize);
+	  define(['jquery','blz','blz-dialog','canvas-resize'],function ($) {
+		return fn($,window.canvasResize);
 	  });
 	} else if (typeof module !== 'undefined' && module.exports) {
-	  module.exports = fn(window.jQuery);
+	  	require('./canvas-resize.js');
+		module.exports = fn($,window.canvasResize);
 	}else{
 		fn(window.jQuery);
 	}

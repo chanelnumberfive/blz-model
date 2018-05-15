@@ -2,14 +2,13 @@
  * h5动画交互
  */
 ;(function(fn){
-	'use strict';
 	/* jshint ignore:start */
 	if (typeof define === 'function' && define.amd) {
-	  define(['jQuery'],function () {
-		return fn(window.jQuery);
+	  define(['jquery'],function ($) {
+		return fn($);
 	  });
 	} else if (typeof module !== 'undefined' && module.exports) {
-	  module.exports = fn(window.jQuery);
+	  module.exports = fn(require('./jquery.js'));
 	}else{
 		fn(window.jQuery);
 	}
