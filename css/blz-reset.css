@@ -5,6 +5,8 @@
 *,
 *::before,
 *::after{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
     box-sizing:border-box;
 } 
 html {
@@ -178,15 +180,6 @@ strong,h1,h2,h3,h4 {
 .glb-full-box {
 	position:absolute;
 }
-.glb-text-center {
-	text-align:center;
-}
-.glb-text-right {
-	text-align:right;
-}
-.glb-text-left {
-	text-align:left;
-}
 .glb-border,
 .layout-box,
 .layout-boxs,
@@ -239,7 +232,6 @@ strong,h1,h2,h3,h4 {
 	bottom:0;
 	width:1px;
 	background-color:#d9d9d9;
-
 	-webkit-transform:scaleX(0.5);
 	transform:scaleX(0.5);
 }
